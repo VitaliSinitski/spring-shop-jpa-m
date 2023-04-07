@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert-into-table-producer" author="vitali">
+        <insert tableName="producer" >
+            <column name="name" value="AEG"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="ATLANT"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="BEKO"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Bosch"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Daewoo"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Electrolux"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Hitachi"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Hyundai"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Indesit"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="LG"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Liebherr"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Miele"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Samsung"/>
+        </insert>
+        <insert tableName="producer" >
+            <column name="name" value="Siemens"/>
+        </insert>
+
+
+        <rollback>
+            delete from producer where name like 'AEG';
+            delete from producer where name like 'ATLANT';
+            delete from producer where name like 'BEKO';
+            delete from producer where name like 'Bosch';
+            delete from producer where name like 'Daewoo';
+            delete from producer where name like 'Electrolux';
+            delete from producer where name like 'Hitachi';
+            delete from producer where name like 'Hyundai';
+            delete from producer where name like 'Indesit';
+            delete from producer where name like 'LG';
+            delete from producer where name like 'Liebherr';
+            delete from producer where name like 'Miele';
+            delete from producer where name like 'Samsung';
+            delete from producer where name like 'Siemens';
+
+
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

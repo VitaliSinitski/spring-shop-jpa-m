@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="insert-into-table-user" author="vitali">
+        <insert tableName="user" >
+            <column name="name" value="Jack"/>
+            <column name="email" value="jack@gmail.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Johny"/>
+            <column name="email" value="johny@gmail.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Micky"/>
+            <column name="email" value="micky@mail.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user" >
+            <column name="name" value="Anna"/>
+            <column name="email" value="anna@yahoo.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Stan"/>
+            <column name="email" value="stan@gmail.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Nick"/>
+            <column name="email" value="nick@mail.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user" >
+            <column name="name" value="John"/>
+            <column name="email" value="jahn@yandex.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Emilia"/>
+            <column name="email" value="emilia@gmail.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Mary"/>
+            <column name="email" value="mary@yandex.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user" >
+            <column name="name" value="Jack"/>
+            <column name="email" value="jack@mail.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Amanda"/>
+            <column name="email" value="amelia@yahoo.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Margaret"/>
+            <column name="email" value="margaret@mail.ru"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="user"/>
+        </insert>
+        <insert tableName="user">
+            <column name="name" value="Vitali"/>
+            <column name="email" value="vitali@gmail.com"/>
+            <column name="password" value="1234"/>
+            <column name="role" value="admin"/>
+        </insert>
+
+        <rollback>
+            delete from user where name like 'Jack' email like 'jack@gmail.com';
+            delete from user where name like 'Johny' email like 'johny@gmail.com';
+            delete from user where name like 'Micky' email like 'micky@mail.ru';
+            delete from user where name like 'Anna' email like 'anna@yahoo.com';
+            delete from user where name like 'Stan' email like 'stan@gmail.com';
+            delete from user where name like 'Nick' email like 'nick@mail.ru';
+            delete from user where name like 'John' email like 'jahn@yandex.ru';
+            delete from user where name like 'Emilia' email like 'emilia@gmail.com';
+            delete from user where name like 'Mary' email like 'mary@yandex.ru';
+            delete from user where name like 'Jack' email like 'jack@mail.ru';
+            delete from user where name like 'Amanda' email like 'amelia@yahoo.com';
+            delete from user where name like 'Margaret' email like 'margaret@mail.ru';
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
