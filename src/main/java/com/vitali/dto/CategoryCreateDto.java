@@ -6,5 +6,8 @@ import lombok.Value;
 @Value
 @Builder
 public class CategoryCreateDto {
+
     String name;
+
+
 }
