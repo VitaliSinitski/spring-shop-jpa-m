@@ -1,6 +1,6 @@
 package com.vitali.mapper.order;
 
-import com.vitali.dto.OrderReadDto;
+import com.vitali.dto.order.OrderReadDto;
 import com.vitali.entity.Order;
 import com.vitali.mapper.Mapper;
 import com.vitali.mapper.orderItem.OrderItemReadMapper;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class OrderReadMapper implements Mapper<Order, OrderReadDto> {
+public class OrderReadMapper implements Mapper<Order, OrderReadDto> {   // Done
     private final OrderItemReadMapper orderItemReadMapper;
     @Override
     public OrderReadDto map(Order object) {
@@ -26,13 +26,11 @@ public class OrderReadMapper implements Mapper<Order, OrderReadDto> {
                 .build();
     }
 
-    @Override
     public List<OrderReadDto> mapList(List<Order> objects) {
         if (objects == null || objects.isEmpty()) {
             return Collections.emptyList();
         }
-        return objects
-                .stream()
+        return objects.stream()
                 .map(this::map)
                 .collect(Collectors.toList());
     }

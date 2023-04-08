@@ -3,7 +3,7 @@ package com.vitali.mapper.orderItem;
 import com.vitali.mapper.Mapper;
 import com.vitali.repository.CartRepository;
 import com.vitali.repository.ProductRepository;
-import com.vitali.dto.OrderItemCreateDto;
+import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,10 +24,5 @@ public class OrderItemCreateMapper implements Mapper<OrderItemCreateDto, OrderIt
                 .cart(cartRepository.findById(object.getCartId())
                         .orElseThrow(IllegalArgumentException::new))
                 .build();
-    }
-
-    @Override
-    public List<OrderItem> mapList(List<OrderItemCreateDto> objects) {
-        return null;
     }
 }

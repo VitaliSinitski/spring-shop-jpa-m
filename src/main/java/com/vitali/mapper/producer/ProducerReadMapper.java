@@ -1,12 +1,14 @@
 package com.vitali.mapper.producer;
 
-import com.vitali.dto.ProducerReadDto;
+import com.vitali.dto.producer.ProducerReadDto;
 import com.vitali.entity.Producer;
 import com.vitali.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -19,8 +21,13 @@ public class ProducerReadMapper implements Mapper<Producer, ProducerReadDto> {
                 .build();
     }
 
-    @Override
     public List<ProducerReadDto> mapList(List<Producer> objects) {
-        return null;
+        if (objects == null || objects.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return objects
+                .stream()
+                .map(this::map)
+                .collect(Collectors.toList());
     }
 }

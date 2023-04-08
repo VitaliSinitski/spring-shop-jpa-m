@@ -1,13 +1,11 @@
-package com.vitali.dto;
+package com.vitali.dto.order;
 
 import com.vitali.constants.OrderStatus;
-import com.vitali.entity.Order;
-import com.vitali.entity.OrderItem;
+import com.vitali.dto.orderItem.OrderItemReadDto;
 import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder

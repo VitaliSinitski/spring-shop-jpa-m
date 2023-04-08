@@ -1,6 +1,8 @@
-package com.vitali.dto;
+package com.vitali.dto.product;
 
-import com.vitali.entity.OrderItem;
+import com.vitali.dto.category.CategoryReadDto;
+import com.vitali.dto.orderItem.OrderItemReadDto;
+import com.vitali.dto.producer.ProducerReadDto;
 import lombok.Builder;
 import lombok.Value;
 
@@ -19,5 +21,5 @@ public class ProductReadDto {
 //    Part image;
     CategoryReadDto category;
     ProducerReadDto producer;
-    List<OrderItemReadDto> orderItems;
+//    List<OrderItemReadDto> orderItems;
 }

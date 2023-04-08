@@ -3,16 +3,17 @@ package com.vitali.mapper.product;
 import com.vitali.mapper.Mapper;
 import com.vitali.repository.CategoryRepository;
 import com.vitali.repository.ProducerRepository;
-import com.vitali.dto.ProductCreateDto;
+import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.entity.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 import static com.vitali.constants.Constants.IMAGE_FOLDER;
 
-@Slf4j
+@Component
 @RequiredArgsConstructor
 public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
     private final CategoryRepository categoryRepository;
@@ -31,10 +32,5 @@ public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
                 .producer(producerRepository.findById(object.getProducerId())
                         .orElseThrow(IllegalArgumentException::new))
                 .build();
-    }
-
-    @Override
-    public List<Product> mapList(List<ProductCreateDto> objects) {
-        return null;
     }
 }

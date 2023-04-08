@@ -1,5 +1,8 @@
-package com.vitali.dto;
+package com.vitali.dto.orderItem;
 
+import com.vitali.dto.product.ProductReadDto;
+import com.vitali.dto.cart.CartReadDto;
+import com.vitali.dto.order.OrderReadDto;
 import lombok.Builder;
 import lombok.Value;
 
@@ -9,7 +12,7 @@ import java.time.LocalDateTime;
 @Value
 public class OrderItemReadDto {
     Integer id;
-    LocalDateTime createTime;
+    LocalDateTime createdDate;
     Integer quantity;
     ProductReadDto product;
     OrderReadDto order;

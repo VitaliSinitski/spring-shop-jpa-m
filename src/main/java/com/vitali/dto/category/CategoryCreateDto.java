@@ -1,4 +1,4 @@
-package com.vitali.dto;
+package com.vitali.dto.category;
 
 import lombok.Builder;
 import lombok.Value;

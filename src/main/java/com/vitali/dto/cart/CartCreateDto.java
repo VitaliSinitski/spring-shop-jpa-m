@@ -1,4 +1,4 @@
-package com.vitali.dto;
+package com.vitali.dto.cart;
 
 import lombok.Builder;
 import lombok.Value;
