@@ -5,9 +5,11 @@ import com.vitali.repository.CartRepository;
 import com.vitali.dto.OrderCreateDto;
 import com.vitali.entity.Order;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @RequiredArgsConstructor
 public class OrderCreateMapper implements Mapper<OrderCreateDto, Order> {
     private final CartRepository cartRepository;

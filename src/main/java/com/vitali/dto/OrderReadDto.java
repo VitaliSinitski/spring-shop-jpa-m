@@ -17,6 +17,6 @@ public class OrderReadDto {
 //    String inform;
     LocalDateTime createdDate;
     LocalDateTime updatedDate;
-    OrderStatus status;
+    OrderStatus orderStatus;
     List<OrderItemReadDto> orderItems;
 }

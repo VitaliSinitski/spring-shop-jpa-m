@@ -4,9 +4,11 @@ import com.vitali.dto.CartReadDto;
 import com.vitali.entity.Cart;
 import com.vitali.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @RequiredArgsConstructor
 public class CartReadMapper implements Mapper<Cart, CartReadDto> {
     @Override

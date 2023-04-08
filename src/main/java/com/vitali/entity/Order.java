@@ -42,7 +42,7 @@ public class Order {
     // TODO: 08.04.2023 make default value of OrderStatus - pending
     // TODO: 08.04.2023 make variable or aspect with updatedDate of Order. It will be done by changing status of Order
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus orderStatus;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cart_id")
