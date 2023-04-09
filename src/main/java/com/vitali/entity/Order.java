@@ -37,7 +37,7 @@ public class Order {
     @UpdateTimestamp
     private LocalDateTime updatedDate;
 
-//    private String inform;
+    private String inform;
 
     // TODO: 08.04.2023 make default value of OrderStatus - pending
     // TODO: 08.04.2023 make variable or aspect with updatedDate of Order. It will be done by changing status of Order
@@ -53,7 +53,7 @@ public class Order {
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // 03-15:01-00 не мог сохранить order и убрал merge
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
-    @JoinColumn()
+    @JoinColumn(name = "orders_id" )
     private List<OrderItem> orderItems = new ArrayList<>();
 
     //

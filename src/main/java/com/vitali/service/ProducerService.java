@@ -12,7 +12,4 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProducerService {
-    private final ProducerRepository producerRepository;
-    private final ProducerReadMapper producerReadMapper;
-    private final ProducerCreateMapper producerCreateMapper;
 }

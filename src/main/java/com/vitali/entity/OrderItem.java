@@ -50,10 +50,12 @@ public class OrderItem {
     // Order будемо создавать когда мы выберем orderItems и поместим их в order
 //    @ToString.Exclude
 //    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "orders_id", referencedColumnName = "id")
     private Order order;
-//
+
+    //
     public void setOrder(Order order) {
         this.order = order;
         order.getOrderItems().add(this);

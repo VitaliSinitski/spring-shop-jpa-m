@@ -11,7 +11,4 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final ProductService productService;
-    private final ProductReadMapper productReadMapper;
-    private final ProductCreateMapper productCreateMapper;
 }

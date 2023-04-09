@@ -1,6 +1,5 @@
                     package com.vitali.repository;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import com.vitali.entity.Cart;
@@ -9,9 +8,11 @@ import com.vitali.entity.OrderItem;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class NewOrderRepositoryImpl implements NewOrderRepository{
+public class OrderCustomRepositoryImpl implements OrderCustomRepository {
     private final OrderItemRepository orderItemRepository;
     private final CartRepository cartRepository;
+
+    // I defined this method already in OrderService
     @Override
     public void createNewOrder(List<String> orderItemsIds,  String information, Long cardId) {
         Cart cart = cartRepository.findById(cardId).orElse(null);

@@ -22,6 +22,7 @@ public class OrderReadMapper implements Mapper<Order, OrderReadDto> {   // Done
                 .createdDate(object.getCreatedDate())
                 .updatedDate(object.getUpdatedDate())
                 .orderStatus(object.getOrderStatus())
+                .inform(object.getInform())
                 .orderItems(orderItemReadMapper.mapList(object.getOrderItems()))
                 .build();
     }

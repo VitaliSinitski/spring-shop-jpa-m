@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryReadMapper categoryReadMapper;
-    private final CategoryCreateMapper categoryCreateMapper;
 
     public List<CategoryReadDto> findAll() {
         return categoryRepository.findAll()

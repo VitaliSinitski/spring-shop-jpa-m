@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderItemReadMapper implements Mapper<OrderItem, OrderItemReadDto> {       // Almost done (order ??)
     private final ProductReadMapper productReadMapper;
-    private final OrderReadMapper orderReadMapper;
     private final CartReadMapper cartReadMapper;
     @Override
     public OrderItemReadDto map(OrderItem object) {

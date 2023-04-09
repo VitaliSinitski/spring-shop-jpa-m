@@ -12,7 +12,7 @@ import java.util.List;
 @Value
 public class OrderReadDto {
     Integer id;
-//    String inform;
+    String inform;
     LocalDateTime createdDate;
     LocalDateTime updatedDate;
     OrderStatus orderStatus;

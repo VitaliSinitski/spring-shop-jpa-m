@@ -1,5 +1,6 @@
 package com.vitali.dto.order;
 
+import com.vitali.constants.OrderStatus;
 import lombok.Builder;
 import lombok.Value;
 
@@ -8,5 +9,6 @@ import lombok.Value;
 public class OrderCreateDto {
     Long cartId;
 //    LocalDateTime createTime;
-//    String inform;
+    String inform;
+    OrderStatus orderStatus;
 }

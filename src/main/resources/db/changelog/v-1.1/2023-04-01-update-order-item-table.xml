@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+<!--    <changeSet id="update-order-item-table" author="vitali">-->
+<!--        <dropPrimaryKey tableName="order_item" />-->
+<!--        <addColumn tableName="order_item">-->
+<!--            <column name="id" type="bigint" />-->
+<!--        </addColumn>-->
+<!--        <addPrimaryKey tableName="order_item" columnNames="id" />-->
+<!--    </changeSet>-->
+
+    <changeSet id="update-order-item-table" author="vitali">
+        <addColumn tableName="order_item">
+            <column name="id" type="bigint" />
+        </addColumn>
+        <addPrimaryKey tableName="order_item" columnNames="order_items_id" />
+        <dropColumn tableName="order_item" columnName="order_items_id" />
+    </changeSet>
+
+
+</databaseChangeLog>

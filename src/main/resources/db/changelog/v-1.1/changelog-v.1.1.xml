@@ -9,6 +9,8 @@
         <tagDatabase tag="v.1.1"/>
     </changeSet>
 
+<!--    <include file="2023-04-01-update-order-item-table.xml" relativeToChangelogFile="true"/>-->
+
     <include file="2023-04-01-insert-into-table-user.xml" relativeToChangelogFile="true"/>
     <include file="2023-04-01-insert-into-table-category.xml" relativeToChangelogFile="true"/>
     <include file="2023-04-01-insert-into-table-producer.xml" relativeToChangelogFile="true"/>
