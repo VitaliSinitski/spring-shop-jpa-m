@@ -29,10 +29,10 @@ public class ProductsController {
 
     @GetMapping("/{id}")
     public String findByIdProduct(@PathVariable Integer id, Model model) {
-        model.addAttribute("product", productService.findById(id));
-        return "/products/product";
+        ProductReadDto product = productService.findById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.findAll());
+        return "product";
     }
-
-
 
 }

@@ -101,8 +101,8 @@
 /*}*/
 
 .menu {
-    position: fixed;
-    /*position: absolute;*/
+    /*position: fixed;*/
+    position: absolute;
     top: 100px;
     left: 0;
     width: 200px;
