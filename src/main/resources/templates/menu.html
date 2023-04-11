@@ -6,12 +6,17 @@
     <link rel="stylesheet" href="/css/menu.css"/>
 </head>
 <body>
-<nav>
+<nav class="menu-nav">
     <h2>Shop by category</h2>
     <ul>
-        <li th:each="category : ${categories}">
-            <input type="checkbox" id="category" th:value="${category}" />
-            <label for="category" th:text="${category}"></label>
+<!--                <li th:each="category : ${categories}">-->
+        <!--                    <input type="checkbox" id="category" th:value="${category.id}" />-->
+        <!--                    <label for="category" th:text="${category.name}"></label>-->
+        <!--                </li>-->
+        <li th:each="category : ${categories}" style="color: #111111">
+            <a th:href="@{/products(categoryId=${category.id})}">
+                <label th:text="${category.name}"></label>
+            </a>
         </li>
     </ul>
 </nav>

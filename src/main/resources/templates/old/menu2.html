@@ -8,7 +8,7 @@
 <body>
 <nav>
   <ul>
-    <li><a href="/">Home</a></li>
+    <li><a href="/static">Home</a></li>
     <li th:each="category : ${categories}">
       <a th:href="@{'/products?category=' + ${category}}" th:text="${category}"></a>
     </li>

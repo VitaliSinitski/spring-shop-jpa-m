@@ -23,8 +23,9 @@
 /*    flex-direction: column; !* add this line *!*/
 /*}*/
 
-nav {
+.menu-nav {
     position: absolute;
+    /*position: fixed;*/
     top: 0;
     left: 0;
     width: 200px;
@@ -43,13 +44,13 @@ nav {
 /*    float: left;*/
 /*}*/
 
-nav h2 {
+.menu-nav  h2 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-nav ul {
+.menu-nav  ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -57,19 +58,37 @@ nav ul {
     flex-direction: column; /* Add this */
 }
 
+.menu-nav  ul li ul li {
+    opacity: 1;
+}
 
 
+/* new */
+/*nav ul ul {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    top: 100%;*/
+/*    left: 0;*/
+/*    background-color: #fff;*/
+/*    z-index: 2;*/
+/*}*/
 
-nav li {
+/*nav ul ul li {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*}*/
+/*   */
+
+.menu-nav  li {
     margin-bottom: 10px;
     display: block; /* Add this */
 }
 
-nav input[type="checkbox"] {
-    display: none;
-}
+/*nav input[type="checkbox"] {*/
+/*    display: none;*/
+/*}*/
 
-nav label {
+.menu-nav  label {
     font-size: 16px;
     font-weight: normal;
     cursor: pointer;
@@ -77,13 +96,14 @@ nav label {
 }
 
 
-nav input[type="checkbox"]:checked + label {
-    font-weight: bold;
-}
+/*nav input[type="checkbox"]:checked + label {*/
+/*    font-weight: bold;*/
+/*}*/
 
 .menu {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    /*position: absolute;*/
+    top: 100px;
     left: 0;
     width: 200px;
     height: 100%;
@@ -92,3 +112,5 @@ nav input[type="checkbox"]:checked + label {
     overflow-y: scroll;
     z-index: 2;
 }
+
+/*Replace all nav with menu-nav*/

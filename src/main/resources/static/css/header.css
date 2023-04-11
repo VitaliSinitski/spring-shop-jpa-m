@@ -7,9 +7,17 @@ header {
     padding: 10px;
     color: #fff;
     font-size: 16px;
-    z-index: 0;
+    z-index: 3;
     flex-direction: row;
 }
+
+/*!* menu list *!*/
+/*.menu-list {*/
+/*    display: flex;*/
+/*    list-style: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
 .logo img {
     width: 100px;
@@ -37,28 +45,28 @@ header {
     cursor: pointer;
 }
 
-nav ul {
+.header-nav ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-nav li {
+.header-nav li {
     margin: 0 10px;
     position: relative;
 }
 
-nav li:hover > ul {
+.header-nav li:hover > ul {
     display: block;
 }
 
-nav a {
+.header-nav a {
     color: #fff;
     text-decoration: none;
 }
 
-nav ul ul {
+.header-nav ul ul {
     display: none;
     position: absolute;
     top: 100%;
@@ -68,15 +76,15 @@ nav ul ul {
     min-width: 200px;
 }
 
-nav ul ul li {
+.header-nav ul ul li {
     margin: 5px 0;
 }
 
-nav ul ul a {
+.header-nav ul ul a {
     font-size: 14px;
 }
 
-nav ul ul ul {
+.header-nav ul ul ul {
     left: 100%;
     top: 0;
 }

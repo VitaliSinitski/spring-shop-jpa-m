@@ -8,7 +8,7 @@
 <body>
 <nav>
     <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="/static">Home</a></li>
         <li th:each="type : ${electronicTypes}">
             <a th:href="@{'/products?type=' + ${type}}" th:text="${type}"></a>
         </li>
