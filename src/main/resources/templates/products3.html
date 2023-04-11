@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styles4.css}" />
+<!--<head th:replace="fragments/header :: header"/>-->
+<body>
+<div class="container">
+<!--  <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
+  <div>
+    <table class="table table-striped">
+      <thead> <tr>
+        <th>#</th>
+        <th></th>
+        <th>Product Name</th>
+<!--        <th>Producer</th>-->
+<!--        <th>Category</th>-->
+        <th>Description</th>
+        <th>Price</th>
+<!--        <th>Stock Quantity</th>-->
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${products}">
+        <td th:text="${item.id}"></td>
+<!--        <td th:text="${item.image}"></td>-->
+        <td>
+          <img th:src="${item.image}" height="100">
+        </td>
+        <td th:text="${item.name}"></td>
+<!--        <td th:text="${item.producer}"></td>-->
+<!--        <td th:text="${item.category}"></td>-->
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.price}"></td>
+<!--        <td th:text="${item.quantity}"></td>-->
+        <td>
+          <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">Edit</a>
+        </td> </tr>
+      </tbody>
+    </table>
+  </div>
+<!--  <div th:replace="fragments/footer :: footer"/>-->
+</div> <!-- /container -->
+</body>
+</html>

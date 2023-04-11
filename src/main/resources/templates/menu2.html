@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Menu</title>
+  <link rel="stylesheet" href="/css/menu.css"/>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li th:each="category : ${categories}">
+      <a th:href="@{'/products?category=' + ${category}}" th:text="${category}"></a>
+    </li>
+  </ul>
+</nav>
+</body>
+</html>

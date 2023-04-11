@@ -16,7 +16,7 @@ public class SpringShopJpaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringShopJpaApplication.class, args);
 
-//		final OrderService orderService = null;
+//		final OrderService orderService = new OrderService();
 //		List<Integer> ids = Arrays.asList(1, 2, 3);
 //		String information = "Test information";
 //		Long cartId = 1L;

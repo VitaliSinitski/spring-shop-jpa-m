@@ -1,0 +1,94 @@
+/*nav {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 200px;*/
+/*    height: 100%;*/
+/*    background-color: #f2f2f2;*/
+/*    padding: 20px;*/
+/*    overflow-y: scroll;*/
+/*}*/
+
+/*nav {*/
+/*    !*position: fixed;*!*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 200px;*/
+/*    height: 100%;*/
+/*    background-color: #f2f2f2;*/
+/*    padding: 20px;*/
+/*    overflow-y: scroll;*/
+/*    display: flex;*/
+/*    flex-direction: column; !* add this line *!*/
+/*}*/
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+
+
+
+/*.menu {*/
+/*    !*position: relative;*!*/
+/*    float: left;*/
+/*}*/
+
+nav h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Add this */
+    flex-direction: column; /* Add this */
+}
+
+
+
+
+nav li {
+    margin-bottom: 10px;
+    display: block; /* Add this */
+}
+
+nav input[type="checkbox"] {
+    display: none;
+}
+
+nav label {
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    display: block; /* New */
+}
+
+
+nav input[type="checkbox"]:checked + label {
+    font-weight: bold;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    overflow-y: scroll;
+    z-index: 2;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/menu.css"/>
+</head>
+<body>
+<nav>
+    <h2>Shop by category</h2>
+    <ul>
+        <li th:each="category : ${categories}">
+            <input type="checkbox" id="category" th:value="${category}" />
+            <label for="category" th:text="${category}"></label>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

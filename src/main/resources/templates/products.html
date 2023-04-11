@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<div class="menu">
+    <div th:include="menu.html"></div>
+</div>
+<div class="container">
+    <div class="product-grid">
+        <div class="product-items" th:each="item : ${products}">
+            <div class="product">
+                <div class="product-image">
+                    <img th:src="${item.image}" height="200">
+                </div>
+                <div class="product-info">
+                    <div class="product-name" th:text="${item.name}"></div>
+                    <div class="product-description" th:text="${item.description}"></div>
+                    <div class="product-price" th:text="${item.price}"></div>
+                    <div class="product-action">
+                        <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="/footer"></div>
+</body>
+</html>
