@@ -1,5 +1,7 @@
 package com.vitali.constants;
 
+import com.vitali.entities.enums.OrderStatus;
+import com.vitali.entities.enums.Role;
 import lombok.experimental.UtilityClass;
 
 import java.util.Set;
@@ -25,7 +27,9 @@ public class Constants {
     public final static String ERRORS = "errors";
     public final static String ID = "id";
     public final static String NAME = "name";
-    public final static String SURNAME = "surname";
+    public final static String FIRST_NAME = "firstName";
+    public final static String LAST_NAME = "lastName";
+    public final static String BIRTH_DATE = "birthDate";
     public final static String USER = "user";
     public final static String ADDRESS = "address";
     public final static String PHONE = "phone";
@@ -70,8 +74,8 @@ public class Constants {
     public static final String VIEW_JSP = "/WEB-INF/jsp/createView.jsp";
     public static final String LOGIN_JSP = "/WEB-INF/jsp/login.jsp";
     public static final String UPDATE_JSP = "/WEB-INF/jsp/update.jsp";
-    public static final String CONTROLLER_LOGIN = "/controller?command=login";
-    public static final Set<String> PUBLIC_PATH = Set.of("/controller");
+    public static final String CONTROLLER_LOGIN = "/controllers?command=login";
+    public static final Set<String> PUBLIC_PATH = Set.of("/controllers");
     public static final String INDEX_JSP = "/index.jsp";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String RECORDS_PER_PAGE = "recordsPerPage";
@@ -83,6 +87,8 @@ public class Constants {
     public static final String SEARCH_VALUE = "searchValue";
     public static final Role DEFAULT_ROLE = Role.USER;
     public static final Integer DEFAULT_QUANTITY = 1;
+    public static final String ENABLED = "enabled";
+    public static final boolean DEFAULT_ENABLED = true;
     public static final Integer DEFAULT_PAGE_NUMBER = 1;
     public static final Integer DEFAULT_RECORDS_PER_PAGE = 5;
     public static final String DEFAULT_SORT_BY_COLUMN = "id";

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.name}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<!--<div class="menu">-->
+<!--    <div th:include="menu.html"></div>-->
+<!--</div>-->
+
+<!-- Product Details Page -->
+<div th:if="${product != null}" class="product-container">
+    <div class="product-details">
+        <div class="product-details-image">
+            <img th:src="${product.image}" height="400"/>
+        </div>
+
+        <div class="product-details-info">
+            <div class="product-details-name" th:text="${product.name}"></div>
+            <div class="product-details-description" th:text="${product.description}"></div>
+            <div class="product-details-price" th:text="${product.price}"></div>
+            <div class="product-details-category" th:text="${product.category.name}"></div>
+            <div class="product-details-quantity" th:text="${product.quantity}"></div>
+            <div class="product-details-manufacturer" th:text="${product.producer.name}"></div>
+            <a th:href="@{/cart/new(productId=${product.id}, quantity=1)}" class="product-add-to-cart">Add to cart</a>
+        </div>
+    </div>
+
+    <!--        <div class="product-add-to-cart" th:data-product-id="${product.id}" th:data-quantity="${product.quantity}">-->
+    <!--            <a th:href="@{/cart/new}">Add to cart</a>-->
+    <!--        </div>-->
+</div>
+
+<div th:include="/footer"></div>
+</body>
+</html>

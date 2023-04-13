@@ -13,7 +13,7 @@ public class OrderItemCreateDto {
 //    LocalDateTime createTime;
     private Integer quantity;
     private Integer productId;
-    private Long cartId;
+    private Integer cartId;
 //    BigDecimal productPrice;
 //    Long categoryId;
 //    Long producerId;

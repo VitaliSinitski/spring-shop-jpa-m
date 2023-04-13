@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @Value
 public class CartReadDto {
-    Long id;
+    Integer id;
     LocalDateTime createdDate;
 //    UserReadDto user;
 //    List<OrderReadDto> orders;

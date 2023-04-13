@@ -1,20 +1,20 @@
 package com.vitali.dto.user;
 
-import com.vitali.constants.Role;
+import com.vitali.entities.enums.Role;
 import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Builder
 @Value
 public class UserCreateDto {
-    String name;
+    String username;
     String email;
-    Long cartId; // = user.id
+    Integer cartId; // = user.id
     String password;
     Role role; // String role?
+    boolean enabled;
     String firstName;
     String lastName;
     LocalDate birthDate;
