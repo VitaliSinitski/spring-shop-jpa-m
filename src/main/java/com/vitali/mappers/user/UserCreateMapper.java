@@ -14,9 +14,26 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserCreateMapper implements Mapper<UserCreateDto, User> {
     private final CartRepository cartRepository;
+
+    @Override
+    public User map(UserCreateDto fromObject, User toObject) {
+        return getUser(fromObject); // 83:00.18
+//        return Mapper.super.map(fromObject, toObject);
+    }
+
     @Override
     public User map(UserCreateDto object) {
 //        Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
+        return getUser(object);
+
+//        User userEntity = User.builder()
+//                .email(userCreateDto.getEmail())
+//                .password(userCreateDto.getPassword())
+//                .roles(Collections.singleton(Role.USER))
+//                .build();
+    }
+
+    public User getUser(UserCreateDto object) {
         return User.builder()
                 .username(object.getUsername())
                 .email(object.getEmail())
@@ -33,11 +50,6 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
                 // но это лучше проверять там, где без этого id не должно существовать и самой сущности (типа Company <-| Employee)
 //                .cart(cartDao.findById(object.getCartId()).orElseThrow(IllegalArgumentException::new))
                 .build();
-
-//        User userEntity = User.builder()
-//                .email(userCreateDto.getEmail())
-//                .password(userCreateDto.getPassword())
-//                .roles(Collections.singleton(Role.USER))
-//                .build();
     }
+
 }

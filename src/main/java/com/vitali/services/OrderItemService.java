@@ -20,7 +20,6 @@ public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final OrderItemReadMapper orderItemReadMapper;
     private final OrderItemCreateMapper orderItemCreateMapper;
-    private final ProductRepository productRepository;
 
     public Integer create(OrderItemCreateDto orderItemCreateDto) {
         OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);

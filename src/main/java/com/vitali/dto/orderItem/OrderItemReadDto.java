@@ -3,20 +3,21 @@ package com.vitali.dto.orderItem;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.dto.cart.CartReadDto;
 import com.vitali.dto.order.OrderReadDto;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Builder
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class OrderItemReadDto {
-    Integer id;
-    LocalDateTime createdDate;
-    Integer quantity;
-    ProductReadDto product;
-    OrderReadDto order;
-    CartReadDto cart;
+    private Integer id;
+    private LocalDateTime createdDate;
+    private Integer quantity;
+    private ProductReadDto product;
+    private OrderReadDto order;
+    private CartReadDto cart;
 //    CategoryReadDto category;
 //    ProducerReadDto producer;
 

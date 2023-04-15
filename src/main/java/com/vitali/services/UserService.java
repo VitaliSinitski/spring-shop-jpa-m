@@ -11,6 +11,7 @@ import com.vitali.repositories.CartRepository;
 import com.vitali.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -72,7 +74,22 @@ public class UserService implements UserDetailsService {
 //                .orElseThrow();
     }
 
-//    Optional<UserReadDto> update(Integer id)
+    @Transactional
+    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
+        return userRepository.findById(id)
+                .map(user -> userCreateMapper.map(userCreateDto, user))
+                .map(userRepository::saveAndFlush)
+                .map(userReadMapper::map);
+    }
+
+    public boolean delete(Integer id) {
+        return userRepository.findById(id)
+                .map(entity -> {
+                    userRepository.delete(entity);
+                    return true;
+                })
+                .orElse(false);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

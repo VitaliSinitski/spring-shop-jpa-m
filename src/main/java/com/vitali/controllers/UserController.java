@@ -41,14 +41,17 @@ public class UserController {
 //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Integer id, @ModelAttribute UserCreateDto user) {
-//        userService.update(id, user);
-        return "redirect:/users/{id}";
+        return userService.update(id, user)
+                .map(it -> "redirect:/users/{id}")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
 //    @DeleteMapping("/{id}")
-    @PostMapping("/{id/delete}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable Integer id) {
-//        userService.delete(id);
+        if (!userService.delete(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         return "redirect:/users";
     }
 
