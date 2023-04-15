@@ -13,7 +13,7 @@ public class UserCreateConverter implements Converter<HttpServletRequest, UserCr
         return UserCreateDto.builder()
                 .username(request.getParameter(NAME))
                 .email(request.getParameter(EMAIL))
-                .password(request.getParameter(PASSWORD))
+                .rawPassword(request.getParameter(PASSWORD))
                 .role(getRole(request))
                 .enabled(getEnabled(request))
                 .firstName(request.getParameter(FIRST_NAME))

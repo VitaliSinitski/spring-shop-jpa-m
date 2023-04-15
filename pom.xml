@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.vitali</groupId>
-    <artifactId>spring-shop-jpa</artifactId>
+    <artifactId>spring-shop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>spring-shop-jpa</name>
+    <name>spring-shop</name>
     <description>Shop project</description>
 
     <properties>

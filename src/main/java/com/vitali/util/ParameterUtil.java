@@ -6,11 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Optional;
 
-import static com.vitali.constants.Constants.DEFAULT_ENABLED;
-import static com.vitali.constants.Constants.DEFAULT_QUANTITY;
-import static com.vitali.constants.Constants.DEFAULT_ROLE;
-import static com.vitali.constants.Constants.QUANTITY;
-import static com.vitali.constants.Constants.ROLE;
+import static com.vitali.constants.Constants.*;
 
 public class ParameterUtil {
 
@@ -38,4 +34,5 @@ public class ParameterUtil {
     public static boolean getEnabled(HttpServletRequest request) {
             return DEFAULT_ENABLED;
     }
+
 }

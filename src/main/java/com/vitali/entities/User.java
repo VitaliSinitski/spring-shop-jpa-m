@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -39,6 +42,7 @@ public class User{
     @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
+    @Column
     private Role role;
     @Column(nullable = false)
     private boolean enabled;
@@ -48,7 +52,4 @@ public class User{
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Authority> authorities;
-
 }

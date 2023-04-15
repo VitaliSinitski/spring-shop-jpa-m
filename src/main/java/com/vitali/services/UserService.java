@@ -1,65 +1,88 @@
 package com.vitali.services;
 
 import com.vitali.dto.user.UserReadDto;
+import com.vitali.entities.Cart;
 import com.vitali.entities.User;
 import com.vitali.dto.user.UserCreateDto;
 
 import com.vitali.mappers.user.UserCreateMapper;
 import com.vitali.mappers.user.UserReadMapper;
+import com.vitali.repositories.CartRepository;
 import com.vitali.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService{
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserCreateMapper userCreateMapper;
     private final UserReadMapper userReadMapper;
-//    private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        return userRepository.findByEmail(email)
-//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//    }
-
-    public Integer create(UserCreateDto userCreateDto) {
-        User userEntity = userCreateMapper.map(userCreateDto);
-//        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        return userRepository.save(userEntity).getId();
+    public List<UserReadDto> findAll() {
+        return userRepository.findAll().stream()
+                .map(userReadMapper::map)
+                .collect(Collectors.toList());
     }
+
+//    public Integer create(UserCreateDto userCreateDto) {
+//        User userEntity = userCreateMapper.map(userCreateDto);
+////        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+//        return userRepository.save(userEntity).getId();
+//    }
 
     public Optional<UserReadDto> findById(Integer id) {
         return userRepository.findById(id)
                 .map(userReadMapper::map);
     }
 
-//        @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return userRepository.findByUsername(username)
-//                .map(user -> new org.springframework.security.core.userdetails.User(
-//                        user.getUsername(),
-//                        user.getPassword(),
-//                        user.getAuthorities()
-////                        user.getAuthorities()
-//                ))
-//                .orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
-//    }
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return userRepository.findByEmail(username)
-//                .map(user -> new AdaptedUserDetails(
-//                        user.getId(),
-//                        user.getUsername(),
-//                        user.getPassword(),
-//                        Collections.singleton(user.getRole())
-//                )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
-//    }
+    @Transactional
+    public UserReadDto create(UserCreateDto userCreateDto) {
+        Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
+        User user = Optional.of(userCreateDto)
+                .map(userCreateMapper::map)
+                .map(userRepository::save)
+//                .map(userRepository::saveAndFlush) // todo variant???
+                .orElseThrow();
+        cart.setUser(user);
+//        user.setCart(cart);
+        cartRepository.save(cart);
+        return userReadMapper.map(user);
+
+//        return Optional.of(userCreateDto)
+//                .map(userCreateMapper::map)
+//                .map(userRepository::save)
+//                .map(userReadMapper::map)
+//                .orElseThrow();
+    }
+
+//    Optional<UserReadDto> update(Integer id)
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findUserByUsername(username)
+                .map(user -> new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        Collections.singleton(user.getRole())
+                )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
+    }
+
 }
 
