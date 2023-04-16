@@ -2,8 +2,6 @@ package com.vitali.dto.orderItem;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-
 @Builder
 @Data
 @AllArgsConstructor

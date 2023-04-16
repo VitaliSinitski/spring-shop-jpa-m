@@ -30,7 +30,7 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     enabled: true
 
-server.port: 8081
+#server.port: 8081
 
 logging:
   level:
@@ -44,5 +44,3 @@ logging:
   logback:
     rollingpolicy:
       max-history: 1
-
-

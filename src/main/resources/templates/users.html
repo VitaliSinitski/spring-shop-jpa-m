@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Birth Date</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
+        <th>Enabled</th>
+        <th>Edit User</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.birthDate}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.role}"></td>
+<!--        <td th:each="role : ${roles}">-->
+<!--            <label th:for="${role}" th:text="${role}">Role name-->
+<!--                <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">-->
+<!--            </label>-->
+<!--        </td>-->
+        <td th:text="${user.enabled} ? 'True' : 'False'"></td>
+        <td>
+            <!--            <a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a>-->
+            <a th:href="@{/users/{id}(id=${user.id})}">More info</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

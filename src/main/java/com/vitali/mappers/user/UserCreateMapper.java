@@ -22,9 +22,9 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
     }
 
     @Override
-    public User map(UserCreateDto object) {
+    public User map(UserCreateDto userCreateDto) {
 //        Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
-        return getUser(object);
+        return getUser(userCreateDto);
 
 //        User userEntity = User.builder()
 //                .email(userCreateDto.getEmail())
@@ -42,7 +42,7 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
                 .firstName(object.getFirstName())
                 .lastName(object.getLastName())
                 .birthDate(object.getBirthDate())
-                .enabled(object.isEnabled())
+                .enabled(object.getEnabled())
 //                .cart(cart)
                 // либо можно пробарсывать исключение. Если передано cartId, которого не существует, то скорее всего это неверный параметр
                 // поэтому мы должны это проверять на уровне валидации,
