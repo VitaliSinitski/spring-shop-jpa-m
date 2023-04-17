@@ -1,7 +1,7 @@
 package com.vitali.mappers.category;
 
 import com.vitali.dto.category.CategoryCreateDto;
-import com.vitali.entities.Category;
+import com.vitali.database.entities.Category;
 import com.vitali.mappers.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

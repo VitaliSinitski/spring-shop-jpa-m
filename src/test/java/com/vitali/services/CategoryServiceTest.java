@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 
 import com.vitali.dto.category.CategoryReadDto;
 import com.vitali.mappers.category.CategoryReadMapper;
-import com.vitali.entities.Category;
-import com.vitali.repositories.CategoryRepository;
+import com.vitali.database.entities.Category;
+import com.vitali.database.repositories.CategoryRepository;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

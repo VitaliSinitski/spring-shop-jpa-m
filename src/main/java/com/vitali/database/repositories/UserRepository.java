@@ -1,6 +1,6 @@
-package com.vitali.repositories;
+package com.vitali.database.repositories;
 
-import com.vitali.entities.User;
+import com.vitali.database.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

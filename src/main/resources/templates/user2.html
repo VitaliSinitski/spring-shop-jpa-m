@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body>
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post">
+    <label for="userId">User id:
+        <span id="userId" th:text="${user.id}"/>
+    </label><br>
+    <label for="cartId">Cart id:
+        <span id="cartId" th:text="${user.cart}"/>
+    </label><br>
+    <label for="username">Username:
+        <input id="username" type="text" name="username" th:value="${user.username}" required>
+    </label><br>
+    <label for="email">Email:
+        <input id="email" type="email" name="email" th:value="${user.email}" required>
+    </label><br>
+    <label for="birthDate">BirthDate:
+        <input id="birthDate" type="date" name="birthDate" th:value="${user.birthDate}" required>
+    </label><br>
+    <label for="firstName">FirstName:
+        <input id="firstName" type="text" name="firstName" th:value="${user.firstName}" required>
+    </label><br>
+    <label for="lastName">LastName:
+        <input id="lastName" type="text" name="lastName" th:value="${user.lastName}" required>
+    </label><br>
+    <label for="userEnabled">Enabled:
+        <input id="userEnabled" type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True
+        <input id="userDisabled" type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
+    </label><br>
+
+</form>
+</body>
+</html>

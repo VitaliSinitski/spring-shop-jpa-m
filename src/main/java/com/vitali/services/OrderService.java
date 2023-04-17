@@ -1,13 +1,13 @@
 package com.vitali.services;
 
 import com.vitali.constants.Constants;
-import com.vitali.entities.enums.OrderStatus;
-import com.vitali.entities.Cart;
-import com.vitali.entities.Order;
-import com.vitali.entities.OrderItem;
-import com.vitali.repositories.CartRepository;
-import com.vitali.repositories.OrderItemRepository;
-import com.vitali.repositories.OrderRepository;
+import com.vitali.database.entities.enums.OrderStatus;
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.Order;
+import com.vitali.database.entities.OrderItem;
+import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.OrderItemRepository;
+import com.vitali.database.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

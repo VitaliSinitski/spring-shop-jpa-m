@@ -1,20 +1,18 @@
 package com.vitali.mappers.product;
 
-import com.vitali.entities.Category;
-import com.vitali.entities.Producer;
+import com.vitali.database.entities.Category;
+import com.vitali.database.entities.Producer;
 import com.vitali.mappers.Mapper;
-import com.vitali.repositories.CategoryRepository;
-import com.vitali.repositories.ProducerRepository;
+import com.vitali.database.repositories.CategoryRepository;
+import com.vitali.database.repositories.ProducerRepository;
 import com.vitali.dto.product.ProductCreateDto;
-import com.vitali.entities.Product;
+import com.vitali.database.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import static com.vitali.constants.Constants.IMAGE_FOLDER;
 
 @Component
 @RequiredArgsConstructor

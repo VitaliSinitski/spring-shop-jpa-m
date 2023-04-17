@@ -2,17 +2,18 @@ package com.vitali.services;
 
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductReadDto;
+import com.vitali.database.entities.Product;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
-import com.vitali.repositories.ProductRepository;
+import com.vitali.database.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,14 +62,6 @@ public class ProductService {
                 .map(productReadMapper::map);
     }
 
-    // 97.20:20
-    @SneakyThrows
-    private void uploadImage(MultipartFile image) {
-        if (!image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream());
-        }
-    }
-
     @Transactional
     public boolean delete(Integer id) {
         return productRepository.findById(id)
@@ -77,5 +70,20 @@ public class ProductService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    // 97.20:20
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+        }
+    }
+
+    public Optional<byte[]> findImage(Integer id) {
+        return productRepository.findById(id)
+                .map(Product::getImage)
+                .filter(StringUtils::hasText)
+                .flatMap(imageService::get);
     }
 }

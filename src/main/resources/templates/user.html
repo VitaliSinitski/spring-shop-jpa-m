@@ -6,94 +6,92 @@
     <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th colspan="2">User Details</th>
-    </tr>
-    </thead>
-    <tbody>
-    <form></form>
-    <tr>
-        <td>User id:</td>
-        <td><span th:text="${user.id}"/></td>
-    </tr>
-    <tr>
-        <td>Cart id:</td>
-        <td><span th:text="${user.cart}"/></td>
-    </tr>
-    <tr>
-        <td>Username:</td>
-        <td>
-            <label>
-                <input type="text" name="username" th:value="${user.username}" required>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>
-            <label>
-                <input type="email" name="email" th:value="${user.email}" required>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>BirthDate:</td>
-        <td>
-            <label>
-                <input type="date" name="birthDate" th:value="${user.birthDate}" required>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>FirstName:</td>
-        <td>
-            <label>
-                <input type="text" name="firstName" th:value="${user.firstName}" required>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>LastName:</td>
-        <td>
-            <label>
-                <input type="text" name="lastName" th:value="${user.lastName}" required>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>Enabled:</td>
-        <td>
-            <input type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True
-            <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
-        </td>
-    </tr>
-<!--    87.09:45    -->
-    <!--    <tr th:each="role : ${roles}">-->
-    <!--        <td>Role:</td>-->
-    <!--        <td>-->
-    <!--            <input th:id="${role}" type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True-->
-    <!--            <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False-->
-    <!--        </td>-->
-    <!--    </tr>-->
-<!--    <tr>-->
-<!--        <td th:each="role : ${roles}" th:text="${role}">Role name:-->
-<!--            <label th:for="${role}" th:text="${role}">Role name-->
-<!--                <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">-->
-<!--            </label>-->
-<!--        </td>-->
-<!--    </tr>-->
-    <tr>
-        <td>
-            <div th:each="role : ${roles}">
-                <label th:for="${role}" th:text="${role}">Role name
-                    <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">User Details</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>User id:</td>
+            <td>
+                <span th:text="*{id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Cart id:</td>
+            <td><span th:text="*{cart}"/></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <label for="username">
+                    <input id="username" type="text" name="username" th:value="*{username}" required>
                 </label>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <label for="email">
+                    <input id="email" type="email" name="email" th:value="*{email}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>BirthDate:</td>
+            <td>
+                <label for="birthDate">
+                    <input id="birthDate" type="date" name="birthDate" th:value="*{birthDate}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>FirstName:</td>
+            <td>
+                <label for="firstName">
+                    <input id="firstName" type="text" name="firstName" th:value="*{firstName}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>LastName:</td>
+            <td>
+                <label for="lastName">
+                    <input id="lastName" type="text" name="lastName" th:value="*{lastName}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Enabled:</td>
+            <td>
+                <input type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True
+                <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
+            </td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td>
+                <label for="producer">
+                    <select name="producerId" id="producer">
+                        <option th:each="role : ${roles}" th:text="${role.name()}" th:value="${role}">Role
+                        </option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="submit">Update</button>
+</form>
+<br>
+<form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
+    <button type="submit" class="submit">Delete</button>
+</form>
+
 </body>
 </html>

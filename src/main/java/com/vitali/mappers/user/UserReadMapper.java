@@ -1,7 +1,7 @@
 package com.vitali.mappers.user;
 
 import com.vitali.dto.user.UserReadDto;
-import com.vitali.entities.User;
+import com.vitali.database.entities.User;
 import com.vitali.mappers.Mapper;
 import com.vitali.mappers.cart.CartReadMapper;
 import lombok.RequiredArgsConstructor;

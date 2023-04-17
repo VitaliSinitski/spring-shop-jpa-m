@@ -2,7 +2,7 @@ package com.vitali.services;
 
 import com.vitali.dto.category.CategoryReadDto;
 import com.vitali.mappers.category.CategoryReadMapper;
-import com.vitali.repositories.CategoryRepository;
+import com.vitali.database.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

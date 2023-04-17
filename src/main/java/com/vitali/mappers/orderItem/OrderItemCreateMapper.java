@@ -1,16 +1,15 @@
 package com.vitali.mappers.orderItem;
 
-import com.vitali.entities.Cart;
-import com.vitali.entities.Product;
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.Product;
 import com.vitali.mappers.Mapper;
-import com.vitali.repositories.CartRepository;
-import com.vitali.repositories.ProductRepository;
+import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.orderItem.OrderItemCreateDto;
-import com.vitali.entities.OrderItem;
+import com.vitali.database.entities.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Component

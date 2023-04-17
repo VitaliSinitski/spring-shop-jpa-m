@@ -1,10 +1,10 @@
-                    package com.vitali.repositories;
+                    package com.vitali.database.repositories;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.vitali.entities.Cart;
-import com.vitali.entities.Order;
-import com.vitali.entities.OrderItem;
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.Order;
+import com.vitali.database.entities.OrderItem;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

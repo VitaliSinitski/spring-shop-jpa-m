@@ -1,8 +1,6 @@
 package com.vitali.controllers;
 
 import com.vitali.dto.product.ProductCreateDto;
-import com.vitali.dto.user.UserCreateDto;
-import com.vitali.entities.enums.Role;
 import com.vitali.services.CategoryService;
 import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;

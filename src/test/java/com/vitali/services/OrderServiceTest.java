@@ -1,10 +1,10 @@
 package com.vitali.services;
 
-import com.vitali.entities.Cart;
-import com.vitali.entities.OrderItem;
-import com.vitali.repositories.CartRepository;
-import com.vitali.repositories.OrderItemRepository;
-import com.vitali.repositories.OrderRepository;
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.OrderItem;
+import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.OrderItemRepository;
+import com.vitali.database.repositories.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

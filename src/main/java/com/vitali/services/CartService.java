@@ -1,6 +1,6 @@
 package com.vitali.services;
 
-import com.vitali.repositories.CartRepository;
+import com.vitali.database.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

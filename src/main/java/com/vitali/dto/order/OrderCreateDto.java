@@ -1,6 +1,6 @@
 package com.vitali.dto.order;
 
-import com.vitali.entities.enums.OrderStatus;
+import com.vitali.database.entities.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Value;
 

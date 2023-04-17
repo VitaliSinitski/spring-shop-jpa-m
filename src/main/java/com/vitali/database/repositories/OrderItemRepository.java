@@ -1,6 +1,6 @@
-package com.vitali.repositories;
+package com.vitali.database.repositories;
 
-import com.vitali.entities.OrderItem;
+import com.vitali.database.entities.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

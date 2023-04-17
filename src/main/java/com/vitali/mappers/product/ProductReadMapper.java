@@ -1,7 +1,7 @@
 package com.vitali.mappers.product;
 
 import com.vitali.dto.product.ProductReadDto;
-import com.vitali.entities.Product;
+import com.vitali.database.entities.Product;
 import com.vitali.mappers.Mapper;
 import com.vitali.mappers.category.CategoryReadMapper;
 import com.vitali.mappers.producer.ProducerReadMapper;

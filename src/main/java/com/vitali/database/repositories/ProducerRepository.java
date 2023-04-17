@@ -1,6 +1,6 @@
-package com.vitali.repositories;
+package com.vitali.database.repositories;
 
-import com.vitali.entities.Producer;
+import com.vitali.database.entities.Producer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProducerRepository extends JpaRepository<Producer, Integer> {

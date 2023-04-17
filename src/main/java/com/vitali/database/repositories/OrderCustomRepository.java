@@ -1,4 +1,4 @@
-package com.vitali.repositories;
+package com.vitali.database.repositories;
 
 import java.util.List;
 

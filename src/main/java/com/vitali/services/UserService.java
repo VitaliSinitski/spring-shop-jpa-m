@@ -1,21 +1,20 @@
 package com.vitali.services;
 
 import com.vitali.dto.user.UserReadDto;
-import com.vitali.entities.Cart;
-import com.vitali.entities.User;
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.User;
 import com.vitali.dto.user.UserCreateDto;
 
 import com.vitali.mappers.user.UserCreateMapper;
 import com.vitali.mappers.user.UserReadMapper;
-import com.vitali.repositories.CartRepository;
-import com.vitali.repositories.UserRepository;
+import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

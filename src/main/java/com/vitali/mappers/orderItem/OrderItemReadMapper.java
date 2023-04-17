@@ -1,7 +1,7 @@
 package com.vitali.mappers.orderItem;
 
 import com.vitali.dto.orderItem.OrderItemReadDto;
-import com.vitali.entities.OrderItem;
+import com.vitali.database.entities.OrderItem;
 import com.vitali.mappers.Mapper;
 import com.vitali.mappers.cart.CartReadMapper;
 import com.vitali.mappers.product.ProductReadMapper;

@@ -3,10 +3,10 @@ package com.vitali.services;
 
 import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
-import com.vitali.entities.OrderItem;
+import com.vitali.database.entities.OrderItem;
 import com.vitali.mappers.orderItem.OrderItemCreateMapper;
 import com.vitali.mappers.orderItem.OrderItemReadMapper;
-import com.vitali.repositories.OrderItemRepository;
+import com.vitali.database.repositories.OrderItemRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

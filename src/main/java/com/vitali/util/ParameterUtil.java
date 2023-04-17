@@ -1,6 +1,6 @@
 package com.vitali.util;
 
-import com.vitali.entities.enums.Role;
+import com.vitali.database.entities.enums.Role;
 
 import javax.servlet.http.HttpServletRequest;
 

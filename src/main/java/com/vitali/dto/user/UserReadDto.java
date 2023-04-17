@@ -1,6 +1,6 @@
 package com.vitali.dto.user;
 
-import com.vitali.entities.enums.Role;
+import com.vitali.database.entities.enums.Role;
 import com.vitali.dto.cart.CartReadDto;
 import lombok.Builder;
 import lombok.Value;

@@ -1,7 +1,7 @@
 package com.vitali.mappers.producer;
 
 import com.vitali.dto.producer.ProducerCreateDto;
-import com.vitali.entities.Producer;
+import com.vitali.database.entities.Producer;
 import com.vitali.mappers.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.vitali.controllers;
 
 import com.vitali.dto.user.UserCreateDto;
-import com.vitali.entities.enums.Role;
+import com.vitali.database.entities.enums.Role;
 import com.vitali.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

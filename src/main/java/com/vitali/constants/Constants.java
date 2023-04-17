@@ -1,7 +1,7 @@
 package com.vitali.constants;
 
-import com.vitali.entities.enums.OrderStatus;
-import com.vitali.entities.enums.Role;
+import com.vitali.database.entities.enums.OrderStatus;
+import com.vitali.database.entities.enums.Role;
 import lombok.experimental.UtilityClass;
 
 import java.util.Set;

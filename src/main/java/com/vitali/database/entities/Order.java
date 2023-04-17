@@ -1,6 +1,6 @@
-package com.vitali.entities;
+package com.vitali.database.entities;
 
-import com.vitali.entities.enums.OrderStatus;
+import com.vitali.database.entities.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

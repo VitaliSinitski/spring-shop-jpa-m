@@ -1,14 +1,11 @@
 package com.vitali.mappers.user;
 
 import com.vitali.dto.user.UserCreateDto;
-import com.vitali.entities.Cart;
-import com.vitali.entities.User;
+import com.vitali.database.entities.User;
 import com.vitali.mappers.Mapper;
-import com.vitali.repositories.CartRepository;
+import com.vitali.database.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor

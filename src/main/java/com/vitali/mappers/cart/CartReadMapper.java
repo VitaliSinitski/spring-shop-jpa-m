@@ -1,9 +1,9 @@
 package com.vitali.mappers.cart;
 
 import com.vitali.dto.cart.CartReadDto;
-import com.vitali.entities.Cart;
+import com.vitali.database.entities.Cart;
 import com.vitali.mappers.Mapper;
-import com.vitali.repositories.UserRepository;
+import com.vitali.database.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

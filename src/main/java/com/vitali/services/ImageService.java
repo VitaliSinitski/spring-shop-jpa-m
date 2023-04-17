@@ -36,13 +36,14 @@ public class ImageService {
         }
     }
 
-//    @SneakyThrows
-//    public Optional<byte[]> get(String imagePath) {
+    @SneakyThrows
+    public Optional<byte[]> get(String imagePath) {
 //        Path fullImagePath = Path.of(IMAGE_BASE_PATH, imagePath);
-//
-//        return Files.exists(fullImagePath)
-//                ? Optional.of(Files.readAllBytes(fullImagePath))
-//                : Optional.empty();
-//    }
+        Path imageFullPath = Path.of(bucket, imagePath);
+
+        return Files.exists(imageFullPath)
+                ? Optional.of(Files.readAllBytes(imageFullPath))
+                : Optional.empty();
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.vitali.entities.enums;
+package com.vitali.database.entities.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

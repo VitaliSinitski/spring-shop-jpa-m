@@ -1,4 +1,4 @@
-package com.vitali.entities;
+package com.vitali.database.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

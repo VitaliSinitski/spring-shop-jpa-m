@@ -1,7 +1,7 @@
 package com.vitali.mappers.order;
 
 import com.vitali.dto.order.OrderReadDto;
-import com.vitali.entities.Order;
+import com.vitali.database.entities.Order;
 import com.vitali.mappers.Mapper;
 import com.vitali.mappers.orderItem.OrderItemReadMapper;
 import lombok.RequiredArgsConstructor;
