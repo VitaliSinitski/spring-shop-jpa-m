@@ -6,9 +6,11 @@ import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import com.vitali.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -23,6 +25,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductCreateMapper productCreateMapper;
     private final ProductReadMapper productReadMapper;
+    private final ImageService imageService;
 
     public List<ProductReadDto> findAll() {
         return productRepository.findAll()
@@ -38,7 +41,10 @@ public class ProductService {
     @Transactional
     public ProductReadDto create(ProductCreateDto productCreateDto) {
         return Optional.of(productCreateDto)
-                .map(productCreateMapper::map)
+                .map(dto -> {
+                    uploadImage(dto.getImage());
+                    return productCreateMapper.map(dto);    // 97.09:50
+                })
                 .map(productRepository::save)
                 .map(productReadMapper::map)
                 .orElseThrow();
@@ -47,9 +53,20 @@ public class ProductService {
     @Transactional
     public Optional<ProductReadDto> update(Integer id, ProductCreateDto productCreateDto) {
         return productRepository.findById(id)
-                .map(product -> productCreateMapper.map(productCreateDto, product))
+                .map(product -> {
+                    uploadImage(productCreateDto.getImage());
+                    return productCreateMapper.map(productCreateDto, product);
+                })
                 .map(productRepository::saveAndFlush)
                 .map(productReadMapper::map);
+    }
+
+    // 97.20:20
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if (!image.isEmpty()) {
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+        }
     }
 
     @Transactional

@@ -9,8 +9,10 @@ import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static com.vitali.constants.Constants.IMAGE_FOLDER;
 
@@ -22,24 +24,43 @@ public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
 
     @Override
     public Product map(ProductCreateDto fromObject, Product toObject) {
-        return getProduct(fromObject);  // 83:00.18
+//        return getProduct(fromObject);  // 83.00.18 97.09.00
+        copy(fromObject, toObject);
+        return toObject;
     }
 
     @Override
     public Product map(ProductCreateDto productCreateDto) {
-        return getProduct(productCreateDto);
+//        return getProduct(productCreateDto);
+        Product product = new Product();
+        copy(productCreateDto, product);
+        return product;
     }
 
-    private Product getProduct(ProductCreateDto object) {
-        return Product.builder()
-                .name(object.getName())
-                .description(object.getDescription())
-                .price(object.getPrice())
-                .quantity(object.getQuantity())
-                .image(IMAGE_FOLDER + object.getImage().getSubmittedFileName()) // можно добавить уникальный префикс (!дублирование имен)
-                .category(getCategory(object.getCategoryId()))
-                .producer(getProducer(object.getProducerId()))
-                .build();
+//    private Product getProduct(ProductCreateDto object) {
+//        return Product.builder()
+//                .name(object.getName())
+//                .description(object.getDescription())
+//                .price(object.getPrice())
+//                .quantity(object.getQuantity())
+////                .image(Optional.ofNullable(object.getImage()).filter(MultipartFile::isEmpty).ifPresent(image -> object.getImage());)
+////                .image(IMAGE_FOLDER + object.getImage().getSubmittedFileName()) // можно добавить уникальный префикс (!дублирование имен)
+//                .category(getCategory(object.getCategoryId()))
+//                .producer(getProducer(object.getProducerId()))
+//                .build();
+//    }
+
+    private void copy(ProductCreateDto object, Product product) {
+        product.setName(object.getName());
+        product.setDescription(object.getDescription());
+        product.setPrice(object.getPrice());
+        product.setQuantity(object.getQuantity());
+        product.setCategory(getCategory(object.getCategoryId()));
+        product.setProducer(getProducer(object.getProducerId()));
+
+        Optional.ofNullable(object.getImage())
+                .filter(Predicate.not(MultipartFile::isEmpty))
+                .ifPresent(image -> product.setImage(image.getOriginalFilename()));
     }
 
     public Category getCategory(Integer id) {

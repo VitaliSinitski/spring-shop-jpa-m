@@ -2,6 +2,7 @@ package com.vitali.dto.product;
 
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Part;
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class ProductCreateDto {
     String description;
     BigDecimal price;
     Integer quantity;
-    Part image;
+    MultipartFile image;
     Integer categoryId;
     Integer producerId;
 }

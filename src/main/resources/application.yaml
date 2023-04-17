@@ -44,3 +44,7 @@ logging:
   logback:
     rollingpolicy:
       max-history: 1
+
+app:
+  image:
+    bucket: "C:\\Work\\IdeaProjects\\spring-shop\\src\\main\\resources\\static\\images"

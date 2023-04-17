@@ -29,6 +29,9 @@
         <h2 class="login-header">Welcome back</h2>
         <button class="login-submit" type="submit">Products</button>
     </form><br>
+    <form th:action="@{/admin/products/new}" class="login-form">
+        <button class="login-submit" type="submit">Add new product</button>
+    </form><br>
     <form th:action="@{/users}" class="login-form">
         <button class="login-submit" type="submit">Users</button>
     </form>

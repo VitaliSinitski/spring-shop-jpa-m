@@ -1,6 +1,8 @@
 package com.vitali.controllers;
 
 import com.vitali.dto.product.ProductCreateDto;
+import com.vitali.dto.user.UserCreateDto;
+import com.vitali.entities.enums.Role;
 import com.vitali.services.CategoryService;
 import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;
@@ -55,11 +57,25 @@ public class AdminProductsController {
 //        return "product";
     }
 
+    @GetMapping("/new") // registration
+    public String newProduct(Model model,
+                               @ModelAttribute("product") ProductCreateDto product) {
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("producers", producerService.findAll());
+        return "admin/newProduct";
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String createProduct(@ModelAttribute ProductCreateDto product){
-        return "redirect:/admin/products/" + productService.create(product).getId();
+    public String createProduct(@ModelAttribute ProductCreateDto product, Model model){
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("producers", producerService.findAll());
+        productService.create(product);
+//        return "redirect:/admin/products/" + productService.create(product).getId();
+        return "admin/products";
     }
 
 //    @PostMapping("/products/{id}/update")
