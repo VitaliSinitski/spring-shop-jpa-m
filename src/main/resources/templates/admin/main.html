@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet"/>
+    <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
+</head>
+<body>
+<!--<div class="login-container">-->
+<!--    <form th:action="@{/login}" method="post" class="login-form">-->
+<!--        <h2 class="login-header">Welcome back</h2>-->
+<!--        <label>-->
+<!--            <input type="text" name="username" class="login-input" placeholder="Username" required="true"-->
+<!--                   autofocus="true"-->
+<!--                   th:required="true"/>-->
+<!--        </label>-->
+<!--        <label>-->
+<!--            <input type="password" name="password" class="login-input" placeholder="Password" required="true"-->
+<!--                   th:required="true"/>-->
+<!--        </label>-->
+<!--        <button class="login-submit" type="submit">Sign in</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<div class="login-container">
+    <form th:action="@{/admin/products}" class="login-form">
+        <h2 class="login-header">Welcome back</h2>
+        <button class="login-submit" type="submit">Products</button>
+    </form><br>
+    <form th:action="@{/users}" class="login-form">
+        <button class="login-submit" type="submit">Users</button>
+    </form>
+</div>
+</body>
+</html>

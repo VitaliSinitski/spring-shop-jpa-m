@@ -6,7 +6,9 @@
     <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
-<form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
+<!--    <form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">-->
+<form th:action="@{/admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
+
     <table>
         <thead>
         <tr>
@@ -41,7 +43,8 @@
             <td>Product price:</td>
             <td>
                 <label for="price">
-                    <input id="price" type="number" name="price" th:value="*{price}" min="0.00" max="10000.00" step="0.01" required>
+                    <input id="price" type="number" name="price" th:value="*{price}" min="0.00" max="10000.00"
+                           step="0.01" required>
                 </label>
             </td>
         </tr>
@@ -59,7 +62,8 @@
                 <label for="category">
                     <select name="categoryId" id="category">
                         <option th:each="category : ${categories}" th:text="${category.name}"
-                                th:value="${category.id}" th:selected="${category.id == product.category.id}">Category</option>
+                                th:value="${category.id}" th:selected="${category.id == product.category.id}">Category
+                        </option>
                     </select>
                 </label>
             </td>
@@ -70,7 +74,8 @@
                 <label for="producer">
                     <select name="producerId" id="producer">
                         <option th:each="producer : ${producers}" th:text="${producer.name}"
-                                th:value="${producer.id}" th:selected="${producer.id == product.producer.id}">Producer</option>
+                                th:value="${producer.id}" th:selected="${producer.id == product.producer.id}">Producer
+                        </option>
                     </select>
                 </label>
             </td>
@@ -79,5 +84,10 @@
     </table>
     <button type="submit" class="submit">Update</button>
 </form>
+<br>
+<form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">
+    <button type="submit" class="submit">Delete</button>
+</form>
+
 </body>
 </html>

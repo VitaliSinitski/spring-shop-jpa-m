@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequiredArgsConstructor
+//@RequestMapping("/admin")
 @RequestMapping("/admin/products")
 public class AdminProductsController {
     private final ProductService productService;
@@ -25,16 +26,18 @@ public class AdminProductsController {
     private final ProducerService producerService;
 
     @GetMapping
+//    @GetMapping("/products")
     public String findAllProducts(Model model) {
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("producers", producerService.findAll());
-        return "admin/productslist";
+        return "admin/products";
     }
 
 
-    @GetMapping("/product/{id}")
-    public String findByIdProduct(@PathVariable Integer id, Model model) {
+//    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
+    public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
         return productService.findById(id)
                 .map(product -> {
                     model.addAttribute("product", product);
@@ -52,26 +55,31 @@ public class AdminProductsController {
 //        return "product";
     }
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String createProduct(@ModelAttribute ProductCreateDto product){
-        return "redirect:/products/" + productService.create(product).getId();
+        return "redirect:/admin/products/" + productService.create(product).getId();
     }
 
-    @PostMapping("{id}/update")
+//    @PostMapping("/products/{id}/update")
+    @PostMapping("/{id}/update")
     public String updateProduct(@PathVariable("id") Integer id,
                          @ModelAttribute ProductCreateDto product) {
         return productService.update(id, product)
                 .map(it -> "redirect:/products/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+}
 
+
+
+//    @PostMapping("/products/{id}/delete")
     @PostMapping("/{id}/delete")
-    public String deleteProduct(@PathVariable Integer id) {
+    public String deleteProduct(@PathVariable("id") Integer id) {
         if (!productService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
 }

@@ -52,6 +52,7 @@ public class ProductService {
                 .map(productReadMapper::map);
     }
 
+    @Transactional
     public boolean delete(Integer id) {
         return productRepository.findById(id)
                 .map(entity -> {

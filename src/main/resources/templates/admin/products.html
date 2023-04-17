@@ -35,7 +35,10 @@
         <td th:text="${product.category}"></td>
         <td th:text="${product.producer}"></td>
         <td>
-            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>
+<!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
+<!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
+            <a th:href="@{/admin/products/{id}(id=${product.id})}">Edit</a>
+
         </td>
     </tr>
     </tbody>
