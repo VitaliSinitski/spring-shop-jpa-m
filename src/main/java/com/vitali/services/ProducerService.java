@@ -6,12 +6,14 @@ import com.vitali.mappers.producer.ProducerReadMapper;
 import com.vitali.repositories.ProducerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProducerService {
     private final ProducerRepository producerRepository;
     private final ProducerCreateMapper producerCreateMapper;

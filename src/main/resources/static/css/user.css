@@ -51,3 +51,18 @@ input[type="submit"]:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.submit {
+    background-color:  #232f3e;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.2s;
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+
+}

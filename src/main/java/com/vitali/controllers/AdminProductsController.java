@@ -18,18 +18,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/admin/products")
+public class AdminProductsController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
-    @GetMapping("/products")
+    @GetMapping
     public String findAllProducts(Model model) {
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("producers", producerService.findAll());
-        return "productslist";
+        return "admin/productslist";
     }
 
 
@@ -39,7 +39,9 @@ public class AdminController {
                 .map(product -> {
                     model.addAttribute("product", product);
                     model.addAttribute("categories", categoryService.findAll());
+                    model.addAttribute("producers", producerService.findAll());
                     return "admin/product";
+//                    return "admin/product";
                 })
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -52,12 +54,12 @@ public class AdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute ProductCreateDto product){
+    public String createProduct(@ModelAttribute ProductCreateDto product){
         return "redirect:/products/" + productService.create(product).getId();
     }
 
-    @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Integer id,
+    @PostMapping("{id}/update")
+    public String updateProduct(@PathVariable("id") Integer id,
                          @ModelAttribute ProductCreateDto product) {
         return productService.update(id, product)
                 .map(it -> "redirect:/products/{id}")
@@ -65,7 +67,7 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Integer id) {
+    public String deleteProduct(@PathVariable Integer id) {
         if (!productService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

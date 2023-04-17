@@ -1,43 +1,83 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${product.name}"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/product.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <title>Users</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
-<div th:include="header.html"></div>
+<form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">Product Details</th>
+        </tr>
+        </thead>
+        <tbody>
 
-<!--<div class="menu">-->
-<!--    <div th:include="menu.html"></div>-->
-<!--</div>-->
-
-<!-- Product Details Page -->
-<div th:if="${product != null}" class="product-container">
-    <div class="product-details">
-        <form method="post" th:action="@{/cart/new}">
-            <div class="product-details-image">
-                <img th:src="${product.image}" height="200"/>
-            </div>
-
-            <div class="product-details-info">
-                <div class="product-details-name" th:text="${product.name}"></div>
-                <div class="product-details-description" th:text="${product.description}"></div>
-                <div class="product-details-price" th:text="${product.price}"></div>
-                <div class="product-details-category" th:text="${product.category.name}"></div>
-                <div class="product-details-quantity">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="${product.quantity}" value="1">
-                </div>
-                <input type="hidden" name="productId" th:value="${product.id}">
-                <button type="submit" class="product-add-to-cart">Add to cart</button>
-            </div>
-        </form>
-    </div>
-
-</div>
-
-<div th:include="/footer"></div>
+        <tr>
+            <td>Product id:</td>
+            <td>
+                <span th:text="${product.id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Product name:</td>
+            <td>
+                <label for="name">
+                    <input id="name" type="text" name="name" th:value="*{name}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Product description:</td>
+            <td>
+                <label for="description">
+                    <input id="description" type="text" name="description" th:value="*{description}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Product price:</td>
+            <td>
+                <label for="price">
+                    <input id="price" type="number" name="price" th:value="*{price}" min="0.00" max="10000.00" step="0.01" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Product description:</td>
+            <td>
+                <label for="quantity">
+                    <input id="quantity" type="number" name="quantity" th:value="*{quantity}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Product category:</td>
+            <td>
+                <label for="category">
+                    <select name="categoryId" id="category">
+                        <option th:each="category : ${categories}" th:text="${category.name}"
+                                th:value="${category.id}" th:selected="${category.id == product.category.id}">Category</option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Product producer:</td>
+            <td>
+                <label for="producer">
+                    <select name="producerId" id="producer">
+                        <option th:each="producer : ${producers}" th:text="${producer.name}"
+                                th:value="${producer.id}" th:selected="${producer.id == product.producer.id}">Producer</option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="submit">Update</button>
+</form>
 </body>
 </html>
