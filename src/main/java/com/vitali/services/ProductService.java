@@ -1,6 +1,7 @@
 package com.vitali.services;
 
 import com.vitali.dto.product.ProductCreateDto;
+import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.database.entities.Product;
 import com.vitali.mappers.product.ProductCreateMapper;
@@ -27,6 +28,12 @@ public class ProductService {
     private final ProductCreateMapper productCreateMapper;
     private final ProductReadMapper productReadMapper;
     private final ImageService imageService;
+
+    public List<ProductReadDto> findAll(ProductFilter filter) {
+        return productRepository.findAllByFilter(filter)
+                .stream().map(productReadMapper::map)
+                .collect(Collectors.toList());
+    }
 
     public List<ProductReadDto> findAll() {
         return productRepository.findAll()

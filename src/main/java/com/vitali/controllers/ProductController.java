@@ -1,7 +1,7 @@
 package com.vitali.controllers;
 
 import com.vitali.dto.product.ProductCreateDto;
-import com.vitali.dto.product.ProductReadDto;
+import com.vitali.dto.product.ProductFilter;
 import com.vitali.services.CategoryService;
 import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;
@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/products")
-public class ProductsController {
+public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
     @GetMapping
-    public String findAllProducts(Model model) {
-        model.addAttribute("products", productService.findAll());
+    public String findAllProducts(Model model, ProductFilter filter) {
+        model.addAttribute("products", productService.findAll(filter));
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("producers", producerService.findAll());
         return "products";
