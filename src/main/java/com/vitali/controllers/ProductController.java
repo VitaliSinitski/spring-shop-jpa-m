@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.List;
 
@@ -146,14 +148,14 @@ public class ProductController {
 
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute ProductCreateDto product) {
+//    @ResponseStatus(HttpStatus.CREATED)
+    public String create(@ModelAttribute @Validated ProductCreateDto product) {
         return "redirect:/products/" + productService.create(product).getId();
     }
 
     @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Integer id,
-                         @ModelAttribute ProductCreateDto product) {
+                         @ModelAttribute @Validated ProductCreateDto product) {
         return productService.update(id, product)
                 .map(it -> "redirect:/products/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

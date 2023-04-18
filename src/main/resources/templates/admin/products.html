@@ -24,8 +24,11 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.id}"></td>
         <td>
+<!--            <div class="product-image">-->
+<!--                <img th:src="${product.image}" height="50">-->
+<!--            </div>-->
             <div class="product-image">
-                <img th:src="${product.image}" height="50">
+                <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="image" height="50">
             </div>
         </td>
         <td th:text="${product.name}"></td>

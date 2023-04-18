@@ -7,6 +7,16 @@ table {
     font-family: Arial, sans-serif;
 }
 
+div {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    /*border: 2px solid #ddd;*/
+    font-family: Arial, sans-serif;
+}
+
+
 th, td {
     padding: 8px;
     text-align: left;
@@ -53,7 +63,7 @@ input[type="submit"]:disabled {
 }
 
 .submit {
-    background-color:  #232f3e;
+    background-color: #232f3e;
     border: none;
     border-radius: 3px;
     color: #fff;

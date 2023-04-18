@@ -127,6 +127,7 @@ public class ProductService {
         }
     }
 
+    // 98.02:00
     public Optional<byte[]> findImage(Integer id) {
         return productRepository.findById(id)
                 .map(Product::getImage)

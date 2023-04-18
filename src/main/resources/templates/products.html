@@ -54,8 +54,11 @@
 
         <div class="product-items" th:each="product : ${products.content}">
             <div class="product">
+<!--                <div class="product-image">-->
+<!--                    <img th:src="${product.image}" height="200">-->
+<!--                </div>-->
                 <div class="product-image">
-                    <img th:src="${product.image}" height="200">
+                    <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Product image" height="200">
                 </div>
                 <div class="product-info">
                     <div class="product-name" th:text="${product.name}"></div>

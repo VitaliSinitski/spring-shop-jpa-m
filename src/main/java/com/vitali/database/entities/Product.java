@@ -1,5 +1,6 @@
 package com.vitali.database.entities;
 
+import com.vitali.validation.ProductInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,11 +18,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+//@ProductInfo
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,17 +36,16 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(nullable = false)
+    @NotNull
+    @Size(min = 2, max = 64)
     private String name;
-
-    @Column(nullable = false)
+    @NotNull
+    @Size(min = 5, max = 64)
     private String description;
-
-    @Column(nullable = false)
+    @NotNull
     private BigDecimal price;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer quantity;
     @Column(nullable = false)
     private String image;

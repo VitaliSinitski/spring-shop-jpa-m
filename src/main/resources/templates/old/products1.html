@@ -1,36 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
 </head>
+
 <body>
+
+<!-- Include header -->
 <div th:include="header.html"></div>
 
+<!-- Include menu -->
 <div class="menu">
     <div th:include="menu.html"></div>
 </div>
+
+<!-- Display all products -->
 <div class="container">
     <div class="product-grid">
-        <div class="product-items" th:each="item : ${products}">
+        <br>
+<!--        should add value parameter not to erase all data after go back-->
+        <form action="/products" method="get">
+            <label for="name">Name:
+                <input id="name" type="text" name="name">
+            </label>
+            <label for="price">Price:
+                <input id="price" type="number" name="price">
+            </label>
+            <label for="quantity">Quantity:
+                <input id="quantity" type="number" name="quantity">
+            </label>
+<!--            <label for="sort">Sort by:-->
+<!--                <select id="sort" name="sort">-->
+<!--                    <option value="">&#45;&#45;Select&#45;&#45;</option>-->
+<!--                    <option value="categoryNameAsc">Category Name (Ascending)</option>-->
+<!--                    <option value="producerNameAsc">Producer Name (Ascending)</option>-->
+<!--                </select>-->
+<!--            </label>-->
+            <button type="submit">Filter</button>
+        </form>
+
+        <div class="product-items" th:each="product : ${products}">
             <div class="product">
                 <div class="product-image">
-                    <img th:src="${item.image}" height="200">
+                    <img th:src="${product.image}" height="200">
                 </div>
                 <div class="product-info">
-                    <div class="product-name" th:text="${item.name}"></div>
-                    <div class="product-description" th:text="${item.description}"></div>
-                    <div class="product-price" th:text="${item.price}"></div>
+                    <div class="product-name" th:text="${product.name}"></div>
+                    <div class="product-description" th:text="${product.description}"></div>
+                    <div class="product-price" th:text="${product.price}"></div>
+
+                    <!-- Link to product details page -->
                     <div class="product-action">
-<!--                        <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">Edit</a>-->
-                        <a th:href="@{/items(id=${item.id})}" class="btn btn-primary" role="button">Show</a>
+                        <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button">Show</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div th:include="/footer"></div>
+
+<!-- include the footer -->
+<!--<div th:include="/footer"></div>-->
+<footer th:replace="footer :: footer"></footer>
 </body>
+
 </html>
