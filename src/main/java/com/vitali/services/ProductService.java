@@ -1,5 +1,8 @@
 package com.vitali.services;
 
+import com.querydsl.core.types.Predicate;
+import com.vitali.database.entities.QProduct;
+import com.vitali.database.querydsl.QPredicates;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
@@ -10,11 +13,15 @@ import com.vitali.database.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,11 +36,44 @@ public class ProductService {
     private final ProductReadMapper productReadMapper;
     private final ImageService imageService;
 
-    public List<ProductReadDto> findAll(ProductFilter filter) {
-        return productRepository.findAllByFilter(filter)
-                .stream().map(productReadMapper::map)
-                .collect(Collectors.toList());
+
+
+//    public List<ProductReadDto> findAll(ProductFilter filter, Sort sort) {
+////        sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");
+//        return productRepository.findAllByFilter(filter, sort)
+//                .stream().map(productReadMapper::map)
+//                .collect(Collectors.toList());
+//    }
+//
+//    public List<ProductReadDto> findAll(ProductFilter filter) {
+//        Sort sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");
+//        return productRepository.findAllByFilter(filter, sort)
+//                .stream().map(productReadMapper::map)
+//                .collect(Collectors.toList());
+//    }
+
+
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
+        QProduct product = QProduct.product;
+        var predicate = QPredicates.builder()
+                .add(filter.getName(), product.name::containsIgnoreCase)
+                .add(filter.getPrice(), product.price::eq)
+                .add(filter.getQuantity(), product.quantity::eq)
+                .build();
+        return productRepository.findAll(predicate, pageable)
+                .map(productReadMapper::map);
     }
+
+
+//    public List<ProductReadDto> findAll(ProductFilter filter) {
+//        List<ProductReadDto> products = productRepository.findAllByFilter(filter)
+//                .stream()
+//                .map(productReadMapper::map)
+//                .collect(Collectors.toList());
+//        products.sort(Comparator.comparing(ProductReadDto.)
+//                .thenComparing(ProductReadDto::getProducerName));
+
+
 
     public List<ProductReadDto> findAll() {
         return productRepository.findAll()
