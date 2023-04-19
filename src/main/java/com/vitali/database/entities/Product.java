@@ -36,18 +36,17 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
-    @Size(min = 2, max = 64)
+//    @NotNull
+//    @Size(min = 2, max = 64)
     private String name;
-    @NotNull
-    @Size(min = 5, max = 64)
+//    @NotNull
+//    @Size(min = 5, max = 64)
     private String description;
-    @NotNull
+//    @NotNull
     private BigDecimal price;
 
-    @NotNull
+//    @NotNull
     private Integer quantity;
-    @Column(nullable = false)
     private String image;
 
     @ManyToOne

@@ -12,7 +12,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://i.dedeman.ro/media/catalog/product/cache/dedeman/image/9df78eab33525d08d6e5fb8d27136e95/3/0/3027626.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="ATLANT Х-1602-140+М-7606-142-N"/>
@@ -21,7 +21,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://www.tm-mbt.ru/img/39/39181/39181_0.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="ATLANT Х-1602-150+М-7606-152-N"/>
@@ -30,7 +30,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/ga/oh/461315ed4e44eb93e8a527036d3a90b3.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="ATLANT K-7802+М-7606-N"/>
@@ -39,7 +39,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://www.tm-mbt.ru/img/39/39181/39181_0.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="ATLANT Х-16026789KY7606-142-N"/>
@@ -48,7 +48,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/ga/oh/461315ed4e44eb93e8a527036d3a90b3.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="ATLANT Х-1602-150+М-7606-152-N"/>
@@ -57,7 +57,7 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="2"/>
-            <column name="image" value="https://i.dedeman.ro/media/catalog/product/cache/dedeman/image/9df78eab33525d08d6e5fb8d27136e95/3/0/3027626.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
 
         <insert tableName="product" >
@@ -67,7 +67,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://www.tm-mbt.ru/img/39/39181/39181_0.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="AEG Х-1602-140+М-7606-142-N"/>
@@ -76,7 +76,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://click-bt.ru/upload/iblock/d9c/a7d/btb.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="AEG Х-1602-150+М-7606-152-N"/>
@@ -85,7 +85,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://i.dedeman.ro/media/catalog/product/cache/dedeman/image/9df78eab33525d08d6e5fb8d27136e95/3/0/3027626.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="AEG K-7802+М-7606-N"/>
@@ -94,7 +94,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/ga/oh/461315ed4e44eb93e8a527036d3a90b3.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="AEG Х-16026789KY7606-142-N"/>
@@ -103,7 +103,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/kp/ji/ee578c635fa1eb547ad0a11f0dc6d4f4.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="AEG Х-1602-150+М-7606-152-N"/>
@@ -112,7 +112,7 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="1"/>
-            <column name="image" value="https://click-bt.ru/upload/iblock/d9c/a7d/btb.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
 
         <insert tableName="product" >
@@ -122,7 +122,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://cdn1.unixmart.ru/img/456687-kholodiliinik-side-by-side-shivaki-sbs-550dnfbgl.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="BEKO Х-1602-140+М-7606-142-N"/>
@@ -131,7 +131,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://click-bt.ru/upload/iblock/d9c/a7d/btb.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="BEKO Х-1602-150+М-7606-152-N"/>
@@ -140,7 +140,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/kp/ji/ee578c635fa1eb547ad0a11f0dc6d4f4.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="BEKO K-7802+М-7606-N"/>
@@ -149,7 +149,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/ga/oh/461315ed4e44eb93e8a527036d3a90b3.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="BEKO Х-16026789KY7606-142-N"/>
@@ -158,7 +158,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://click-bt.ru/upload/iblock/d9c/a7d/btb.jpg"/>
+            <column name="image" value="17.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="BEKO Х-1602-150+М-7606-152-N"/>
@@ -167,7 +167,7 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="3"/>
-            <column name="image" value="https://cdn1.unixmart.ru/img/456687-kholodiliinik-side-by-side-shivaki-sbs-550dnfbgl.jpg"/>
+            <column name="image" value="18.jpg"/>
         </insert>
 
 
@@ -178,7 +178,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-140+М-7606-142-N"/>
@@ -187,7 +187,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -196,7 +196,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch K-7802+М-7606-N"/>
@@ -205,7 +205,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-4a0-1900_563_1-4a09dfd3c20c3e2cec54b8000a29e4a6-1000x1000.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-16026789KY7606-142-N"/>
@@ -214,7 +214,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -223,9 +223,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Bosch Serie 6 KGN39LBCF"/>
@@ -233,7 +232,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-140+М-7606-142-N"/>
@@ -242,7 +241,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -251,7 +250,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch K-7802+М-7606-N"/>
@@ -260,7 +259,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-4a0-1900_563_1-4a09dfd3c20c3e2cec54b8000a29e4a6-1000x1000.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-16026789KY7606-142-N"/>
@@ -269,7 +268,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -278,9 +277,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602+М-7606-N"/>
             <column name="description" value="Bosch Serie 6 VitaFresh Plus KGN39AX32R Х-1602+М-7606-N"/>
@@ -288,7 +286,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-140+М-7606-142-N"/>
@@ -297,7 +295,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-4a0-1900_563_1-4a09dfd3c20c3e2cec54b8000a29e4a6-1000x1000.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -306,7 +304,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="2"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch K-7802+М-7606-N"/>
@@ -315,7 +313,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-16026789KY7606-142-N"/>
@@ -324,7 +322,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Bosch Х-1602-150+М-7606-152-N"/>
@@ -333,11 +331,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="4"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-4a0-1900_563_1-4a09dfd3c20c3e2cec54b8000a29e4a6-1000x1000.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
-
-
-
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Daewoo Serie 4 VitaFresh KGN39IJ22R"/>
@@ -345,7 +340,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-140+М-7606-142-N"/>
@@ -354,7 +349,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -363,7 +358,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo K-7802+М-7606-N"/>
@@ -372,7 +367,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-4a0-1900_563_1-4a09dfd3c20c3e2cec54b8000a29e4a6-1000x1000.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-16026789KY7606-142-N"/>
@@ -381,7 +376,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -390,9 +385,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Daewoo Serie 6 KGN39LBCF"/>
@@ -400,7 +394,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-140+М-7606-142-N"/>
@@ -409,7 +403,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -418,7 +412,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo K-7802+М-7606-N"/>
@@ -427,7 +421,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-16026789KY7606-142-N"/>
@@ -436,7 +430,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -445,9 +439,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="5"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Electrolux Х-1602+М-7606-N"/>
             <column name="description" value="Electrolux Serie 6 VitaFresh Plus KGN39AX32R Х-1602+М-7606-N"/>
@@ -455,7 +448,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="6"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi Х-1602-140+М-7606-142-N"/>
@@ -464,7 +457,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -473,7 +466,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="2"/>
             <column name="producer_id" value="8"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Indesit K-7802+М-7606-N"/>
@@ -482,7 +475,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="9"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Electrolux Х-16026789KY7606-142-N"/>
@@ -491,7 +484,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="6"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Electrolux Х-1602-150+М-7606-152-N"/>
@@ -500,9 +493,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="6"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Miele Х-1602+М-7606-N"/>
             <column name="description" value="Miele Х-1602+М-7606-N"/>
@@ -510,7 +502,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Miele Х-1602-140+М-7606-142-N"/>
@@ -519,7 +511,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Miele Х-1602-150+М-7606-152-N"/>
@@ -528,7 +520,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Miele K-7802+М-7606-N"/>
@@ -537,7 +529,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Miele Х-16026789KY7606-142-N"/>
@@ -546,7 +538,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Miele Х-1602-150+М-7606-152-N"/>
@@ -555,9 +547,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="12"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Liebherr Х-1602+М-7606-N"/>
             <column name="description" value="Комбинация side by side Liebherr Х-1602+М-7606-N"/>
@@ -565,7 +556,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Liebherr Х-1602-140+М-7606-142-N"/>
@@ -574,7 +565,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Liebherr Х-1602-150+М-7606-152-N"/>
@@ -583,7 +574,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Liebherr K-7802+М-7606-N"/>
@@ -592,7 +583,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Liebherr Х-16026789KY7606-142-N"/>
@@ -601,7 +592,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Liebherr Х-1602-150+М-7606-152-N"/>
@@ -610,9 +601,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Samsung Х-1602+М-7606-N"/>
             <column name="description" value="Samsung Х-1602+М-7606-N"/>
@@ -620,7 +610,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Samsung Х-1602-140+М-7606-142-N"/>
@@ -629,7 +619,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Samsung Х-1602-150+М-7606-152-N"/>
@@ -638,7 +628,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Samsung K-7802+М-7606-N"/>
@@ -647,7 +637,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://tehnoteca.ru/img/716/715056/samsung_rb37j5329ss_2.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Samsung Х-16026789KY7606-142-N"/>
@@ -656,7 +646,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Samsung Х-1602-150+М-7606-152-N"/>
@@ -665,10 +655,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="13"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
-
-
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Siemens Serie 4 VitaFresh KGN39IJ22R"/>
@@ -676,7 +664,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-140+М-7606-142-N"/>
@@ -685,7 +673,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -694,7 +682,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-e46-89e-1900_563_1-1-1000x1000.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens K-7802+М-7606-N"/>
@@ -703,7 +691,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-16026789KY7606-142-N"/>
@@ -712,7 +700,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -721,9 +709,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Siemens Serie 6 KGN39LBCF"/>
@@ -731,7 +718,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-140+М-7606-142-N"/>
@@ -740,7 +727,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -749,7 +736,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens K-7802+М-7606-N"/>
@@ -758,7 +745,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-16026789KY7606-142-N"/>
@@ -767,7 +754,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -776,9 +763,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
-
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602+М-7606-N"/>
             <column name="description" value="Siemens Serie 6 VitaFresh Plus KGN39AX32R Х-1602+М-7606-N"/>
@@ -786,7 +772,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-140+М-7606-142-N"/>
@@ -795,7 +781,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -804,7 +790,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="2"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-e46-89e-1900_563_1-1-1000x1000.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens K-7802+М-7606-N"/>
@@ -813,7 +799,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-16026789KY7606-142-N"/>
@@ -822,7 +808,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -831,11 +817,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
-
-
-
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602+М-7606-N"/>
             <column name="description" value="Холодильник Siemens Serie 4 VitaFresh KGN39IJ22R"/>
@@ -843,7 +826,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-140+М-7606-142-N"/>
@@ -852,7 +835,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-1602-150+М-7606-152-N"/>
@@ -861,7 +844,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="11.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens K-7802+М-7606-N"/>
@@ -870,7 +853,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="12.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Siemens Х-16026789KY7606-142-N"/>
@@ -879,7 +862,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="14"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="13.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -888,7 +871,7 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="9"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-e46-89e-1900_563_1-1-1000x1000.jpg"/>
+            <column name="image" value="14.jpg"/>
         </insert>
 
         <insert tableName="product" >
@@ -898,7 +881,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="8"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="15.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hyundai Х-1602-140+М-7606-142-N"/>
@@ -907,7 +890,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="8"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="16.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi Х-1602-150+М-7606-152-N"/>
@@ -916,7 +899,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="1.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi K-7802+М-7606-N"/>
@@ -925,7 +908,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="6"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://zapchasti-techniki.ru/image/catalog/i/de/af/58e0183cd964c157ab99941b19e3a31e.jpg"/>
+            <column name="image" value="2.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi Х-16026789KY7606-142-N"/>
@@ -934,7 +917,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="7"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="3.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi Х-1602-150+М-7606-152-N"/>
@@ -943,7 +926,7 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="8"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="4.jpg"/>
         </insert>
 
         <insert tableName="product" >
@@ -953,7 +936,7 @@
             <column name="quantity" value="7"/>
             <column name="category_id" value="9"/>
             <column name="producer_id" value="11"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-e46-89e-1900_563_1-1-1000x1000.jpg"/>
+            <column name="image" value="5.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="LG Х-1602-140+М-7606-142-N"/>
@@ -962,7 +945,7 @@
             <column name="quantity" value="8"/>
             <column name="category_id" value="1"/>
             <column name="producer_id" value="10"/>
-            <column name="image" value="https://m.sm-shop24.ru/upload/iblock/b59/fab10hlr_6.jpg"/>
+            <column name="image" value="6.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo Х-1602-150+М-7606-152-N"/>
@@ -971,7 +954,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="2"/>
             <column name="producer_id" value="9"/>
-            <column name="image" value="https://top-tehno.store/image/cache/catalog/new-foto/holodos/oad-resize_cache-iblock-e46-89e-1900_563_1-1-1000x1000.jpg"/>
+            <column name="image" value="7.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Daewoo K-7802+М-7606-N"/>
@@ -980,7 +963,7 @@
             <column name="quantity" value="9"/>
             <column name="category_id" value="3"/>
             <column name="producer_id" value="8"/>
-            <column name="image" value="https://tehnoivil.ru/31424-large_default/-korting-ksi-8259-f.jpg"/>
+            <column name="image" value="8.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Hitachi Х-16026789KY7606-142-N"/>
@@ -989,7 +972,7 @@
             <column name="quantity" value="12"/>
             <column name="category_id" value="4"/>
             <column name="producer_id" value="7"/>
-            <column name="image" value="https://crdms.images.consumerreports.org/prod/products/cr/models/392873-refrigeratorstopfreezers-frigidaire-fftr2021ts.jpg"/>
+            <column name="image" value="9.jpg"/>
         </insert>
         <insert tableName="product" >
             <column name="name" value="Electrolux Х-1602-150+М-7606-152-N"/>
@@ -998,10 +981,8 @@
             <column name="quantity" value="22"/>
             <column name="category_id" value="5"/>
             <column name="producer_id" value="6"/>
-            <column name="image" value="https://domotehnika.by/upload/resize_cache/iblock/b1d/650_800_1/b1d7d49ed264990a57556d5de6a7d284.jpg"/>
+            <column name="image" value="10.jpg"/>
         </insert>
-
-
 
 
         <rollback>
@@ -1014,8 +995,6 @@
             delete from category where name like 'Freezer-on-Top';
             delete from category where name like 'Freezerless';
             delete from category where name like 'Internal-Freezer';
-
-
         </rollback>
     </changeSet>
 

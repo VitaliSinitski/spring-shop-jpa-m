@@ -6,6 +6,7 @@
     <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
+<div th:include="admin/header.html"></div>
 <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
 
     <table>

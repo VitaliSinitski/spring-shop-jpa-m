@@ -102,7 +102,7 @@ public class ProductService {
     public Optional<ProductReadDto> update(Integer id, ProductCreateDto productCreateDto) {
         return productRepository.findById(id)
                 .map(product -> {
-                    uploadImage(productCreateDto.getImage());
+//                    uploadImage(productCreateDto.getImage());
                     return productCreateMapper.map(productCreateDto, product);
                 })
                 .map(productRepository::saveAndFlush)

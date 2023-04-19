@@ -17,6 +17,6 @@ public class MainController {
     public String main(Model model) {
         model.addAttribute("products", productService.findAll());
         model.addAttribute("categories", categoryService.findAll());
-        return "products";
+        return "redirect:/products";
     }
 }

@@ -6,6 +6,7 @@
     <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
+<div th:include="admin/header.html"></div>
 <table>
     <thead>
     <tr>
@@ -27,7 +28,7 @@
 <!--            <div class="product-image">-->
 <!--                <img th:src="${product.image}" height="50">-->
 <!--            </div>-->
-            <div class="product-image">
+            <div th:if="${product.image}" class="product-image">
                 <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="image" height="50">
             </div>
         </td>

@@ -18,15 +18,17 @@
     </div>
     <nav class="header-nav">
         <ul class="menu-list">
-            <li><a th:href="@{/products}">Home</a></li>
-            <li><a href="#">Cart</a></li>
-            <li><a href="#">Contacts</a></li>
-            <li>
-                <form th:action="@{/login}">
-                    <button type="submit">Login</button>
-                </form>
-<!--                <a href="#">Login</a>-->
-            </li>
+            <li><a th:href="@{/admin/main}">Home</a></li>
+            <li><a th:href="@{/users}">Users</a></li>
+            <li><a th:href="@{/admin/products}">Products</a></li>
+<!--            <li><a href="#">Cart</a></li>-->
+<!--            <li><a href="#">Contacts</a></li>-->
+<!--            <li>-->
+<!--                <form th:action="@{/login}">-->
+<!--                    <button type="submit">Login</button>-->
+<!--                </form>-->
+<!--&lt;!&ndash;                <a href="#">Login</a>&ndash;&gt;-->
+<!--            </li>-->
             <li>
                 <form action="/logout" method="post">
                     <button type="submit">Logout</button>

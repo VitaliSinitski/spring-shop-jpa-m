@@ -6,6 +6,7 @@ import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +26,23 @@ public class AdminController {
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
+//    @GetMapping
+//    public String toMainPage(Model model) {
+//        return "admin/main";
+//    }
+
     @GetMapping("/main")
     public String main(Model model) {
         return "admin/main";
+    }
+
+    @GetMapping
+    public String adminPage(Authentication authentication) {
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "admin/main";
+        } else {
+            return "redirect:/login";
+        }
     }
 
 }

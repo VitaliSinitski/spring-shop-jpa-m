@@ -95,7 +95,7 @@ public class AdminProductsController {
     public String updateProduct(@PathVariable("id") Integer id,
                          @ModelAttribute @Validated ProductCreateDto product) {
         return productService.update(id, product)
-                .map(it -> "redirect:/products/{id}")
+                .map(it -> "redirect:/admin/products/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 }
 

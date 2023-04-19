@@ -6,6 +6,7 @@
     <link th:href="@{/css/user.css}" rel="stylesheet"/>
 </head>
 <body>
+<div th:include="admin/header.html"></div>
 <form th:action="@{/admin/products}" method="post" th:object="${product}" enctype="multipart/form-data"
       class="login-form">
     <h2>Create new product</h2>
@@ -54,7 +55,7 @@
     </table>
     <button type="submit" class="submit">Create</button>
     <br><br>
-    <div th:if="${errors}" align="">
+    <div th:if="${errors}">
         <div style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error Message</div>
     </div>
 </form>

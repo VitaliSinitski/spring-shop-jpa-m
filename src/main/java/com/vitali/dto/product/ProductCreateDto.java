@@ -24,7 +24,6 @@ public class ProductCreateDto {
     BigDecimal price;
     @NotNull
     Integer quantity;
-    @NotNull
     MultipartFile image;
     Integer categoryId;
     Integer producerId;

@@ -11,8 +11,10 @@ import com.vitali.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +33,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.*;
 
+import static org.springframework.http.MediaType.*;
+import static org.springframework.http.ResponseEntity.*;
+
 // http://localhost:8080/v3/api-docs
 // http://localhost:8080/swagger-ui/index.html
 
@@ -43,7 +48,7 @@ public class ProductRestController {
     private final ProducerService producerService;
 
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public PageResponse<ProductReadDto> findAllProducts(ProductFilter filter, Pageable pageable) {
         Page<ProductReadDto> page = productService.findAll(filter, pageable);
         return PageResponse.of(page);
@@ -53,16 +58,30 @@ public class ProductRestController {
     @GetMapping("/{id}")
     public ProductReadDto findByIdProduct(@PathVariable Integer id) {
         return productService.findById(id)
-               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("/{id}/image")
-    public byte[] findImage(@PathVariable("id") Integer id) {
-        return productService.findImage(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    // Version 01
+//    @GetMapping(value = "/{id}/image")
+//    public byte[] findImage(@PathVariable("id") Integer id) {
+//        return productService.findImage(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
+
+    // Version 02
+    @GetMapping(value = "/{id}/image")
+    public ResponseEntity<byte[]> findImage(@PathVariable("id") Integer id) {
+        return productService.findImage(id)
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(notFound()::build);
+    }
+
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ProductReadDto create(@Validated @RequestBody ProductCreateDto product) {
         return productService.create(product);
@@ -70,16 +89,25 @@ public class ProductRestController {
 
     @PutMapping("/{id}")
     public ProductReadDto update(@PathVariable("id") Integer id,
-                         @Validated @RequestBody ProductCreateDto product) {
+                                 @Validated @RequestBody ProductCreateDto product) {
         return productService.update(id, product)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable Integer id) {
+//        if (!productService.delete(id)) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id) {
-        if (!productService.delete(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        return productService.delete(id)
+                ? noContent().build()
+                : notFound().build();
     }
+
 }
