@@ -27,6 +27,7 @@ public class UserController {
     @GetMapping("/users")
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("currentUser", userService.findUserByUsername());
         return "users";
     }
 

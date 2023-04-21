@@ -1,47 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
     <link rel="stylesheet" href="/css/header.css" th:href="@{/css/header.css}">
+
 </head>
 <body>
 <header>
     <div class="logo">
-<!--        <a href="#"><img src="/images/logo.png" alt="Logo"></a>-->
-    </div>
-    <div class="search">
-        <form action="#" method="get">
-            <input type="text" name="search" placeholder="Search...">
-            <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        <div th:if="${#authentication.isAuthenticated()}">
+            <p>Hello, <span th:text="${#authentication.name}"></span>!</p>
+        </div>
+        <div>
+            <h3>Welcome, <span th:text="${session.currentUserName}"></span>!</h3>
+            <h3>Welcome, <span th:text="${session.userCart}"></span>!</h3>
+        </div>
     </div>
     <nav class="header-nav">
         <ul class="menu-list">
             <li><a th:href="@{/products}">Home</a></li>
-            <li><a href="#">Cart</a></li>
-            <li><a href="#">Contacts</a></li>
             <li>
-                <form th:action="@{/login}">
+                <a href="#">Cart</a>
+                (<span th:text="${session.cartSize}"></span>)
+            </li>
+
+<!--            <li>-->
+<!--                (<span th:text="${session.cartSize}"></span>)-->
+<!--            </li>-->
+            <li><a href="#">Contacts</a></li>
+            <li sec:authorize="isAnonymous()">
+                <form action="/login">
                     <button type="submit">Login</button>
                 </form>
-<!--                <a href="#">Login</a>-->
             </li>
-            <li>
+            <li sec:authorize="isAuthenticated()">
                 <form action="/logout" method="post">
                     <button type="submit">Logout</button>
                 </form>
-<!--                <a href="/logout">Logout</a>-->
             </li>
             <li class="dropdown">
-                <a href="#">More</a>
-                <ul>
-                    <li><a href="#">Car Electronics</a></li>
-                    <li><a href="#">Portable Audio &amp; Video</a></li>
-                    <li><a href="#">Cell Phones &amp; Accessories</a></li>
-                    <li><a href="#">Headphones</a></li>
-                    <li><a href="#">Smart Home</a></li>
-                </ul>
             </li>
         </ul>
     </nav>

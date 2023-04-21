@@ -5,6 +5,7 @@ import com.vitali.database.entities.User;
 import com.vitali.mappers.Mapper;
 import com.vitali.database.repositories.CartRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -13,8 +14,8 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+//@Lazy
 public class UserCreateMapper implements Mapper<UserCreateDto, User> {
-    private final CartRepository cartRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override

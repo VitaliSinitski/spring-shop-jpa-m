@@ -12,6 +12,8 @@ import com.vitali.database.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -81,6 +83,7 @@ public class UserService implements UserDetailsService {
                 .map(userReadMapper::map);
     }
 
+    @Transactional
     public boolean delete(Integer id) {
         return userRepository.findById(id)
                 .map(entity -> {
@@ -99,6 +102,42 @@ public class UserService implements UserDetailsService {
                         Collections.singleton(user.getRole())
                 )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
     }
+
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+    public UserReadDto findUserByUsername() {
+        String username = getCurrentUsername();
+        if (username == null || !username.isEmpty()) {
+            return userRepository.findUserByUsername(username)
+                    .map(userReadMapper::map).orElse(null);
+        }
+        return null;
+    }
+
+
+
+
+//    public Long getCurrentUserId() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            Object principal = authentication.getPrincipal();
+//            if (principal instanceof UserDetails userDetails) {
+//                return getUserIdFromUserDetails(userDetails);
+//            }
+//        }
+//        return null;
+//    }
+//
+//    private Long getUserIdFromUserDetails(UserDetails userDetails) {
+//        // Retrieve the user id from your user details object
+//        // For example, if your user details object has a getId() method:
+//        return userDetails.getId();
+//    }
+
 
 }
 
