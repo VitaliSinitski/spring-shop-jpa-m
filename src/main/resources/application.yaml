@@ -33,11 +33,13 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     enabled: true
 
-#server.port: 8081
+server:
+  port: 8081
 
 logging:
   level:
     root: info
+
   #    com.vitali.entities: warn
   file:
     name: shop.log
@@ -50,4 +52,4 @@ logging:
 
 app:
   image:
-    bucket: "C:\\Work\\IdeaProjects\\spring-shop\\src\\main\\resources\\static\\images"
+    bucket: "C:\\IdeaProjects\\spring-shop-jpa-m\\src\\main\\resources\\static\\images"

@@ -87,15 +87,6 @@
             <column name="last_name" value="Je"/>
             <column name="birth_date" value="2010:02:07"/>
         </insert>
-        <insert tableName="user" >
-            <column name="username" value="Jacky"/>
-            <column name="email" value="jack@mail.ru"/>
-<!--            <column name="password" value="1234"/>-->
-            <column name="role" value="USER"/>
-            <column name="first_name" value="Jack"/>
-            <column name="last_name" value="Doe"/>
-            <column name="birth_date" value="1995:02:07"/>
-        </insert>
         <insert tableName="user">
             <column name="username" value="Amanda"/>
             <column name="email" value="amelia@yahoo.com"/>

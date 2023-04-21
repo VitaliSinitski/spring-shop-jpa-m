@@ -104,13 +104,13 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public String getCurrentUsername() {
+    public String getCurrentUsernameFromSecurityContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
 
-    public UserReadDto findUserByUsername() {
-        String username = getCurrentUsername();
+    public UserReadDto getCurrentUserByUsernameFromSecurityContext() {
+        String username = getCurrentUsernameFromSecurityContext();
         if (username == null || !username.isEmpty()) {
             return userRepository.findUserByUsername(username)
                     .map(userReadMapper::map).orElse(null);

@@ -28,7 +28,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        log.info("method onAuthenticationSuccess started");
+        log.info("!!! --- method onAuthenticationSuccess started --- !!!");
         HttpSession session = request.getSession();
         String username = authentication.getName();
 //        UserReadDto user = userService.findUserByUsername();
