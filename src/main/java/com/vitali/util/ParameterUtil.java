@@ -19,6 +19,10 @@ public class ParameterUtil {
         return Optional.of(Integer.parseInt(request.getParameter(name))).orElse(null);
     }
 
+    public static Integer getIntegerFromObject(Object object) {
+        return Optional.ofNullable((Integer)object).orElse(null);
+    }
+
     public static Long getLongFromRequest(String name, HttpServletRequest request) {
         return Optional.ofNullable(Long.getLong(request.getParameter(name))).orElse(null);
     }

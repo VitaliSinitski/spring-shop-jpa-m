@@ -30,7 +30,7 @@ public class OrderItemService {
                 .map(orderItemReadMapper::map);
     }
 
-    public List<OrderItemReadDto> findAllByCartId(Long id) {
+    public List<OrderItemReadDto> findAllByCartId(Integer id) {
         return orderItemRepository.findOrderItemsByCartId(id)
                 .stream()
                 .map(orderItemReadMapper::map)

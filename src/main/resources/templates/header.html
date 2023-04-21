@@ -21,12 +21,12 @@
         <ul class="menu-list">
             <li><a th:href="@{/products}">Home</a></li>
             <li>
-                <a href="#">Cart</a>
+                <a th:href="@{/cart/{id}(id=${session.cartId})}" >Cart</a>
                 (<span th:text="${session.cartSize}"></span>)
             </li>
 
 <!--            <li>-->
-<!--                (<span th:text="${session.cartSize}"></span>)-->
+<!--                (<span th:text="${session.cartId}"></span>)-->
 <!--            </li>-->
             <li><a href="#">Contacts</a></li>
             <li sec:authorize="isAnonymous()">

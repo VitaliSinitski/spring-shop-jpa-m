@@ -72,7 +72,7 @@ public class OrderItemServiceTest {
     @Test
     public void testFindAllByCartId() {
         // given
-        Long cartId = 1L;
+        Integer cartId = 1;
         List<OrderItem> orderItemList = List.of(new OrderItem());
         List<OrderItemReadDto> orderItemReadDtoList = List.of(new OrderItemReadDto());
         when(orderItemRepository.findOrderItemsByCartId(cartId)).thenReturn(orderItemList);

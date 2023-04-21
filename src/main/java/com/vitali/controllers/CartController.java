@@ -2,18 +2,26 @@ package com.vitali.controllers;
 
 import com.vitali.converters.OrderItemCreateConverter;
 import com.vitali.dto.orderItem.OrderItemCreateDto;
+import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.services.CartService;
 import com.vitali.services.OrderItemService;
 import com.vitali.services.ProductService;
+import com.vitali.util.ParameterUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/cart")
@@ -29,9 +37,19 @@ public class CartController {
             return "redirect:/login";
         }
         OrderItemCreateDto orderItemCreateDto = orderItemCreateConverter.convert(request);
-        // TODO: 11.04.2023  orderItemCreateDto.setCartId(cartId);
+        HttpSession session = request.getSession();
+        Object cartIdObject = session.getAttribute("cartId");
+        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
+        orderItemCreateDto.setCartId(cartId);
         orderItemService.create(orderItemCreateDto);
         return "redirect:/products";
+    }
+
+    @GetMapping("/{id}")
+    public String findById(@PathVariable Integer id, Model model) {
+        List<OrderItemReadDto> orderItems = orderItemService.findAllByCartId(id);
+        model.addAttribute("orderItems", orderItems);
+        return "cart";
     }
 
 

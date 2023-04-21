@@ -31,12 +31,15 @@ public class UserInterceptor implements HandlerInterceptor {
             User user = userRepository.findUserByUsername(username).orElse(null);
             Cart cart = Optional.ofNullable(user.getCart()).orElse(null);
             Integer cartSize = cart.getOrderItems().size();
+            Integer cartId = cart.getId();
             session.setAttribute("currentUserName", username);
             session.setAttribute("currentUser", user);
             session.setAttribute("userCart", cart);
             session.setAttribute("cartSize", cartSize);
+            session.setAttribute("cartId", cartId);
 
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUserName: {}", username);
+//            log.info("!!! --- class UserInterceptor - preHandle - cartId: {}", cartId);
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUser: {}", user);
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUser email: {}", cart);
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUser cartSize: {}", cartSize);

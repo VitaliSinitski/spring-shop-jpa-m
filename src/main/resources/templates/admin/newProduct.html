@@ -32,7 +32,7 @@
             <td>Product category:</td>
             <td>
                 <select name="categoryId" id="category">
-                    <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">
+                    <option th:each="category : ${categories}" th:text="${category.name}" value="1">
                         Category
                     </option>
                 </select>
