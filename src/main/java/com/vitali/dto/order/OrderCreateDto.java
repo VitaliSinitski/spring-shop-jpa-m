@@ -8,7 +8,7 @@ import lombok.Value;
 @Value
 public class OrderCreateDto {
     Integer cartId;
-//    LocalDateTime createTime;
+
     String inform;
     OrderStatus orderStatus;
 }

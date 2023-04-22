@@ -1,8 +1,12 @@
-body {
-    /*font-family: Arial, sans-serif;*/
-    font-family: Helvetica, sans-serif;
-    /*font-family: Amazon Ember, sans-serif;*/
-}
+/*.container {*/
+/*    margin: 0 auto;*/
+/*    max-width: 1200px;*/
+/*    padding: 0 15px;*/
+/*}*/
+
+/*body {*/
+/*    padding-top: 100px; !* add 100px padding to the top of the body *!*/
+/*}*/
 
 
 .container {
@@ -10,7 +14,6 @@ body {
     max-width: 1000px; /* changed to make room for the menu */
     padding: 0 15px;
     margin-left: 220px; /* added to make room for the menu */
-    margin-bottom: 2rem; /*  maybe ok  */
 }
 
 
@@ -60,10 +63,41 @@ body {
     margin-top: 20px;
 }
 
+
+/*!* menu list *!*/
+/*.menu-list {*/
+/*    font-weight: bold;*/
+/*    display: flex;*/
+/*    list-style: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.header {*/
+/*    background-color: #333;*/
+/*    color: #fff;*/
+/*    height: 50px;*/
+/*    line-height: 50px;*/
+/*    text-align: center;*/
+/*    position: relative;*/
+/*    z-index: 0;*/
+/*}*/
+
+/*#menu {*/
+/*    margin-top: 300px; !* add 100px margin to the top of the menu *!*/
+/*}*/
+
+
+/*.menu {*/
+/*    float: left;*/
+/*    position: relative;*/
+/*    !* position: absolute; *!*/
+/*}*/
+
+
 /* Pagination styles */
 .pagination {
     margin-top: 20px;
-    font-size: 10px;
 }
 
 .pagination ul {

@@ -7,8 +7,7 @@
 <body>
 <div th:include="header.html"></div>
 <h1>Shopping Cart</h1>
-<form th:action="@{/cart/order}" method="post">
-<!--<form th:action="@{/order}" method="post">-->
+<form th:action="@{/order}" method="post">
     <table>
         <thead>
         <tr>
@@ -17,7 +16,6 @@
             <th>Product description</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -29,7 +27,7 @@
             </td>
             <td th:text="${item.product.name}"></td>
             <td th:text="${item.product.description}"></td>
-            <td>
+            <td >
                 <label>
                     <input type="number" th:value="${item.quantity}">
                 </label>
@@ -38,16 +36,6 @@
             <td>
                 <input type="hidden" name="cartId" th:value="${session.cartId}">
                 <input type="hidden" name="orderStatus" value="PENDING">
-                <label>
-                    <input type="checkbox" th:name="selectedItems" th:value="${item.id}">
-                </label>
-            </td>
-        </tr>
-        </tbody>
-        <tbody>
-        <tr>
-            <td>
-                <input type="text" value="text">
             </td>
         </tr>
         </tbody>

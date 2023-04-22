@@ -1,8 +1,11 @@
 package com.vitali.controllers;
 
 import com.vitali.converters.OrderItemCreateConverter;
+import com.vitali.database.entities.OrderItem;
+import com.vitali.database.entities.enums.OrderStatus;
 import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
+import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.services.CartService;
 import com.vitali.services.OrderItemService;
 import com.vitali.services.ProductService;
@@ -12,13 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -52,24 +53,27 @@ public class CartController {
         return "cart";
     }
 
-
-//    @PostMapping("/cart/new")
-//    public String addToCart(@RequestParam("quantity") int quantity, @RequestParam("productId") Long productId, HttpSession session) {
-//        // your code here
+//    @PostMapping("/order")
+//    public String createProduct(@ModelAttribute ProductCreateDto product,
+//                                HttpServletRequest request,
+//                                Model model) {
+//        int cartId = Integer.parseInt(request.getParameter("cartId"));
+//        log.info("OrderController - cartId: {}", cartId);
+//        return "admin/products";
 //    }
 
-
-//    @PostMapping("/new")
-//    public String addToCart(HttpServletRequest request, Model entities) {
-//        OrderItemCreateDto orderItemCreateDto = orderItemCreateConverter.convert(request);
-//        orderItemService.create(orderItemCreateDto);
-//        Long productId = orderItemCreateDto.getProductId();
-//        Integer quantity = orderItemCreateDto.getQuantity();
-//        entities.addAttribute("productId", productId);
-//        entities.addAttribute("quantity", quantity);
-//        return "redirect:/product/{productId}";
-//    }
-
+    @PostMapping("/order")
+    public String createOrder(@RequestParam("selectedItems") List<Integer> selectedItems,
+                              @RequestParam Integer cartId,
+                              @RequestParam String inform,
+                              @RequestParam OrderStatus orderStatus) {
+        log.info("OrderController - cartId: {}", cartId);
+        log.info("OrderController - selectedItems: {}", selectedItems);
+        log.info("OrderController - inform: {}", inform);
+        log.info("OrderController - orderStatus: {}", orderStatus);
+        cartService.createOrder(cartId, inform, orderStatus, selectedItems);
+        return "redirect:/order-confirmation";
+    }
 
 
 }
