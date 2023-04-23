@@ -37,6 +37,15 @@ public class ProductService {
     private final ImageService imageService;
 
 
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
+        QProduct product = QProduct.product;
+        var predicate = QPredicates.builder()
+                .add(filter.getName(), product.name::containsIgnoreCase)
+                .add(filter.getPrice(), product.price::eq)
+                .build();
+        return productRepository.findAll(predicate, pageable)
+                .map(productReadMapper::map);
+    }
 
 //    public List<ProductReadDto> findAll(ProductFilter filter, Sort sort) {
 ////        sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");
@@ -53,16 +62,6 @@ public class ProductService {
 //    }
 
 
-    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
-        QProduct product = QProduct.product;
-        var predicate = QPredicates.builder()
-                .add(filter.getName(), product.name::containsIgnoreCase)
-                .add(filter.getPrice(), product.price::eq)
-                .add(filter.getQuantity(), product.quantity::eq)
-                .build();
-        return productRepository.findAll(predicate, pageable)
-                .map(productReadMapper::map);
-    }
 
 
 //    public List<ProductReadDto> findAll(ProductFilter filter) {

@@ -33,8 +33,8 @@ spring:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
     enabled: true
 
-server:
-  port: 8081
+#server:
+#  port: 8081
 
 logging:
   level:
@@ -50,6 +50,10 @@ logging:
     rollingpolicy:
       max-history: 1
 
+#app:
+#  image:
+#    bucket: "C:\\Work\\IdeaProjects\\spring-shop-jpa-m\\src\\main\\resources\\static\\images"
+
 app:
   image:
-    bucket: "C:\\IdeaProjects\\spring-shop-jpa-m\\src\\main\\resources\\static\\images"
+    bucket: "src/main/resources/static/images"

@@ -45,8 +45,7 @@ public class FilterProductRepositoryImpl implements FilterProductRepository{
 
         QPredicates builder = QPredicates.builder()
                 .add(filter.getName(), product.name::containsIgnoreCase)
-                .add(filter.getPrice(), product.price::eq)
-                .add(filter.getQuantity(), product.quantity::eq);
+                .add(filter.getPrice(), product.price::eq);
 
         if (filter.getCategory() != null) {
             builder.add(filter.getCategory().getId(), product.category.id::eq);

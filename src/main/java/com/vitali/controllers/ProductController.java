@@ -39,6 +39,18 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
+
+    @GetMapping
+    public String findAllProducts(Model model, ProductFilter filter, Pageable pageable) {
+        Page<ProductReadDto> page = productService.findAll(filter, pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("filter", filter);
+        model.addAttribute("producers", producerService.findAll());
+        return "products";
+    }
+
+
 //    @GetMapping
 //    public String findAllProducts(Model model, ProductFilter filter, Pageable pageable) {
 //        Page<ProductReadDto> page = productService.findAll(filter, pageable);
@@ -50,15 +62,7 @@ public class ProductController {
 //    }
 
 
-    @GetMapping
-    public String findAllProducts(Model model, ProductFilter filter, Pageable pageable) {
-        Page<ProductReadDto> page = productService.findAll(filter, pageable);
-        model.addAttribute("page", page);
-        model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("filter", filter);
-        model.addAttribute("producers", producerService.findAll());
-        return "products";
-    }
+
 
 
     @GetMapping("/{id}")
