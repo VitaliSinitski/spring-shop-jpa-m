@@ -64,7 +64,16 @@ body {
 .pagination {
     margin-top: 20px;
     font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
+.pagination button {
+    margin: 0 5px;
+}
+
 
 .pagination ul {
     list-style: none;

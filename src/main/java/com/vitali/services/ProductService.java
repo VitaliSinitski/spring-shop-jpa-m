@@ -1,5 +1,6 @@
 package com.vitali.services;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.vitali.database.entities.QProduct;
 import com.vitali.database.querydsl.QPredicates;
@@ -14,14 +15,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +37,41 @@ public class ProductService {
     private final ImageService imageService;
 
 
-    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
+//    public Page<ProductReadDto> findAll(ProductFilter filter, PageRequest pageRequest) {
+//        QProduct product = QProduct.product;
+////        Predicate predicate = QPredicates.builder()
+////                .add(filter.getName(), product.name::containsIgnoreCase)
+////                .add(filter.getPrice(), product.price::eq)
+////                .build();
+////        pageRequest.getSort().stream().forEach(order -> predicate.add(order.getProperty(), order::eq));
+//
+//        BooleanBuilder predicate = new BooleanBuilder();
+//        predicate.and(QPredicates.builder()
+//                .add(filter.getName(), product.name::containsIgnoreCase)
+//                .add(filter.getPrice(), product.price::eq)
+//                .build());
+//        pageRequest.getSort().stream().forEach(order -> predicate.and(order.getProperty(), order::isEquals));
+//
+//        return productRepository.findAll(predicate, pageRequest)
+//                .map(productReadMapper::map);
+//    }
+
+
+
+//    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
+//        QProduct product = QProduct.product;
+//        var predicate = QPredicates.builder()
+//                .add(filter.getName(), product.name::containsIgnoreCase)
+//                .add(filter.getPrice(), product.price::eq)
+//                .build();
+//        pageable = pageable.withSort(Sort.by(Sort.Direction.fromString(filter.getSortDirection()), filter.getSortField()));
+//        return productRepository.findAll(predicate, pageable)
+//                .map(productReadMapper::map);
+//    }
+
+
+
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {    // 04.24.11.15
         QProduct product = QProduct.product;
         var predicate = QPredicates.builder()
                 .add(filter.getName(), product.name::containsIgnoreCase)

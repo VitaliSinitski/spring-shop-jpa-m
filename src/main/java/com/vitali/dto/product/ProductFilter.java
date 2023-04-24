@@ -16,5 +16,6 @@ public class ProductFilter {
     private BigDecimal price;
     private CategoryReadDto category;
     private ProducerReadDto producer;
-    private Sort sort;
+    private String sortField;
+    private String sortDirection;
 }

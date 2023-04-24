@@ -31,7 +31,8 @@
             <td th:text="${item.product.description}"></td>
             <td>
                 <label>
-                    <input type="number" th:value="${item.quantity}">
+<!--                    <input type="number" th:value="${item.quantity}">-->
+                    <input type="number" name="quantity" value="1">
                 </label>
             </td>
             <td th:text="${item.product.price}"></td>
@@ -45,11 +46,11 @@
         </tr>
         </tbody>
         <tbody>
-        <tr>
-            <td>
-                <input type="text" value="text">
-            </td>
-        </tr>
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <input type="text" value="text">-->
+<!--            </td>-->
+<!--        </tr>-->
         </tbody>
     </table>
     <button type="submit">Make order</button>
