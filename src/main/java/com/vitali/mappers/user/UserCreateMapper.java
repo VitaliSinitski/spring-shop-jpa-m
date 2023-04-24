@@ -43,10 +43,9 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
         user.setUsername(object.getUsername());
         user.setEmail(object.getEmail());
         user.setRole(object.getRole());
-        user.setFirstName(object.getFirstName());
-        user.setLastName(object.getLastName());
-        user.setBirthDate(object.getBirthDate());
         user.setEnabled(object.getEnabled());
+
+
 
         Optional.ofNullable(object.getRawPassword())
                 .filter(StringUtils::hasText)

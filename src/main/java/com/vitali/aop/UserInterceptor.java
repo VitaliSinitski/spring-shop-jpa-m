@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.User;
+import com.vitali.database.entities.UserInformation;
 import com.vitali.database.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +33,15 @@ public class UserInterceptor implements HandlerInterceptor {
             Cart cart = Optional.ofNullable(user.getCart()).orElse(null);
             Integer cartSize = cart.getOrderItems().size();
             Integer cartId = cart.getId();
+            Integer userId = user.getId();
+            UserInformation userInformation = user.getUserInformation();
             session.setAttribute("currentUserName", username);
             session.setAttribute("currentUser", user);
             session.setAttribute("userCart", cart);
             session.setAttribute("cartSize", cartSize);
             session.setAttribute("cartId", cartId);
+            session.setAttribute("userId", userId);
+            session.setAttribute("userInformation", userInformation);
 
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUserName: {}", username);
 //            log.info("!!! --- class UserInterceptor - preHandle - cartId: {}", cartId);

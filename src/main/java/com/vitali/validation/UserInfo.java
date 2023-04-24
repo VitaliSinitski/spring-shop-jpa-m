@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserInfo {
-    String message() default "Firstname or lastname should be filled in.";
+    String message() default "Username and email should be filled in.";
 
     Class<?>[] groups() default {};
 

@@ -16,22 +16,14 @@ import java.time.LocalDate;
 @Value
 @UserInfo(groups = CreateAction.class)
 public class UserCreateDto {
-//    @NotNull
     @Size(min = 2, max = 64)
     String username;
     @Email
     String email;
-    Integer cartId; // = user.id
     @NotBlank(groups = CreateAction.class)
     String rawPassword;
     Role role; // String role?
     Boolean enabled;
-    @Size(min = 2, max = 64)
-    String firstName;
-//    @NotNull
-    @Size(min = 2, max = 64)
-    String lastName;
-//    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDate birthDate;
+    Integer cartId; // = user.id
+    Integer userInformationId;
 }

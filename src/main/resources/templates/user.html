@@ -25,7 +25,11 @@
         </tr>
         <tr>
             <td>Cart id:</td>
-            <td><span th:text="*{cart}"/></td>
+            <td><span th:text="*{cart.id}"/></td>
+        </tr>
+        <tr>
+            <td>Cart createdDate:</td>
+            <td><span th:text="*{cart.createdDate}"/></td>
         </tr>
         <tr>
             <td>Username:</td>
@@ -44,29 +48,65 @@
             </td>
         </tr>
         <tr>
+            <td>First name:</td>
+            <td><span th:text="*{userInformation.firstName}"/></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><span th:text="*{userInformation.lastName}"/></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><span th:text="*{userInformation.phone}"/></td>
+        </tr>
+        <tr>
+            <td>Addres:</td>
+            <td><span th:text="*{userInformation.address}"/></td>
+        </tr>
+        <tr>
             <td>BirthDate:</td>
-            <td>
-                <label for="birthDate">
-                    <input id="birthDate" type="date" name="birthDate" th:value="*{birthDate}" required>
-                </label>
-            </td>
+            <td><span th:text="*{userInformation.birthDate}"/></td>
         </tr>
-        <tr>
-            <td>FirstName:</td>
-            <td>
-                <label for="firstName">
-                    <input id="firstName" type="text" name="firstName" th:value="*{firstName}" required>
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>LastName:</td>
-            <td>
-                <label for="lastName">
-                    <input id="lastName" type="text" name="lastName" th:value="*{lastName}" required>
-                </label>
-            </td>
-        </tr>
+        <!--        <tr>-->
+        <!--            <td>BirthDate:</td>-->
+        <!--            <td>-->
+        <!--                <label for="birthDate">-->
+        <!--                    <input id="birthDate" type="date" name="birthDate" th:value="*{userInformation.birthDate}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>FirstName:</td>-->
+        <!--            <td>-->
+        <!--                <label for="firstName">-->
+        <!--                    <input id="firstName" type="text" name="firstName" th:value="*{userInformation.firstName}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>LastName:</td>-->
+        <!--            <td>-->
+        <!--                <label for="lastName">-->
+        <!--                    <input id="lastName" type="text" name="lastName" th:value="*{userInformation.lastName}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Phone:</td>-->
+        <!--            <td>-->
+        <!--                <label for="phone">-->
+        <!--                    <input id="phone" type="tel" name="phone" th:value="*{userInformation.phone}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Address:</td>-->
+        <!--            <td>-->
+        <!--                <label for="address">-->
+        <!--                    <input id="address" type="text" name="address" th:value="*{userInformation.address}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
         <tr>
             <td>Enabled:</td>
             <td>
@@ -74,11 +114,12 @@
                 <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
             </td>
         </tr>
+
         <tr>
             <td>Role</td>
             <td>
-                <label for="producer">
-                    <select name="producerId" id="producer">
+                <label for="role">
+                    <select name="role" id="role">
                         <option th:each="role : ${roles}" th:text="${role.name()}" th:value="${role}">Role
                         </option>
                     </select>

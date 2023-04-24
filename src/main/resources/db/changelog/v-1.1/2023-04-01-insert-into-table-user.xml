@@ -11,108 +11,72 @@
             <column name="email" value="jack@gmail.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Jack"/>
-            <column name="last_name" value="Black"/>
-            <column name="birth_date" value="1999:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Johny"/>
             <column name="email" value="johny@gmail.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Johny"/>
-            <column name="last_name" value="Walker"/>
-            <column name="birth_date" value="2004:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Micky"/>
             <column name="email" value="micky@mail.ru"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Micky"/>
-            <column name="last_name" value="Monky"/>
-            <column name="birth_date" value="2000:02:07"/>
         </insert>
         <insert tableName="user" >
             <column name="username" value="Anna"/>
             <column name="email" value="anna@yahoo.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Anna"/>
-            <column name="last_name" value="White"/>
-            <column name="birth_date" value="1999:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Stan"/>
             <column name="email" value="stan@gmail.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Stan"/>
-            <column name="last_name" value="Li"/>
-            <column name="birth_date" value="1996:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Nick"/>
             <column name="email" value="nick@mail.ru"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Nick"/>
-            <column name="last_name" value="Hurler"/>
-            <column name="birth_date" value="1999:02:07"/>
         </insert>
         <insert tableName="user" >
             <column name="username" value="John"/>
             <column name="email" value="jahn@yandex.ru"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="John"/>
-            <column name="last_name" value="Bolt"/>
-            <column name="birth_date" value="2002:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Emilia"/>
             <column name="email" value="emilia@gmail.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Emilia"/>
-            <column name="last_name" value="Clark"/>
-            <column name="birth_date" value="1999:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Mary"/>
             <column name="email" value="mary@yandex.ru"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Mary"/>
-            <column name="last_name" value="Je"/>
-            <column name="birth_date" value="2010:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Amanda"/>
             <column name="email" value="amelia@yahoo.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Amanda"/>
-            <column name="last_name" value="Wallis"/>
-            <column name="birth_date" value="1999:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Margaret"/>
             <column name="email" value="margaret@mail.ru"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="USER"/>
-            <column name="first_name" value="Margaret"/>
-            <column name="last_name" value="Johnson"/>
-            <column name="birth_date" value="2000:02:07"/>
         </insert>
         <insert tableName="user">
             <column name="username" value="Vitali"/>
             <column name="email" value="vitali@gmail.com"/>
 <!--            <column name="password" value="1234"/>-->
             <column name="role" value="ADMIN"/>
-            <column name="first_name" value="Vitali"/>
-            <column name="last_name" value="Sinitski"/>
-            <column name="birth_date" value="2003:02:07"/>
         </insert>
 
         <rollback>

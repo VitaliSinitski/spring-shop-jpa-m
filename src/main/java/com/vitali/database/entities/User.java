@@ -41,11 +41,10 @@ public class User{
     private Role role;
 //    @Column(nullable = false)
     private boolean enabled;
-    private String firstName;
-    private String lastName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserInformation userInformation;
 }

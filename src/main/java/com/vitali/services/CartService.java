@@ -8,6 +8,7 @@ import com.vitali.database.repositories.CartRepository;
 import com.vitali.database.repositories.OrderItemRepository;
 import com.vitali.database.repositories.OrderRepository;
 import com.vitali.dto.cart.CartReadDto;
+import com.vitali.dto.order.OrderReadDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.mappers.cart.CartReadMapper;
 import com.vitali.mappers.order.OrderReadMapper;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepository;
     private final CartReadMapper cartReadMapper;
+    private final OrderReadMapper orderReadMapper;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final OrderItemReadMapper orderItemReadMapper;
@@ -37,7 +39,7 @@ public class CartService {
 //    }
 
     @Transactional
-    public void createOrder(Integer cartId, String inform, OrderStatus orderStatus, List<Integer> orderItemsIds) {
+    public OrderReadDto createOrder(Integer cartId, /*String inform,*/ OrderStatus orderStatus, List<Integer> orderItemsIds) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
         List<OrderItem> orderItems = new ArrayList<>();
         for (Integer itemId : orderItemsIds) {
@@ -47,10 +49,11 @@ public class CartService {
 
         Order order = Order.builder()
                 .cart(cart)
-                .inform(inform)
+//                .inform(inform)
                 .orderStatus(orderStatus)
                 .orderItems(orderItems)
                 .build();
         orderRepository.save(order);
+        return orderReadMapper.map(order);
     }
 }

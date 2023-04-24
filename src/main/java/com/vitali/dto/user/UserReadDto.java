@@ -1,7 +1,9 @@
 package com.vitali.dto.user;
 
+import com.vitali.database.entities.UserInformation;
 import com.vitali.database.entities.enums.Role;
 import com.vitali.dto.cart.CartReadDto;
+import com.vitali.dto.userInformation.UserInformationReadDto;
 import lombok.Builder;
 import lombok.Value;
 
@@ -16,8 +18,6 @@ public class UserReadDto {
     String password;
     Role role;
     boolean enabled;
-    String firstName;
-    String lastName;
-    LocalDate birthDate;
     CartReadDto cart;
+    UserInformationReadDto userInformation;
 }

@@ -16,8 +16,6 @@ public class UserCreateConverter implements Converter<HttpServletRequest, UserCr
                 .rawPassword(request.getParameter(PASSWORD))
                 .role(getRole(request))
                 .enabled(getEnabled(request))
-                .firstName(request.getParameter(FIRST_NAME))
-                .lastName(request.getParameter(LAST_NAME))
                 .build();
     }
 }

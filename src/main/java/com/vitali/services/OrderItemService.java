@@ -8,6 +8,7 @@ import com.vitali.mappers.orderItem.OrderItemReadMapper;
 import com.vitali.database.repositories.OrderItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final OrderItemReadMapper orderItemReadMapper;
     private final OrderItemCreateMapper orderItemCreateMapper;
 
+    @Transactional
     public Integer create(OrderItemCreateDto orderItemCreateDto) {
         OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);
         return orderItemRepository.save(orderItemEntity).getId();
@@ -41,6 +44,13 @@ public class OrderItemService {
         return orderItemRepository.existsOrderItemByProductId(id);
     }
 
+    public List<OrderItemReadDto> findAllByOrderId(Integer id) {
+        return orderItemRepository.findOrderItemsByOrderId(id).stream()
+                .map(orderItemReadMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public boolean delete(Integer id) {
         Optional<OrderItem> maybeOrderItem = orderItemRepository.findById(id);
         maybeOrderItem.ifPresent(orderItemRepository::delete);

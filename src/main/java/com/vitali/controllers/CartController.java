@@ -1,8 +1,13 @@
 package com.vitali.controllers;
 
 import com.vitali.converters.OrderItemCreateConverter;
+import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.OrderItem;
+import com.vitali.database.entities.User;
+import com.vitali.database.entities.UserInformation;
 import com.vitali.database.entities.enums.OrderStatus;
+import com.vitali.database.repositories.UserRepository;
+import com.vitali.dto.order.OrderReadDto;
 import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.dto.product.ProductCreateDto;
@@ -27,6 +32,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/cart")
 public class CartController {
+    private final UserRepository userRepository;
     private final CartService cartService;
     private final OrderItemService orderItemService;
     private final ProductService productService;
@@ -65,14 +71,37 @@ public class CartController {
     @PostMapping("/order")
     public String createOrder(@RequestParam("selectedItems") List<Integer> selectedItems,
                               @RequestParam Integer cartId,
-                              @RequestParam String inform,
+//                              @RequestParam String inform,
+                              @RequestParam OrderStatus orderStatus,
+//                              HttpServletRequest request,
+                              Model model) {
+        OrderReadDto order = cartService.createOrder(cartId, /*inform, */orderStatus, selectedItems);
+        List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(order.getId());
+//        HttpSession session = request.getSession();
+//        User currentUser = (User) session.getAttribute("currentUser");
+//        UserInformation userInformation = currentUser.getUserInformation();
+        model.addAttribute("order", order);
+        model.addAttribute("orderItems", orderItems);
+        return "redirect:/orderConfirmation";
+    }
+
+    @PostMapping("/order/confirm")
+    public String orderConfirmation(@RequestParam("selectedItems") List<Integer> selectedItems,
+                              @RequestParam Integer cartId,
+//                              @RequestParam String inform,
                               @RequestParam OrderStatus orderStatus) {
-        log.info("OrderController - cartId: {}", cartId);
-        log.info("OrderController - selectedItems: {}", selectedItems);
-        log.info("OrderController - inform: {}", inform);
-        log.info("OrderController - orderStatus: {}", orderStatus);
-        cartService.createOrder(cartId, inform, orderStatus, selectedItems);
-        return "redirect:/order-confirmation";
+
+        cartService.createOrder(cartId, /*inform, */orderStatus, selectedItems);
+        return "redirect:/orderConfirmation";
+    }
+
+    public void getUserInformation(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("currentUser");
+        Cart userCart = (Cart) session.getAttribute("userCart");
+        Integer cartId = (Integer) session.getAttribute("cartId");
+        Integer userId = currentUser.getId();
+        UserInformation userInformation = currentUser.getUserInformation();
     }
 
 

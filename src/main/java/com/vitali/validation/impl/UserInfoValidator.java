@@ -14,6 +14,6 @@ import javax.validation.ConstraintValidatorContext;
 public class UserInfoValidator implements ConstraintValidator<UserInfo, UserCreateDto> {
     @Override
     public boolean isValid(UserCreateDto value, ConstraintValidatorContext context) {
-        return StringUtils.hasText(value.getFirstName()) || StringUtils.hasText(value.getLastName());
+        return StringUtils.hasText(value.getUsername()) || StringUtils.hasText(value.getEmail());
     }
 }

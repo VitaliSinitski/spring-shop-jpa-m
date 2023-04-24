@@ -2,6 +2,7 @@ package com.vitali.controllers;
 
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.database.entities.enums.Role;
+import com.vitali.services.UserInformationService;
 import com.vitali.services.UserService;
 import com.vitali.validation.group.CreateAction;
 import com.vitali.validation.group.UpdateAction;
@@ -22,11 +23,13 @@ import javax.validation.groups.Default;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserInformationService userInformationService;
 
 
     @GetMapping("/users")
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
+//        model.addAttribute("userInformation", userInformationService.findAll());
         model.addAttribute("currentUser", userService.getCurrentUserByUsernameFromSecurityContext());
         return "users";
     }

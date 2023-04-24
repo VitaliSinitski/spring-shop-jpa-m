@@ -7,7 +7,7 @@
 <body>
 <div th:include="header.html"></div>
 <h1>Shopping Cart</h1>
-<form th:action="@{/cart/order}" method="post">
+<form th:action="@{/cart/order/confirm}" method="post">
 <!--<form th:action="@{/order}" method="post">-->
     <table>
         <thead>
@@ -29,19 +29,14 @@
             </td>
             <td th:text="${item.product.name}"></td>
             <td th:text="${item.product.description}"></td>
-            <td>
-                <label>
-                    <input type="number" th:value="${item.quantity}">
-<!--                    <input type="number" name="quantity" value="1">-->
-                </label>
-            </td>
+            <td th:text="${item.quantity}"></td>
             <td th:text="${item.product.price}"></td>
             <td>
                 <input type="hidden" name="cartId" th:value="${session.cartId}">
                 <input type="hidden" name="orderStatus" value="PENDING">
-                <label>
-                    <input type="checkbox" th:name="selectedItems" th:value="${item.id}">
-                </label>
+<!--                <label>-->
+<!--                    <input type="checkbox" th:name="selectedItems" th:value="${item.id}">-->
+<!--                </label>-->
             </td>
         </tr>
         </tbody>
@@ -53,6 +48,11 @@
 <!--        </tr>-->
         </tbody>
     </table>
+    <form th:each="userInfo : ${session.userInformation}">
+        <label>
+            <input name="firstName" th:value="${userInfo.firstName}">
+        </label>
+    </form>
     <button type="submit">Make order</button>
 </form>
 </body>

@@ -25,6 +25,17 @@
             <column name="enabled" type="bool" defaultValue="true">
                 <constraints nullable="false"/>
             </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create-table-user_information" author="vitali">
+        <createTable tableName="user_information">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
             <column name="first_name" type="varchar(128)">
                 <constraints nullable="false"/>
             </column>
@@ -34,13 +45,19 @@
             <column name="birth_date" type="date">
                 <constraints nullable="false"/>
             </column>
-            <!--            <column name="cart_id" type="int">-->
-            <!--                <constraints nullable="false" foreignKeyName="fk_user_cart"-->
-            <!--                             referencedTableName="cart" referencedColumnNames="id"/>-->
-            <!--            </column>-->
+            <column name="phone" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_user_information_user"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
         </createTable>
         <rollback>
-            <dropTable tableName="user"/>
+            <dropTable tableName="user_information"/>
         </rollback>
     </changeSet>
 
@@ -72,7 +89,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="inform" type="varchar(255)">
-                <constraints nullable="false"/>
+<!--                <constraints nullable="false"/>-->
             </column>
             <column name="updated_date" type="timestamp">
                 <constraints nullable="false"/>
@@ -82,7 +99,7 @@
             </column>
             <column name="cart_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_orders_cart"
-                referencedTableName="cart" referencedColumnNames="id"/>
+                             referencedTableName="cart" referencedColumnNames="id"/>
             </column>
         </createTable>
         <rollback>
@@ -120,7 +137,6 @@
     </changeSet>
 
 
-
     <changeSet id="create-table-producer-category" author="vitali">
         <createTable tableName="producer_category">
             <column name="producer_id" type="int">
@@ -154,7 +170,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="image" type="varchar(255)">
-<!--                <constraints nullable="false"/>-->
+                <!--                <constraints nullable="false"/>-->
             </column>
             <column name="category_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_product_category"
@@ -183,15 +199,15 @@
     </changeSet>
 
 
-<!--                        это нужно-->
-<!--
-    <changeSet id="FK_category_id_producer_category" author="vitali">
-        <addForeignKeyConstraint baseTableName="producer_category" baseColumnNames="category_id"
-                                 constraintName="FK_category_id_producer_category" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedTableName="category" referencedColumnNames="id"/>
-    </changeSet>
-   -->
+    <!--                        это нужно-->
+    <!--
+        <changeSet id="FK_category_id_producer_category" author="vitali">
+            <addForeignKeyConstraint baseTableName="producer_category" baseColumnNames="category_id"
+                                     constraintName="FK_category_id_producer_category" deferrable="false"
+                                     initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                     referencedTableName="category" referencedColumnNames="id"/>
+        </changeSet>
+       -->
 
 
     <changeSet id="create-table-order_item" author="vitali">
@@ -207,15 +223,15 @@
             </column>
             <column name="product_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_order_item_product"
-                referencedTableName="product" referencedColumnNames="id"/>
+                             referencedTableName="product" referencedColumnNames="id"/>
             </column>
             <column name="cart_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_order_item_cart"
-                referencedTableName="cart" referencedColumnNames="id"/>
+                             referencedTableName="cart" referencedColumnNames="id"/>
             </column>
             <column name="orders_id" type="int">
                 <constraints foreignKeyName="fk_order_item_orders"
-                referencedTableName="orders" referencedColumnNames="id"/>
+                             referencedTableName="orders" referencedColumnNames="id"/>
             </column>
         </createTable>
         <rollback>
@@ -223,27 +239,27 @@
         </rollback>
     </changeSet>
 
-<!--    <changeSet id="create-order-item-table" author="vitali">-->
-<!--        <createTable tableName="order_item">-->
-<!--            <column name="id" type="int" autoIncrement="true">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="product_id" type="int">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="quantity" type="integer">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
-<!--        </createTable>-->
-<!--    </changeSet>-->
+    <!--    <changeSet id="create-order-item-table" author="vitali">-->
+    <!--        <createTable tableName="order_item">-->
+    <!--            <column name="id" type="int" autoIncrement="true">-->
+    <!--                <constraints primaryKey="true" nullable="false"/>-->
+    <!--            </column>-->
+    <!--            <column name="product_id" type="int">-->
+    <!--                <constraints nullable="false"/>-->
+    <!--            </column>-->
+    <!--            <column name="quantity" type="integer">-->
+    <!--                <constraints nullable="false"/>-->
+    <!--            </column>-->
+    <!--        </createTable>-->
+    <!--    </changeSet>-->
 
-<!--    <changeSet id="update-order-item-table" author="vitali">-->
-<!--        <dropPrimaryKey tableName="order_item" />-->
-<!--        <addColumn tableName="order_item">-->
-<!--            <column name="id" type="int" />-->
-<!--        </addColumn>-->
-<!--        <addPrimaryKey tableName="order_item" columnNames="id" />-->
-<!--    </changeSet>-->
+    <!--    <changeSet id="update-order-item-table" author="vitali">-->
+    <!--        <dropPrimaryKey tableName="order_item" />-->
+    <!--        <addColumn tableName="order_item">-->
+    <!--            <column name="id" type="int" />-->
+    <!--        </addColumn>-->
+    <!--        <addPrimaryKey tableName="order_item" columnNames="id" />-->
+    <!--    </changeSet>-->
 
 
 </databaseChangeLog>
