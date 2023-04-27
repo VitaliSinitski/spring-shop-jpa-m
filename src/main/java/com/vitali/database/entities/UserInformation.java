@@ -21,6 +21,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInformation {

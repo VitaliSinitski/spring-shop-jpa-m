@@ -16,19 +16,33 @@
             <th>Product Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Total Price</th>
+
         </tr>
         <tr th:each="orderItem : ${orderItems}">
             <td th:text="${orderItem.product.name}"></td>
             <td th:text="${orderItem.quantity}"></td>
             <td th:text="${orderItem.product.price}"></td>
+        </tr>
+    </table>
+    <br>
+    <h2>Total Price</h2>
+    <table>
+
+        <tr>
             <td th:text="${totalPrice}"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td th:text="${order.inform}"></td>
         </tr>
     </table>
 
     <h2>User Information</h2>
     <form method="post" th:action="${updateUserInformationUrl}">
-        <input type="hidden" th:field="${order.id}">
+        <!--        <input type="hidden" th:field="${order.id}">-->
+        <input type="hidden" th:field="${userInformation.id}">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:field="${userInformation.firstName}">
         <br>
@@ -47,13 +61,13 @@
         <input type="submit" value="Update User Information">
     </form>
 
-    <h2>Additional Information</h2>
+<!--    <h2>Additional Information</h2>-->
     <form method="post" th:action="${finishOrderUrl}">
         <input type="hidden" th:field="${order.id}">
-        <label for="additionalInfo">Additional Information:</label>
-        <br>
-        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"></textarea>
-        <br>
+<!--        <label for="additionalInfo">Additional Information:</label>-->
+<!--        <br>-->
+<!--        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"></textarea>-->
+<!--        <br>-->
         <input type="submit" value="Finish Order">
     </form>
 </div>

@@ -85,6 +85,7 @@ public class CartItemService {
                 .orElse(false);
     }
 
+    // it is function good
     @Transactional
     public boolean delete(Integer cartId, Integer cartItemId) {
         Cart cart = cartRepository.findById(cartId).orElse(null);
@@ -97,12 +98,47 @@ public class CartItemService {
         return true;
     }
 
-
+    // it is function good
     @Transactional
-    public void deleteAllByCartId(Integer id) {
-        List<CartItem> cartItems = cartItemRepository.findAll();
-        cartItems.removeIf(cartItem -> Objects.equals(cartItem.getCart().getId(), id));
+    public boolean deleteAllByCartId(Integer cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        List<CartItem> cartItemsToDelete = cartItemRepository.findAllByCartId(cartId);
+        if (cartItemsToDelete.isEmpty()) {
+            return false;
+        }
+        for(CartItem cartItem : cartItemsToDelete) {
+            cart.deleteCartItem(cartItem);
+        }
+        cartRepository.save(cart);
+        return true;
     }
+
+//    @Transactional
+//    public boolean deleteAll(Integer cartId, List<CartItem> cartItems) {
+//        Cart cart = cartRepository.findById(cartId).orElse(null);
+//        if (cartItems.isEmpty()) {
+//            return false;
+//        }
+//        for(CartItem cartItem : cartItems) {
+//            cart.deleteCartItem(cartItem);
+//        }
+//        cartRepository.save(cart);
+//        return true;
+//    }
+
+
+//    @Transactional
+//    public void deleteAllByCartId(Integer cartId) {
+//        log.info("CartItemService - deleteAllByCartId - cartId: {}", cartId);
+//
+//        List<CartItem> cartItems = cartItemRepository.findAll();
+//
+//        log.info("CartItemService - deleteAllByCartId - cartItems: {}", cartItems);
+//
+//        cartItems.removeIf(cartItem -> Objects.equals(cartItem.getCart().getId(), cartId));
+//
+//        log.info("CartItemService - deleteAllByCartId - after removing");
+//    }
 
 
     @Transactional

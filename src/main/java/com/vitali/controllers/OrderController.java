@@ -30,6 +30,7 @@ import com.vitali.util.ParameterUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,7 +85,6 @@ public class OrderController {
     public String orderPreview(@PathVariable("orderId") Integer orderId,
                                @ModelAttribute("userId") Integer userId,
                                @ModelAttribute("cartId") Integer cartId,
-                               HttpSession session,
                                Model model) {
 
         // get the order
@@ -100,28 +100,22 @@ public class OrderController {
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-
         // display the order items and the user information form
-        model.addAttribute("totalPrice", orderItemService.getTotalPrice(cartId));
+        model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("updateUserInformationUrl", "/order/updateUserInformation/" + userId);
-        model.addAttribute("finishOrderUrl", "/order/finishOrder/" + orderId);
-
+        model.addAttribute("finishOrderUrl", "/orderPreview/" + orderId);
         return "orderPreview";
     }
 
+
     @PostMapping("/order/updateUserInformation/{id}")
-    public String saveUserInformation(@PathVariable Integer id,
-                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformation,
-                                      @ModelAttribute("userId") Integer userId,
+    public String saveUserInformation(@PathVariable("id") Integer userInformationId,
+                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
                                       @ModelAttribute("orderId") Integer orderId) {
-        log.info("OrderController - saveUserInformation - @PathVariable Integer id: {}", id);
-        log.info("OrderController - saveUserInformation - userInformation: {}", userInformation);
-        UserInformationReadDto updatedUserInformation = userInformationService.updateByUserId(userId, userInformation)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        log.info("OrderController - saveUserInformation - updatedUserInformation: {}", updatedUserInformation);
+        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/orderPreview/" + orderId;
     }
 
@@ -130,7 +124,6 @@ public class OrderController {
                               @ModelAttribute("userInformation") UserInformationCreateDto userInformation,
                               @ModelAttribute("userId") Integer userId,
                               @ModelAttribute("cartId") Integer cartId,
-                              HttpSession session,
                               Model model) {
 
         // get the order
@@ -144,10 +137,11 @@ public class OrderController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // clear the cart
-        cartItemService.deleteAllByCartId(cartId);
+        boolean confirmation = cartItemService.deleteAllByCartId(cartId);
 
         // display orderItems and the updated userInformation form
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
+
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("userInformation", updatedUserInformation);
 
@@ -166,6 +160,7 @@ public class OrderController {
         }
         session.removeAttribute("orderId");
 
+        log.info("OrderController - finishOrder - middle");
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {

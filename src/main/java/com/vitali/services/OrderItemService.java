@@ -93,8 +93,8 @@ public class OrderItemService {
 
     }
 
-    public BigDecimal getTotalPrice(Integer cartId) {
-        List<OrderItem> orderItems = orderItemRepository.findOrderItemsByCartId(cartId);
+    public BigDecimal getTotalPrice(Integer orderId) {
+        List<OrderItem> orderItems = orderItemRepository.findOrderItemsByOrderId(orderId);
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (OrderItem orderItem : orderItems) {
             BigDecimal price = orderItem.getProduct().getPrice();

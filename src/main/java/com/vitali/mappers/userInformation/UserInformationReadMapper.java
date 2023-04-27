@@ -13,6 +13,7 @@ public class UserInformationReadMapper implements Mapper<UserInformation, UserIn
     @Override
     public UserInformationReadDto map(UserInformation object) {
         return UserInformationReadDto.builder()
+                .id(object.getId())
                 .firstName(object.getFirstName())
                 .lastName(object.getLastName())
                 .phone(object.getPhone())

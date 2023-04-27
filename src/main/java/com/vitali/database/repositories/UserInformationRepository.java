@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface UserInformationRepository extends JpaRepository<UserInformation, Integer> {
     Optional<UserInformation> findUserInformationByUserId(Integer id);
+    Optional<UserInformation> findAllByUserId(Integer id);
 }

@@ -38,6 +38,7 @@ public class OrderService {
     private final OrderReadMapper orderReadMapper;
     private final ProductService productService;
     private final OrderItemService orderItemService;
+    private final CartItemService cartItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
 
     @Transactional
@@ -70,45 +71,35 @@ public class OrderService {
 
     @Transactional
     public OrderReadDto createOrder(Integer cartId, String information) {
-
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
-        log.info("OrderService - createOrder - cart: {}", cart);
+
         // get cartItems
         List<CartItem> cartItems = cart.getCartItems();
-        log.info("OrderService - createOrder - cartItems: {}", cartItems);
 
         // copy cartItems to orderItems
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
-//            OrderItem orderItem = orderItemRepository.saveAndFlush(cartItemToOrderItemMapper.map(cartItem));
             OrderItem orderItem = orderItemRepository.save(cartItemToOrderItemMapper.map(cartItem));
             orderItems.add(orderItem);
+
+            // update the product quantity
+            productService.updateProductQuantityByCartItem(cartItem);
+
         }
-        log.info("OrderService - createOrder - orderItems: {}", orderItems);
-
-
-        // update the product quantity
-//            Product product = cartItem.getProduct();
-//            Integer productId = cartItem.getProduct().getId();
-//            log.info("OrderService - crateOrder - productId: {}", productId);
-//            Product product = productRepository.findById(productId).orElseThrow();
-//            log.info("OrderService - crateOrder - product: {}", product);
-//            product.setQuantity(product.getQuantity() - cartItem.getQuantity());
-//            productRepository.save(product);
-
         // create Order object
         Order order = new Order();
+
         // set cart, information, status, OrderItems
         order.setCart(cart);
         order.setInform(information);
         order.setOrderStatus(OrderStatus.PENDING);
         order.setOrderItems(orderItems);
-        // save Order ???
+
+        // save Order
         Order savedOrder = orderRepository.save(order);
 
         // delete the cart items
-        cartItemRepository.deleteAll(cartItems);
-//        cart.setCartItems(new ArrayList<>());
+        cartItemService.deleteAllByCartId(cartId);
         return orderReadMapper.map(savedOrder);
     }
 

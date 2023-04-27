@@ -2,6 +2,7 @@ package com.vitali.services;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import com.vitali.database.entities.CartItem;
 import com.vitali.database.entities.QProduct;
 import com.vitali.database.querydsl.QPredicates;
 import com.vitali.dto.product.ProductCreateDto;
@@ -57,7 +58,6 @@ public class ProductService {
 //    }
 
 
-
 //    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
 //        QProduct product = QProduct.product;
 //        var predicate = QPredicates.builder()
@@ -68,7 +68,6 @@ public class ProductService {
 //        return productRepository.findAll(predicate, pageable)
 //                .map(productReadMapper::map);
 //    }
-
 
 
     public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {    // 04.24.11.15
@@ -96,8 +95,6 @@ public class ProductService {
 //    }
 
 
-
-
 //    public List<ProductReadDto> findAll(ProductFilter filter) {
 //        List<ProductReadDto> products = productRepository.findAllByFilter(filter)
 //                .stream()
@@ -105,7 +102,6 @@ public class ProductService {
 //                .collect(Collectors.toList());
 //        products.sort(Comparator.comparing(ProductReadDto.)
 //                .thenComparing(ProductReadDto::getProducerName));
-
 
 
     public List<ProductReadDto> findAll() {
@@ -140,6 +136,21 @@ public class ProductService {
                 })
                 .map(productRepository::saveAndFlush)
                 .map(productReadMapper::map);
+    }
+
+    @Transactional
+    public void updateProductQuantityByCartItem(CartItem cartItem) {
+        Product product = cartItem.getProduct();
+        log.info("ProductService - updateProductQuantityByCartItem - before product: {}", product);
+
+        Integer productId = cartItem.getProduct().getId();
+        log.info("ProductService - updateProductQuantityByCartItem - productId: {}", productId);
+
+//        Product product = productRepository.findById(productId).orElseThrow();
+//        log.info("ProductService - updateProductByCartItem - product: {}", product);
+        product.setQuantity(product.getQuantity() - cartItem.getQuantity());
+        log.info("ProductService - updateProductQuantityByCartItem - after product: {}", product);
+        productRepository.save(product);
     }
 
     @Transactional
