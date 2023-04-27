@@ -1,0 +1,84 @@
+/* Set some default styles */
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the page content */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style the product image */
+.product-image {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Style the quantity input */
+input[type=number] {
+    width: 50px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Style the update and remove buttons */
+button[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+button[type=submit]:hover {
+    background-color: #3e8e41;
+}
+
+button[type=submit]:last-child {
+    margin-right: 0;
+}
+
+/* Style the total price section */
+div > p {
+    margin: 16px 0;
+}
+
+div > p > span {
+    font-weight: bold;
+    font-size: 24px;
+}

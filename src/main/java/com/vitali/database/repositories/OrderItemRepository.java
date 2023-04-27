@@ -1,5 +1,6 @@
 package com.vitali.database.repositories;
 
+import com.vitali.database.entities.Order;
 import com.vitali.database.entities.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,4 +15,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
 //    List<OrderItem> findOrderItemsByIdExists(List<String> ids);
     List<OrderItem> findAllByIdIn(List<Integer> ids);
+    List<OrderItem> findAllByCartId(Integer id);
+    void deleteAllByCartId(Integer id);
+    List<OrderItem> findByOrder(Order order);
 }

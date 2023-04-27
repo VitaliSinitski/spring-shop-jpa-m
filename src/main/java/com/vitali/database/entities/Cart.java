@@ -59,22 +59,37 @@ public class Cart {
         order.setCart(this);
     }
 
-    @Builder.Default
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
+
+    public void addCartItem(CartItem cartItem) {
+        cartItems.add(cartItem);
+        cartItem.setCart(this);
+    }
+
+    public void deleteCartItem(CartItem cartItem) {
+        cartItems.remove(cartItem);
+        cartItem.setCart(null);
+    }
+
+
+/*    @Builder.Default
     // Eager - при удалении orderItem удаляется и cart
     // но если Lazy - то не добавляется в корзину
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     // 03-15:18.00
     // fetch = FetchType.EAGER - не удалялся объект orderItem из бд
-    private List<OrderItem> orderItems = new ArrayList<>();
+//    private List<OrderItem> orderItems = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setCart(this);
+    public void addCartItem(CartItem cartItem) {
+        cartItems.add(cartItem);
+        cartItem.setCart(this);
     }
 
-    public void deleteOrderItem(OrderItem orderItem) {
-        orderItems.remove(orderItem);
-    }
+    public void deleteCartItem(CartItem cartItem) {
+        cartItems.remove(cartItem);
+    }*/
 
 
     @Override

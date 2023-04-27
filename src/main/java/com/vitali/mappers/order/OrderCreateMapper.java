@@ -22,7 +22,7 @@ public class OrderCreateMapper implements Mapper<OrderCreateDto, Order> {
 //                .cart(cartRepository.findById(object.getCartId())
 //                        .orElseThrow(IllegalArgumentException::new))
                 .cart(getCart(object.getCartId()))
-                .orderStatus(Optional.ofNullable(object.getOrderStatus()).orElse(DEFAULT_ORDER_STATUS))
+//                .orderStatus(Optional.ofNullable(object.getOrderStatus()).orElse(DEFAULT_ORDER_STATUS))
                 .inform(object.getInform())
                 .build();
     }

@@ -56,7 +56,7 @@ public class OrderServiceTest {
         orderService.createNewOrder(ids, information, cartId);
 
         // Assert (подтвердить) / Then (то)
-        assertEquals(orderItems, cart.getOrderItems());
+        assertEquals(orderItems, cart.getCartItems());
         assertEquals(1, orderItems.get(0).getOrder().getId());
         assertEquals(1, orderItems.get(1).getOrder().getId());
         assertEquals(1, orderItems.get(2).getOrder().getId());

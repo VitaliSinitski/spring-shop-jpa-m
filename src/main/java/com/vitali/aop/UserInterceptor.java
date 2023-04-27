@@ -31,7 +31,8 @@ public class UserInterceptor implements HandlerInterceptor {
 //            session.setAttribute("user", username);
             User user = userRepository.findUserByUsername(username).orElse(null);
             Cart cart = Optional.ofNullable(user.getCart()).orElse(null);
-            Integer cartSize = cart.getOrderItems().size();
+//            Integer cartSize = cart.getOrderItems().size();
+            Integer cartSize = cart.getCartItems().size();
             Integer cartId = cart.getId();
             Integer userId = user.getId();
             UserInformation userInformation = user.getUserInformation();

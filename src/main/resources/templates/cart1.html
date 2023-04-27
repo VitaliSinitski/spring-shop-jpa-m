@@ -2,45 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Shopping Cart</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" type="text/css" href="cart.css">
 </head>
-<body>
-<div th:include="header.html"></div>
-<h1>Shopping Cart</h1>
-<form th:action="@{/order}" method="post">
-    <table>
-        <thead>
-        <tr>
-            <th></th>
-            <th>Product Name</th>
-            <th>Product description</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${orderItems}">
-            <td>
-                <div th:if="${item.product.image}" class="product-image">
-                    <img th:src="@{/api/v1/products/{id}/image(id=${item.product.id})}" alt="image" height="50">
-                </div>
-            </td>
-            <td th:text="${item.product.name}"></td>
-            <td th:text="${item.product.description}"></td>
-            <td >
-                <label>
-                    <input type="number" th:value="${item.quantity}">
-                </label>
-            </td>
-            <td th:text="${item.product.price}"></td>
-            <td>
-                <input type="hidden" name="cartId" th:value="${session.cartId}">
-                <input type="hidden" name="orderStatus" value="PENDING">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button type="submit">Make order</button>
-</form>
+<body class="cart-body">
+<h1 class="cart-header">Shopping Cart</h1>
+
+<table class="cart-table">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="cart-product">Product</th>
+        <th class="cart-description">Product description</th>
+        <th class="cart-price">Price</th>
+        <th class="cart-quantity">Quantity</th>
+        <th class="cart-total">Total</th>
+        <th class="cart-action">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem : ${cartItems}" class="cart-row">
+        <td>
+            <div th:if="${cartItem.product.image}" class="product-image">
+                <img th:src="@{/api/v1/products/{id}/image(id=${cartItem.product.id})}" alt="image" height="50">
+            </div>
+        </td>
+        <td class="cart-product" th:text="${cartItem.product.name}"></td>
+        <td class="cart-description" th:text="${cartItem.product.description}"></td>
+        <td class="cart-price" th:text="${cartItem.product.price}"></td>
+        <td class="cart-quantity">
+            <form method="post" th:action="@{/cart/update}">
+                <input type="number" name="quantity" th:value="${cartItem.quantity}" min="1">
+                <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td class="cart-total" th:text="${cartItem.product.price * cartItem.quantity}"></td>
+        <td class="cart-action">
+            <form method="post" th:action="@{/cart/remove}">
+                <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="cart-total-container">
+    <p class="cart-total-text">Total: <span class="cart-total-price" th:text="${totalPrice}"></span></p>
+    <form method="post" action="/order">
+        <button class="cart-order-button" type="submit">Make Order</button>
+    </form>
+</div>
 </body>
 </html>

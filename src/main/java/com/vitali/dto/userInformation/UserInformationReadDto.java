@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Builder
 @Value
 public class UserInformationReadDto {
+    Integer id;
     String firstName;
     String lastName;
     String phone;

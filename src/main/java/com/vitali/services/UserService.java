@@ -75,6 +75,7 @@ public class UserService implements UserDetailsService {
 //                .orElseThrow();
     }
 
+    // It is function correctly
     @Transactional
     public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
         return userRepository.findById(id)
@@ -83,6 +84,7 @@ public class UserService implements UserDetailsService {
                 .map(userReadMapper::map);
     }
 
+    // It is function correctly
     @Transactional
     public boolean delete(Integer id) {
         return userRepository.findById(id)
@@ -117,8 +119,6 @@ public class UserService implements UserDetailsService {
         }
         return null;
     }
-
-
 
 
 //    public Long getCurrentUserId() {

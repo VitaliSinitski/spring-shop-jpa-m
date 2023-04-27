@@ -1,5 +1,6 @@
 package com.vitali.services;
 
+import com.vitali.database.entities.UserInformation;
 import com.vitali.database.repositories.UserInformationRepository;
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.dto.user.UserReadDto;
@@ -35,6 +36,19 @@ public class UserInformationService {
     public Optional<UserInformationReadDto> update(Integer id, UserInformationCreateDto userInformationCreateDto) {
         return userInformationRepository.findById(id)
                 .map(userInformation -> userInformationCreateMapper.map(userInformationCreateDto, userInformation))
+                .map(userInformationRepository::saveAndFlush)
+                .map(userInformationReadMapper::map);
+    }
+
+    public Optional<UserInformationReadDto> findUserInformationByUserId(Integer id) {
+        return userInformationRepository.findUserInformationByUserId(id)
+                .map(userInformationReadMapper::map);
+    }
+
+    @Transactional
+    public Optional<UserInformationReadDto> updateByUserId(Integer userId, UserInformationCreateDto userInformation) {
+        return userInformationRepository.findUserInformationByUserId(userId)
+                .map(userInform -> userInformationCreateMapper.map(userInformation, userInform))
                 .map(userInformationRepository::saveAndFlush)
                 .map(userInformationReadMapper::map);
     }

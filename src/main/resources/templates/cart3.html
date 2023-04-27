@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+<h1>Shopping Cart</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>Product</th>
+        <th>Product description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem : ${cartItems}">
+        <td>
+            <div th:if="${cartItem.product.image}" class="product-image">
+                <img th:src="@{/api/v1/products/{id}/image(id=${cartItem.product.id})}" alt="image" height="50">
+            </div>
+        </td>
+        <td th:text="${cartItem.product.name}"></td>
+        <td th:text="${cartItem.product.description}"></td>
+        <td th:text="${cartItem.product.price}"></td>
+        <td>
+            <form method="post" th:action="@{/cart/update}">
+                <input type="number" name="quantity" th:value="${cartItem.quantity}" min="1">
+                <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td th:text="${cartItem.product.price * cartItem.quantity}"></td>
+        <td>
+            <form method="post" th:action="@{/cart/remove}">
+                <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <p>Total: <span th:text="${totalPrice}"></span></p>
+    <form method="post" action="/order">
+        <button type="submit">Make Order</button>
+    </form>
+</div>
+</body>
+</html>

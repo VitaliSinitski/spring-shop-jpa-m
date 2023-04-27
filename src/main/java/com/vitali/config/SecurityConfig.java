@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests(urlConfig -> urlConfig
                         .antMatchers("/cart/**").hasAuthority("USER")
                         .antMatchers("/admin/**", "/users", "/user").hasAuthority("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

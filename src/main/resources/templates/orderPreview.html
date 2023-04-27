@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Preview</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cartNew.css}">
+</head>
+<body>
+<!-- Include header -->
+<div th:include="header.html"></div>
+<div class="container">
+    <h1>Order Preview</h1>
+    <h2>Order Details</h2>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </tr>
+        <tr th:each="orderItem : ${orderItems}">
+            <td th:text="${orderItem.product.name}"></td>
+            <td th:text="${orderItem.quantity}"></td>
+            <td th:text="${orderItem.product.price}"></td>
+            <td th:text="${totalPrice}"></td>
+        </tr>
+    </table>
+
+    <h2>User Information</h2>
+    <form method="post" th:action="${updateUserInformationUrl}">
+        <input type="hidden" th:field="${order.id}">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" th:field="${userInformation.firstName}">
+        <br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" th:field="${userInformation.lastName}">
+        <br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" th:field="${userInformation.phone}">
+        <br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" th:field="${userInformation.address}">
+        <br>
+        <label for="birthDate">Birth date:</label>
+        <input type="date" id="birthDate" name="birthDate" th:field="${userInformation.birthDate}">
+        <br>
+        <input type="submit" value="Update User Information">
+    </form>
+
+    <h2>Additional Information</h2>
+    <form method="post" th:action="${finishOrderUrl}">
+        <input type="hidden" th:field="${order.id}">
+        <label for="additionalInfo">Additional Information:</label>
+        <br>
+        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" value="Finish Order">
+    </form>
+</div>
+</body>
+</html>
