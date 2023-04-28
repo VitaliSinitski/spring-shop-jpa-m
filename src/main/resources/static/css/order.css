@@ -23,11 +23,13 @@ table {
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 th {
     text-align: left;
-    background-color: #343a40;
+    /*background-color: #343a40;*/
+    background-color: #232f3e;
     color: #fff;
     padding: 8px;
 }
@@ -62,7 +64,8 @@ textarea {
 }
 
 input[type="submit"] {
-    background-color: #343a40;
+    /*background-color: #343a40;*/
+    background-color: #232f3e;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -93,5 +96,6 @@ strong {
 
 .total-price strong {
     font-weight: bold;
-    color: #343a40;
+    /*color: #343a40;*/
+    color: #334868;
 }
