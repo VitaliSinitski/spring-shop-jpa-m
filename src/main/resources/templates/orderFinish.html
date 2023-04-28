@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
+</head>
+<body>
+<!-- Include header -->
+<div th:include="header.html"></div>
+<div class="container">
+    <h1>Thank you for your order!</h1>
+    <p>Our manager will call you soon to confirm the details.</p>
+    <p>Your order number is: <strong th:text="${orderId}"></strong></p>
+    <h2>Order Details</h2>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        <tr th:each="orderItem : ${orderItems}">
+            <td th:text="${orderItem.product.name}"></td>
+            <td th:text="${orderItem.quantity}"></td>
+            <td th:text="${orderItem.product.price}"></td>
+            <td th:text="${orderItem.product.price * orderItem.quantity}"></td>
+        </tr>
+    </table>
+    <br>
+    <h2>Total Price</h2>
+    <table>
+        <tr>
+            <td th:text="${totalPrice}"></td>
+        </tr>
+    </table>
+    <br>
+    <h2>User Information</h2>
+    <table>
+        <tr>
+            <td>Firstname:</td>
+            <td th:text="${userInformation.firstName}"></td>
+        </tr>
+        <tr>
+            <td>Lastname:</td>
+            <td th:text="${userInformation.lastName}"></td>
+        </tr>
+        <tr>
+            <td>Birth date:</td>
+            <td th:text="${userInformation.birthDate}"></td>
+        </tr>
+        <tr>
+            <td>Phone number:</td>
+            <td th:text="${userInformation.phone}"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td th:text="${userInformation.address}"></td>
+        </tr>
+    </table>
+    <h3>Additional Information</h3>
+    <table>
+        <tr>
+            <td th:text="${order.inform}"></td>
+        </tr>
+    </table>
+    <h3>Order status</h3>
+    <table>
+        <tr>
+            <td th:text="${order.orderStatus}"></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

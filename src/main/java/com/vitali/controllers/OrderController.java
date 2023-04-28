@@ -73,11 +73,12 @@ public class OrderController {
         // create the order
 
         OrderReadDto order = orderService.createOrder(cartId, inform);
+
         Integer orderId = order.getId();
         session.setAttribute("orderId", orderId);
-
+        log.info("OrderController - Post makeOrder - orderId: {}", orderId);
         session.setAttribute("cart", userCart);
-        log.info("OrderController - Post makeOrder - finish");
+
         return "redirect:/orderPreview/" + orderId;
     }
 
@@ -86,7 +87,7 @@ public class OrderController {
                                @ModelAttribute("userId") Integer userId,
                                @ModelAttribute("cartId") Integer cartId,
                                Model model) {
-
+        log.info("OrderController - Get orderPreview - orderId: {}", orderId);
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
@@ -115,6 +116,7 @@ public class OrderController {
     public String saveUserInformation(@PathVariable("id") Integer userInformationId,
                                       @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
                                       @ModelAttribute("orderId") Integer orderId) {
+        log.info("OrderController - saveUserInformation - orderId: {}", orderId);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/orderPreview/" + orderId;
     }
@@ -125,7 +127,7 @@ public class OrderController {
                               @ModelAttribute("userId") Integer userId,
                               @ModelAttribute("cartId") Integer cartId,
                               Model model) {
-
+        log.info("OrderController - @Post orderFinish - orderId: {}", orderId);
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
@@ -145,29 +147,37 @@ public class OrderController {
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("userInformation", updatedUserInformation);
 
-//        return "orderPreview";
-        return "redirect:/orderFinish";
+        return "redirect:/orderFinish/" + orderId;
     }
 
 
-    @GetMapping("/finishOrder")
+    @GetMapping("/orderFinish/{orderId}")
     public String orderFinish(HttpSession session,
-                              @ModelAttribute("orderId") Integer orderId,
+                              @PathVariable Integer orderId,
+                              @ModelAttribute("userId") Integer userId,
                               @ModelAttribute("cartId") Integer cartId,
                               Model model) {
         if (orderId == null) {
             return "redirect:/";
         }
-        session.removeAttribute("orderId");
 
-        log.info("OrderController - finishOrder - middle");
+
+        log.info("OrderController - @Get orderFinish - orderId: {}", orderId);
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
-
+        List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        log.info("OrderController - @Get orderFinish - end - orderId: {}", orderId);
+        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("orderItems", orderItems);
         model.addAttribute("orderId", orderId);
+        model.addAttribute("order", order);
+        model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
+        session.removeAttribute("orderId");
         return "orderFinish";
     }
 
