@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="admin/header.html"></div>
+
+<div>
+    <table th:object="${userInformation}">
+        <thead>
+        <tr>
+            <th colspan="2">User Information</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>First name:</td>
+            <td>
+                <span th:text="*{firstName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td>
+
+                <span th:text="*{lastName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Birth date:</td>
+            <td>
+                <span th:text="*{birthDate}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td>
+                <span th:text="*{phone}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>
+                <span th:text="*{address}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--    <form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">-->
+<form th:action="@{/admin/orders/{orderId}/update(orderId=${order.id})}" method="post" th:object="${order}">
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">Order Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--        <tr>-->
+        <!--            <td>Product image:</td>-->
+        <!--            <td>-->
+        <!--                <div th:if="${product.image}" class="product-details-image">-->
+        <!--                    <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="200">-->
+        <!--                </div>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+
+        <!--        <tr>-->
+        <!--            <td>Change image:</td>-->
+        <!--            <td><input id="image" type="file" name="image" th:value="*{image}"></td>-->
+        <!--        </tr>-->
+        <tr>
+            <td>Order id:</td>
+            <td>
+                <span th:text="*{id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Created date:</td>
+            <td>
+                <span th:text="*{createdDate}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Updated date:</td>
+            <td>
+                <span th:text="*{updatedDate}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Order information:</td>
+            <td>
+                <span th:text="*{inform}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Ordered products:</td>
+            <td>
+                <span th:text="*{orderItems}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Order status:</td>
+            <td>
+                <label for="orderStatus">
+                    <select name="orderStatus" id="orderStatus">
+                        <option th:each="status : ${orderStatuses}" th:text="${status.name()}" th:value="${status}">
+                            Status
+                        </option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="submit">Update</button>
+</form>
+<br>
+<!--<form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">-->
+<!--    <button type="submit" class="submit">Delete</button>-->
+<!--</form>-->
+
+</body>
+</html>

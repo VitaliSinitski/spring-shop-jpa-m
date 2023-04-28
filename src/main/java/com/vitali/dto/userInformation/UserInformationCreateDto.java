@@ -18,4 +18,5 @@ public class UserInformationCreateDto {
     String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate birthDate;
+    Integer userId;
 }

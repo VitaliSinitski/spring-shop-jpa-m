@@ -100,6 +100,10 @@
                 <constraints nullable="false" foreignKeyName="fk_orders_cart"
                              referencedTableName="cart" referencedColumnNames="id"/>
             </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_orders_user"
+                             referencedTableName="user" referencedColumnNames="id"/>
+            </column>
         </createTable>
         <rollback>
             <dropTable tableName="orders"/>

@@ -58,6 +58,7 @@ public class CartService {
         }
         log.info("CartService - cartItems: {}", cartItems);
 
+
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = orderItemRepository.saveAndFlush(cartItemToOrderItemMapper.map(cartItem));
@@ -65,6 +66,7 @@ public class CartService {
             orderItems.add(orderItem);
         }
         log.info("CartService - orderItems: {}", orderItems);
+
 
         Order order = Order.builder()
                 .cart(cart)

@@ -65,6 +65,7 @@ public class OrderController {
     public String makeOrder(HttpSession session,
                             @RequestParam String inform,
                             @ModelAttribute("userCart") Cart userCart,
+                            @ModelAttribute("userId") Integer userId,
                             @ModelAttribute("cartId") Integer cartId) {
         // get the user's cart
 //        Cart cart = (Cart) session.getAttribute("userCart");
@@ -72,7 +73,7 @@ public class OrderController {
 
         // create the order
 
-        OrderReadDto order = orderService.createOrder(cartId, inform);
+        OrderReadDto order = orderService.createOrder(userId, cartId, inform);
 
         Integer orderId = order.getId();
         session.setAttribute("orderId", orderId);

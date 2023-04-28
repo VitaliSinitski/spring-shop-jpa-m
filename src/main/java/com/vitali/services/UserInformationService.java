@@ -1,7 +1,11 @@
 package com.vitali.services;
 
+import com.vitali.database.entities.Cart;
+import com.vitali.database.entities.User;
 import com.vitali.database.entities.UserInformation;
+import com.vitali.database.repositories.CartRepository;
 import com.vitali.database.repositories.UserInformationRepository;
+import com.vitali.database.repositories.UserRepository;
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.dto.user.UserReadDto;
 import com.vitali.dto.userInformation.UserInformationCreateDto;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +28,8 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserInformationService {
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
     private final UserInformationReadMapper userInformationReadMapper;
     private final UserInformationCreateMapper userInformationCreateMapper;
     private final UserInformationRepository userInformationRepository;
@@ -46,6 +53,16 @@ public class UserInformationService {
                 .map(userInformationReadMapper::map);
     }
 
+    public UserInformationReadDto findUserInformationByOrderId(Integer orderId) {
+        Cart cart = cartRepository.findCartByOrdersId(orderId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+        Integer cartId = cart.getId();
+        User user = userRepository.findUserByCartId(cartId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Integer userId = user.getId();
+        return userInformationRepository.findUserInformationByUserId(userId)
+                .map(userInformationReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
 //    public Optional<UserInformationReadDto> findUserInformationByUserId(Integer userId) {
 //        log.info("UserInformationService - findUserInformationByUserId - userId: {}", userId);
 //        UserInformation userInformation = userInformationRepository.findAllByUserId(userId).orElse(null);
@@ -65,21 +82,13 @@ public class UserInformationService {
 
     @Transactional
     public Optional<UserInformationReadDto> update(Integer id, UserInformationCreateDto userInformationCreateDto) {
-        log.info("UserInformationService - update - userInformation id: {}", id);
-        log.info("UserInformationService - update - userInformationCreateDto: {}", userInformationCreateDto);
         Optional<UserInformation> userInformationOptional = userInformationRepository.findById(id);
         if (!userInformationOptional.isPresent()) {
             return Optional.empty();
         }
-
         UserInformation userInformation = userInformationOptional.get();
-        log.info("UserInformationService - update - userInformation: {}", userInformation);
-
-
         UserInformation updateUserInformation = userInformationCreateMapper.map(userInformationCreateDto, userInformation);
-        log.info("UserInformationService - update - updateUserInformation: {}", updateUserInformation);
         UserInformation userInformationSaved = userInformationRepository.saveAndFlush(userInformation);
-        log.info("UserInformationService - update - userInformationSaved: {}", userInformationSaved);
         return Optional.of(userInformationReadMapper.map(userInformation));
     }
 
@@ -90,6 +99,8 @@ public class UserInformationService {
 
         UserInformation userInformation = userInformationRepository.findById(userInformationId)
                 .orElseThrow(() -> new NotFoundException("User information not found"));
+//        Integer userId = userInformationCreateDto.getUserId();
+//        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         log.info("UserInformationService - update - before change - userInformation: {}", userInformation);
 
@@ -99,8 +110,7 @@ public class UserInformationService {
         userInformation.setPhone(userInformationCreateDto.getPhone());
         userInformation.setAddress(userInformationCreateDto.getAddress());
         userInformation.setBirthDate(userInformationCreateDto.getBirthDate());
-
-        log.info("UserInformationService - update - after - change - userInformation: {}", userInformation);
+//        userInformation.setUser(user);
 
         return userInformationRepository.save(userInformation);
     }

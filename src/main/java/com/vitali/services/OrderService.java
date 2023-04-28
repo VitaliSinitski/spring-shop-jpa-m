@@ -1,21 +1,15 @@
 package com.vitali.services;
 
 import com.vitali.constants.Constants;
-import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.Product;
+import com.vitali.database.entities.*;
 import com.vitali.database.entities.enums.OrderStatus;
-import com.vitali.database.entities.Cart;
-import com.vitali.database.entities.Order;
-import com.vitali.database.entities.OrderItem;
-import com.vitali.database.repositories.CartItemRepository;
-import com.vitali.database.repositories.CartRepository;
-import com.vitali.database.repositories.FilterProductRepository;
-import com.vitali.database.repositories.OrderItemRepository;
-import com.vitali.database.repositories.OrderRepository;
-import com.vitali.database.repositories.ProductRepository;
+import com.vitali.database.repositories.*;
+import com.vitali.dto.order.OrderCreateDto;
 import com.vitali.dto.order.OrderReadDto;
+import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.mappers.cartItem.CartItemToOrderItemMapper;
+import com.vitali.mappers.order.OrderCreateMapper;
 import com.vitali.mappers.order.OrderReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,31 +18,40 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderService {
+    private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
     private final CartItemRepository cartItemRepository;
     private final OrderReadMapper orderReadMapper;
+    private final OrderCreateMapper orderCreateMapper;
     private final ProductService productService;
     private final OrderItemService orderItemService;
     private final CartItemService cartItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
 
-    @Transactional
-    public void createNewOrder(List<Integer> ids, String information, Integer cardId) {
-        Cart cart = cartRepository.findById(cardId).orElse(null);
-        Order order = Order.builder()
-                .inform(information)
-                .cart(cart)
-                .build();
-        order.setOrderItems(getOrderItemsByIds(ids));
+//    @Transactional
+//    public void createNewOrder(List<Integer> ids, String information, Integer cardId) {
+//        Cart cart = cartRepository.findById(cardId).orElse(null);
+//        Order order = Order.builder()
+//                .inform(information)
+//                .cart(cart)
+//                .build();
+//        order.setOrderItems(getOrderItemsByIds(ids));
+//    }
+
+    public List<OrderReadDto> findAll() {
+        return orderRepository.findAll().stream()
+                .map(orderReadMapper::map)
+                .collect(Collectors.toList());
     }
 
     public Optional<OrderReadDto> findById(Integer id) {
@@ -70,8 +73,9 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderReadDto createOrder(Integer cartId, String information) {
+    public OrderReadDto createOrder(Integer userId, Integer cartId, String information) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
 
         // get cartItems
         List<CartItem> cartItems = cart.getCartItems();
@@ -91,6 +95,7 @@ public class OrderService {
 
         // set cart, information, status, OrderItems
         order.setCart(cart);
+        order.setUser(user);
         order.setInform(information);
         order.setOrderStatus(OrderStatus.PENDING);
         order.setOrderItems(orderItems);
@@ -104,4 +109,12 @@ public class OrderService {
     }
 
 
+
+    @Transactional
+    public Optional<Object> update(Integer id, OrderCreateDto orderCreateDto) {
+        return orderRepository.findById(id)
+                .map(order -> orderCreateMapper.map(orderCreateDto, order))
+                .map(orderRepository::saveAndFlush)
+                .map(orderReadMapper::map);
+    }
 }

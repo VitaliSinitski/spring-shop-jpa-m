@@ -8,6 +8,7 @@ import lombok.Value;
 @Value
 public class OrderCreateDto {
     Integer cartId;
+    Integer userId;
     String inform;
     OrderStatus orderStatus;
 }

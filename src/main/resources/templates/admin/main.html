@@ -25,8 +25,11 @@
 <div th:include="admin/header.html"></div>
 
 <div class="login-container">
-    <form th:action="@{/admin/products}" class="login-form">
+    <form th:action="@{/admin/orders}" class="login-form">
         <h2 class="login-header">Welcome back</h2>
+        <button class="login-submit" type="submit">Orders</button>
+    </form><br>
+    <form th:action="@{/admin/products}" class="login-form">
         <button class="login-submit" type="submit">Products</button>
     </form><br>
     <form th:action="@{/admin/products/new}" class="login-form">

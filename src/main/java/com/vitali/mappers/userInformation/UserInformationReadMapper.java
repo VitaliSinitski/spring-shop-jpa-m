@@ -4,12 +4,14 @@ import com.vitali.database.entities.UserInformation;
 import com.vitali.dto.user.UserReadDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
 import com.vitali.mappers.Mapper;
+import com.vitali.mappers.user.UserReadMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class UserInformationReadMapper implements Mapper<UserInformation, UserInformationReadDto> {
+//    private final UserReadMapper userReadMapper;
     @Override
     public UserInformationReadDto map(UserInformation object) {
         return UserInformationReadDto.builder()
@@ -19,6 +21,7 @@ public class UserInformationReadMapper implements Mapper<UserInformation, UserIn
                 .phone(object.getPhone())
                 .address(object.getAddress())
                 .birthDate(object.getBirthDate())
+//                .user(userReadMapper.map(object.getUser()))
                 .build();
     }
 }

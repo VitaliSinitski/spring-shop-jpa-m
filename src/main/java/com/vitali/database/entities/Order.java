@@ -48,10 +48,15 @@ public class Order {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     //    @Builder.Default
 //    @ToString.Exclude
 //    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // 03-15:01-00 не мог сохранить order и убрал merge
+
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @JoinColumn(name = "orders_id" )
     private List<OrderItem> orderItems = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.vitali.dto.userInformation;
 
+import com.vitali.dto.user.UserReadDto;
 import lombok.Builder;
 import lombok.Value;
 
@@ -14,4 +15,5 @@ public class UserInformationReadDto {
     String phone;
     String address;
     LocalDate birthDate;
+    UserReadDto user;
 }

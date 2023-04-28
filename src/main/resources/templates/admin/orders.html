@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+<!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
+</head>
+<body>
+<div th:include="admin/header.html"></div>
+<div></div>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Cart Id</th>
+        <th>Order status</th>
+        <th>Created date</th>
+        <th>Updated date</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.user.userInformation.firstName}"></td>
+        <td th:text="${order.user.userInformation.lastName}"></td>
+        <td th:text="${order.cart.id}"></td>
+        <td th:text="${order.orderStatus}"></td>
+        <td th:text="${order.createdDate}"></td>
+        <td th:text="${order.updatedDate}"></td>
+        <td>
+<!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
+<!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
+            <a th:href="@{/admin/orders/{id}(id=${order.id})}">View</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

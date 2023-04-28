@@ -141,15 +141,11 @@ public class ProductService {
     @Transactional
     public void updateProductQuantityByCartItem(CartItem cartItem) {
         Product product = cartItem.getProduct();
-        log.info("ProductService - updateProductQuantityByCartItem - before product: {}", product);
-
         Integer productId = cartItem.getProduct().getId();
-        log.info("ProductService - updateProductQuantityByCartItem - productId: {}", productId);
 
 //        Product product = productRepository.findById(productId).orElseThrow();
 //        log.info("ProductService - updateProductByCartItem - product: {}", product);
         product.setQuantity(product.getQuantity() - cartItem.getQuantity());
-        log.info("ProductService - updateProductQuantityByCartItem - after product: {}", product);
         productRepository.save(product);
     }
 

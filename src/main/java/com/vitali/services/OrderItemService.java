@@ -30,36 +30,36 @@ public class OrderItemService {
     private final OrderItemCreateMapper orderItemCreateMapper;
     private final CartRepository cartRepository;
 
-    @Transactional
-    public Integer create(OrderItemCreateDto orderItemCreateDto) {
-        OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);
-        return orderItemRepository.save(orderItemEntity).getId();
-    }
+//    @Transactional
+//    public Integer create(OrderItemCreateDto orderItemCreateDto) {
+//        OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);
+//        return orderItemRepository.save(orderItemEntity).getId();
+//    }
 
 
     // I use this in OrderService createOrder()
-    @Transactional
-    public Integer create(Integer quantity, Integer productId, Integer cartId) {
-        OrderItemCreateDto orderItemCreateDto = OrderItemCreateDto.builder()
-                .quantity(quantity)
-                .productId(productId)
-                .cartId(cartId)
-                .build();
-        OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);
-        return orderItemRepository.save(orderItemEntity).getId();
-    }
+//    @Transactional
+//    public Integer create(Integer quantity, Integer productId, Integer cartId) {
+//        OrderItemCreateDto orderItemCreateDto = OrderItemCreateDto.builder()
+//                .quantity(quantity)
+//                .productId(productId)
+//                .cartId(cartId)
+//                .build();
+//        OrderItem orderItemEntity = orderItemCreateMapper.map(orderItemCreateDto);
+//        return orderItemRepository.save(orderItemEntity).getId();
+//    }
 
     public Optional<OrderItemReadDto> findById(Integer id) {
         return orderItemRepository.findById(id)
                 .map(orderItemReadMapper::map);
     }
 
-    public List<OrderItemReadDto> findAllByCartId(Integer id) {
-        return orderItemRepository.findOrderItemsByCartId(id)
-                .stream()
-                .map(orderItemReadMapper::map)
-                .collect(Collectors.toList());
-    }
+//    public List<OrderItemReadDto> findAllByCartId(Integer id) {
+//        return orderItemRepository.findOrderItemsByCartId(id)
+//                .stream()
+//                .map(orderItemReadMapper::map)
+//                .collect(Collectors.toList());
+//    }
 
     public boolean findOrderItemByProductId(Integer id) {
         return orderItemRepository.existsOrderItemByProductId(id);
@@ -85,13 +85,13 @@ public class OrderItemService {
     }
 
 
-    public void deleteAllByCartId(Integer id) {
-        List<OrderItem> allByCartId = orderItemRepository.findAllByCartId(id);
-        log.info("OrderItemService - deleteAllByCartId - allByCartId");
-        orderItemRepository.deleteAllByCartId(id);
-        log.info("OrderItemService - deleteAllByCartId - finish");
-
-    }
+//    public void deleteAllByCartId(Integer id) {
+//        List<OrderItem> allByCartId = orderItemRepository.findAllByCartId(id);
+//        log.info("OrderItemService - deleteAllByCartId - allByCartId");
+//        orderItemRepository.deleteAllByCartId(id);
+//        log.info("OrderItemService - deleteAllByCartId - finish");
+//
+//    }
 
     public BigDecimal getTotalPrice(Integer orderId) {
         List<OrderItem> orderItems = orderItemRepository.findOrderItemsByOrderId(orderId);

@@ -12,33 +12,52 @@
         <div th:if="${#authentication.isAuthenticated()}">
             <p>Hello, <span th:text="${#authentication.name}"></span>!</p>
         </div>
-<!--        <div>-->
-<!--            <h3>Welcome, <span th:text="${session.currentUserName}"></span>!</h3>-->
-<!--            <h3>Welcome, <span th:text="${session.userCart}"></span>!</h3>-->
-<!--        </div>-->
+        <!--        <div>-->
+        <!--            <h3>Welcome, <span th:text="${session.currentUserName}"></span>!</h3>-->
+        <!--            <h3>Welcome, <span th:text="${session.userCart}"></span>!</h3>-->
+        <!--        </div>-->
     </div>
     <nav class="header-nav">
         <ul class="menu-list">
-            <li><a th:href="@{/products}">Home</a></li>
+
             <li>
-                <a th:href="@{/cart/{id}(id=${session.cartId})}" >Cart</a>
+                <a th:href="@{/products}">Home</a>
+            </li>
+
+            <li>
+                <a th:href="@{/cart/{id}(id=${session.cartId})}">Cart</a>
                 (<span th:text="${session.cartSize}"></span>)
             </li>
 
-<!--            <li>-->
-<!--                (<span th:text="${session.cartId}"></span>)-->
-<!--            </li>-->
-            <li><a href="#">Contacts</a></li>
+
+            <!--                <li sec:authorize="hasRole('ADMIN')">-->
+            <!--                    <a href="/admin">Admin page</a>-->
+            <!--                </li>-->
+
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <!--            <li sec:authorize="hasRole('ADMIN')">-->
+                <form action="/admin/main" method="get">
+                    <button type="submit">Admin page</button>
+                </form>
+            </li>
+
+            <!--            <li>-->
+            <!--                (<span th:text="${session.cartId}"></span>)-->
+            <!--            </li>-->
+            <!--            <li><a href="#">Contacts</a></li>-->
+
             <li sec:authorize="isAnonymous()">
                 <form action="/login">
                     <button type="submit">Login</button>
                 </form>
             </li>
+
             <li sec:authorize="isAuthenticated()">
                 <form action="/logout" method="post">
                     <button type="submit">Logout</button>
                 </form>
             </li>
+
             <li class="dropdown">
             </li>
         </ul>
