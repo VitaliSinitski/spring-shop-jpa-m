@@ -1,16 +1,14 @@
 package com.vitali.services;
 
-import com.vitali.dto.user.UserReadDto;
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.User;
-import com.vitali.dto.user.UserCreateDto;
-
-import com.vitali.mappers.user.UserCreateMapper;
-import com.vitali.mappers.user.UserReadMapper;
 import com.vitali.database.repositories.CartRepository;
 import com.vitali.database.repositories.UserRepository;
+import com.vitali.dto.user.UserCreateDto;
+import com.vitali.dto.user.UserReadDto;
+import com.vitali.mappers.user.UserCreateMapper;
+import com.vitali.mappers.user.UserReadMapper;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -51,9 +48,16 @@ public class UserService implements UserDetailsService {
 //        return userRepository.save(userEntity).getId();
 //    }
 
-    public Optional<UserReadDto> findById(Integer id) {
+//    public Optional<UserReadDto> findById(Integer id) {
+//        return userRepository.findById(id)
+//                .map(userReadMapper::map);
+//    }
+
+    public UserReadDto findById(Integer id) {
         return userRepository.findById(id)
-                .map(userReadMapper::map);
+                .map(userReadMapper::map)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
     @Transactional
@@ -105,8 +109,6 @@ public class UserService implements UserDetailsService {
                 .map(Optional::ofNullable)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
-
-
 
 
     // It is function correctly

@@ -74,11 +74,11 @@ public class OrderController {
         List<CartItem> cartItems = userCart.getCartItems();
 
         // check if there are enough items in stock
-        for (CartItem item : cartItems) {
-            if (item.getProduct().getQuantity() < item.getQuantity()) {
-                throw new OutOfStockException("There is not enough stock for " + item.getProduct().getName());
-            }
-        }
+//        for (CartItem item : cartItems) {
+//            if (item.getProduct().getQuantity() < item.getQuantity()) {
+//                throw new OutOfStockException("There is not enough stock for " + item.getProduct().getName());
+//            }
+//        }
 
         // create the order
 

@@ -136,25 +136,35 @@ public class ProductService {
                 .map(productReadMapper::map);
     }
 
+//    @Transactional
+//    public boolean updateProductQuantityByCartItem(CartItem cartItem) {
+//        Product product = cartItem.getProduct();
+//        Integer productId = cartItem.getProduct().getId();
+//
+//        int restStock = product.getQuantity() - cartItem.getQuantity();
+//        if (restStock >= 0) {
+//            product.setQuantity(restStock);
+//            productRepository.save(product);
+//            return true;
+//        }
+//        return false;
+//    }
+
     @Transactional
     public boolean updateProductQuantityByCartItem(CartItem cartItem) {
         Product product = cartItem.getProduct();
         Integer productId = cartItem.getProduct().getId();
 
-//        Product product = productRepository.findById(productId).orElseThrow();
-//        log.info("ProductService - updateProductByCartItem - product: {}", product);
-
         int restStock = product.getQuantity() - cartItem.getQuantity();
-        if (restStock >= 0) {
-            product.setQuantity(restStock);
-            productRepository.save(product);
-            return true;
-//            throw new OutOfStockException("Stock of goods is insufficient.(Current stock quantity: "
-//                                          + product.getQuantity() + ", customer ordered: "
-//                                          + cartItem.getQuantity() +")");
+        if (restStock < 0) {
+            throw new OutOfStockException("There is not enough stock for " + cartItem.getProduct().getName()
+                                          + ". Current stock quantity: " + product.getQuantity()
+                                          + ", customer ordered: " + cartItem.getQuantity() + ".");
         }
-        return false;
-}
+        product.setQuantity(restStock);
+        productRepository.save(product);
+        return true;
+    }
 
     @Transactional
     public boolean delete(Integer id) {

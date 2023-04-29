@@ -2,6 +2,7 @@ package com.vitali.controllers;
 
 import com.vitali.database.entities.enums.Role;
 import com.vitali.dto.user.UserCreateDto;
+import com.vitali.dto.user.UserReadDto;
 import com.vitali.services.UserInformationService;
 import com.vitali.services.UserService;
 import com.vitali.validation.group.CreateAction;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.groups.Default;
 
 @Controller
@@ -35,17 +35,25 @@ public class UserController {
         return "users";
     }
 
+//    @GetMapping("/users/{id}")
+//    public String findById(@PathVariable Integer id, Model model) {
+//        return userService.findById(id)
+//                .map(user -> {
+//                    model.addAttribute("user", user);
+//                    model.addAttribute("roles", Role.values());
+//                    return "user";
+//                })
+//                .orElseThrow(
+////                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                        () -> new EntityNotFoundException("User not found"));
+//    }
+
     @GetMapping("/users/{id}")
     public String findById(@PathVariable Integer id, Model model) {
-        return userService.findById(id)
-                .map(user -> {
-                    model.addAttribute("user", user);
-                    model.addAttribute("roles", Role.values());
-                    return "user";
-                })
-                .orElseThrow(
-//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-                        () -> new EntityNotFoundException("User not found"));
+        UserReadDto user = userService.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        return "user";
     }
 
 
