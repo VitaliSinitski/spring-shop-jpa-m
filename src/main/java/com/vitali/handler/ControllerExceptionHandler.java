@@ -16,4 +16,6 @@ public class ControllerExceptionHandler /* extends ResponseEntityExceptionHandle
         log.error("Failed to return response", exception);
         return "error/error500";
     }
+
+
 }

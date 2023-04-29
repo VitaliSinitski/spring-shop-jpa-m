@@ -50,6 +50,53 @@
         </tbody>
     </table>
 </div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="4">Order item details</th>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody th:each="item : ${order.orderItems}">
+        <tr>
+            <td>
+                <span th:text="${item.id}"/>
+            </td>
+            <td>
+                <span th:text="${item.product.name}"/>
+            </td>
+            <td>
+                <span th:text="${item.product.price}"/>
+            </td>
+            <td>
+                <span th:text="${item.quantity}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">Total price</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span th:text="${totalPrice}"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <!--    <form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">-->
 <form th:action="@{/admin/orders/{orderId}/update(orderId=${order.id})}" method="post" th:object="${order}">
     <table>
@@ -96,22 +143,35 @@
                 <span th:text="*{inform}"/>
             </td>
         </tr>
-        <tr>
-            <td>Ordered products:</td>
-            <td>
-                <span th:text="*{orderItems}"/>
-            </td>
-        </tr>
+<!--        <tr>-->
+<!--            <td>Ordered products:</td>-->
+<!--            <td>-->
+<!--                <span th:text="*{orderItems}"/>-->
+<!--            </td>-->
+<!--        </tr>-->
         <tr>
             <td>Order status:</td>
             <td>
+                <!--                <label for="orderStatus">-->
+                <!--                    <select name="orderStatus" id="orderStatus">-->
+                <!--&lt;!&ndash;                        <option th:each="status : ${orderStatuses}" th:text="${status.name()}" th:value="${status}">Status&ndash;&gt;-->
+                <!--                        <option th:each="orderStatus : ${orderStatuses}" -->
+                <!--                                th:text="${orderStatus.name()}" -->
+                <!--                                th:value="${orderStatus}">Status-->
+                <!--                        </option>-->
+                <!--                    </select>-->
+                <!--                </label>-->
                 <label for="orderStatus">
                     <select name="orderStatus" id="orderStatus">
-                        <option th:each="status : ${orderStatuses}" th:text="${status.name()}" th:value="${status}">
+                        <option th:each="orderStatus : ${orderStatuses}"
+                                th:text="${orderStatus.name()}"
+                                th:value="${orderStatus}"
+                                th:selected="${orderStatus == order.orderStatus}">
                             Status
                         </option>
                     </select>
                 </label>
+
             </td>
         </tr>
         </tbody>

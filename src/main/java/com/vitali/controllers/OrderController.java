@@ -20,6 +20,7 @@ import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
+import com.vitali.exception.OutOfStockException;
 import com.vitali.services.CartItemService;
 import com.vitali.services.CartService;
 import com.vitali.services.OrderItemService;
@@ -42,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -70,6 +72,13 @@ public class OrderController {
         // get the user's cart
 //        Cart cart = (Cart) session.getAttribute("userCart");
         List<CartItem> cartItems = userCart.getCartItems();
+
+        // check if there are enough items in stock
+        for (CartItem item : cartItems) {
+            if (item.getProduct().getQuantity() < item.getQuantity()) {
+                throw new OutOfStockException("There is not enough stock for " + item.getProduct().getName());
+            }
+        }
 
         // create the order
 
@@ -162,7 +171,6 @@ public class OrderController {
             return "redirect:/";
         }
 
-
         log.info("OrderController - @Get orderFinish - orderId: {}", orderId);
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
@@ -181,6 +189,5 @@ public class OrderController {
         session.removeAttribute("orderId");
         return "orderFinish";
     }
-
 
 }

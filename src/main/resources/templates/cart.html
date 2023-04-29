@@ -3,10 +3,29 @@
 <head>
     <title>Shopping Cart</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/cartNew.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body class="body">
 <!-- Include header -->
 <div th:include="header.html"></div>
+
+
+<!--<div th:if="${param.message}" class="alert alert-danger" role="alert">-->
+<!--    <span th:text="${param.message}"></span>-->
+<!--</div>-->
+
+<!--<div th:if="${param.error}" class="alert alert-danger" role="alert">-->
+<!--    <span th:text="${param.error}"></span>-->
+<!--</div>-->
+
+<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">
+<!--    [[${error}]]-->
+<!--        <span th:text="${param.error}"></span>-->
+        <span th:text="${error}"></span>
+</div>
+
+
+
 <div class="cart-container">
     <h1 class="cart-header">Shopping Cart</h1>
 
@@ -55,17 +74,6 @@
 
     <!--    <div class="cart-total">-->
     <div class="cart-make-order">
-<!--        <table class="cart-table-inform">-->
-<!--            <tbody>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <label style="align-items: center">-->
-<!--                        <textarea name="inform" type="text" rows="15" cols="60"></textarea>-->
-<!--                    </label>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
         <p>Total: <span class="cart-total-price" th:text="${totalPrice}"></span></p>
         <form method="post" action="/order" class="checkout-form">
             <div class="cart-table-inform">

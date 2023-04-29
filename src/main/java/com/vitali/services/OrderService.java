@@ -8,6 +8,7 @@ import com.vitali.dto.order.OrderCreateDto;
 import com.vitali.dto.order.OrderReadDto;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductReadDto;
+import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.cartItem.CartItemToOrderItemMapper;
 import com.vitali.mappers.order.OrderCreateMapper;
 import com.vitali.mappers.order.OrderReadMapper;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -29,12 +31,9 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final OrderItemRepository orderItemRepository;
-    private final ProductRepository productRepository;
-    private final CartItemRepository cartItemRepository;
     private final OrderReadMapper orderReadMapper;
     private final OrderCreateMapper orderCreateMapper;
     private final ProductService productService;
-    private final OrderItemService orderItemService;
     private final CartItemService cartItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
 
@@ -67,9 +66,19 @@ public class OrderService {
     }
 
     @Transactional
-    public void updateOrderStatus(OrderStatus orderStatus, Integer id) {
-        Order order = orderRepository.findById(id).orElse(null);
-        order.setOrderStatus(Optional.ofNullable(orderStatus).orElse(Constants.DEFAULT_ORDER_STATUS));
+    public boolean updateOrderStatus(OrderStatus orderStatus, Integer orderId) {
+//        Order order = orderRepository.findById(orderId)
+//                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+////                        .orElseThrow(() -> new NotFoundException("Order not found"));
+//
+//        order.setOrderStatus(Optional.ofNullable(orderStatus).orElse(Constants.DEFAULT_ORDER_STATUS));
+
+        return orderRepository.findById(orderId)
+                .map(entity -> {
+                    entity.setOrderStatus(orderStatus);
+                    return true;
+                })
+                .orElse(false);
     }
 
     @Transactional
@@ -87,7 +96,14 @@ public class OrderService {
             orderItems.add(orderItem);
 
             // update the product quantity
-            productService.updateProductQuantityByCartItem(cartItem);
+            boolean stockConfirmation = productService.updateProductQuantityByCartItem(cartItem);
+
+            if (!stockConfirmation) {
+                throw new OutOfStockException(cartItem.getProduct().getName());
+//                throw new OutOfStockException("Stock of goods is insufficient.(Current stock quantity: "
+//                                              + cartItem.getProduct().getQuantity() + ", customer ordered: "
+//                                              + cartItem.getQuantity() + ")");
+            }
 
         }
         // create Order object

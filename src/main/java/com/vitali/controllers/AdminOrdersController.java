@@ -1,13 +1,7 @@
 package com.vitali.controllers;
 
-import com.vitali.database.entities.Cart;
-import com.vitali.database.entities.CartItem;
 import com.vitali.database.entities.enums.OrderStatus;
-import com.vitali.dto.order.OrderCreateDto;
 import com.vitali.dto.order.OrderReadDto;
-import com.vitali.dto.orderItem.OrderItemReadDto;
-import com.vitali.dto.product.ProductCreateDto;
-import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
 import com.vitali.services.CartItemService;
 import com.vitali.services.OrderItemService;
@@ -18,23 +12,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/orders")
-//@SessionAttributes({"userId", "orderId", "cartId", "userCart"})
 public class AdminOrdersController {
-    private final OrderItemService orderItemService;
-    private final CartItemService cartItemService;
     private final OrderService orderService;
     private final UserInformationService userInformationService;
+    private final OrderItemService orderItemService;
 
 
     @GetMapping
@@ -44,11 +32,12 @@ public class AdminOrdersController {
     }
 
     @GetMapping("/{id}")
-    public String findByIdOrder(@PathVariable("id") Integer id, Model model) {
-        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(id);
+    public String findByIdOrder(@PathVariable("id") Integer orderId, Model model) {
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
         log.info("AdminOrdersController - findByIdOrder - userInformation: {}", userInformation);
-        return orderService.findById(id)
+        return orderService.findById(orderId)
                 .map(order -> {
+                    model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
                     model.addAttribute("orderStatuses", OrderStatus.values());
                     model.addAttribute("userInformation", userInformation);
                     model.addAttribute("order", order);
@@ -58,12 +47,51 @@ public class AdminOrdersController {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+//    @PostMapping("/{id}/update")
+//    public String updateOrder(@PathVariable("id") Integer orderId,
+//                              @ModelAttribute OrderStatus orderStatus,
+//                              Model model) {
+//        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
+//        orderService.updateOrderStatus(orderStatus, orderId);
+//        model.addAttribute("orderStatuses", OrderStatus.values());
+//        model.addAttribute("userInformation", userInformation);
+//        model.addAttribute("order", orderService.findById(orderId));
+//        return "redirect:/admin/orders/{id}";
+//
+////                .map(it -> "redirect:/admin/orders/{id}")
+////                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+////    }
+//    }
+
+//    @PostMapping("/{id}/update")
+//    public String updateOrder(@PathVariable("id") Integer orderId,
+//                              @ModelAttribute OrderStatus orderStatus,
+//                              Model model) {
+//        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
+//        orderService.updateOrderStatus(orderStatus, orderId);
+//        OrderReadDto updatedOrder = orderService.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        model.addAttribute("orderStatuses", OrderStatus.values());
+//        model.addAttribute("userInformation", userInformation);
+//        model.addAttribute("order", updatedOrder);
+//        return "redirect:/admin/orders/{id}";
+//    }
+
     @PostMapping("/{id}/update")
-    public String updateOrder(@PathVariable("id") Integer id,
-                                @ModelAttribute OrderCreateDto order) {
-        return orderService.update(id, order)
-                .map(it -> "redirect:/admin/orders/{id}")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public String updateOrder(@PathVariable("id") Integer orderId,
+                              @ModelAttribute OrderStatus orderStatus,
+                              Model model) {
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
+        orderService.updateOrderStatus(orderStatus, orderId);
+        OrderReadDto order = orderService.findById(orderId).orElse(null);
+        if (order == null) {
+            log.info("AdminOrdersController - updateOrder - order == null");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        model.addAttribute("orderStatuses", OrderStatus.values());
+        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("order", order);
+        return "redirect:/admin/orders/{id}";
     }
+
 
 }

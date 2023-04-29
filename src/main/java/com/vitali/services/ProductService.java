@@ -1,22 +1,20 @@
 package com.vitali.services;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.vitali.database.entities.CartItem;
+import com.vitali.database.entities.Product;
 import com.vitali.database.entities.QProduct;
 import com.vitali.database.querydsl.QPredicates;
+import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
-import com.vitali.database.entities.Product;
+import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
-import com.vitali.database.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,15 +137,24 @@ public class ProductService {
     }
 
     @Transactional
-    public void updateProductQuantityByCartItem(CartItem cartItem) {
+    public boolean updateProductQuantityByCartItem(CartItem cartItem) {
         Product product = cartItem.getProduct();
         Integer productId = cartItem.getProduct().getId();
 
 //        Product product = productRepository.findById(productId).orElseThrow();
 //        log.info("ProductService - updateProductByCartItem - product: {}", product);
-        product.setQuantity(product.getQuantity() - cartItem.getQuantity());
-        productRepository.save(product);
-    }
+
+        int restStock = product.getQuantity() - cartItem.getQuantity();
+        if (restStock >= 0) {
+            product.setQuantity(restStock);
+            productRepository.save(product);
+            return true;
+//            throw new OutOfStockException("Stock of goods is insufficient.(Current stock quantity: "
+//                                          + product.getQuantity() + ", customer ordered: "
+//                                          + cartItem.getQuantity() +")");
+        }
+        return false;
+}
 
     @Transactional
     public boolean delete(Integer id) {

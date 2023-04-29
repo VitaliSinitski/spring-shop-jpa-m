@@ -32,25 +32,13 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
     private final ProductService productService;
-    private final CartService cartService;
     private final CartItemService cartItemService;
-    private final CartItemCreateConverter cartItemCreateConverter;
-    private final OrderItemService orderItemService;
 
-    //    @GetMapping
     @GetMapping("/{id}")
     public String showCart(@PathVariable Integer id,
-                           Model model, HttpSession session) {
-//        Cart cart = (Cart) session.getAttribute("userCart");
-//        if (cart == null) {
-//            User user = (User) session.getAttribute("currentUser");
-//            if (user == null) {
-//                return "redirect:/login";
-//            }
-//        }
-//        Object cartIdObject = session.getAttribute("cartId");
-//        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-//        List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
+                           Model model, HttpSession session,
+                           RedirectAttributes redirectAttributes) {
+
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(id);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", cartItemService.getTotalPrice(id));
@@ -68,19 +56,9 @@ public class CartController {
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
 
-
-/*        log.info("CartController - addToCart - cartId: {}", cartId);
-        log.info("CartController - addToCart - delete - start");
-        orderItemService.delete(1);
-//        orderItemService.deleteAllByCartId(cartId);
-        log.info("CartController - addToCart - delete - finish");*/
-
-
-
         cartItemService.create(quantity, productId, cartId);
         return "redirect:/products";
     }
-
 
     @PostMapping("/update")
     public String updateCart(@RequestParam Integer cartItemId,
@@ -112,12 +90,9 @@ public class CartController {
         if (!cartItemService.delete(cartId, cartItemId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-//        cartItemService.delete(cartId, cartItemId);
-//        log.info("CartController - removeFromCart - deleteCartItem: {}", deleteCartItem);
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", cartItemService.getTotalPrice(cartId));
         return "redirect:/cart/" + cartId;
     }
-
 }
