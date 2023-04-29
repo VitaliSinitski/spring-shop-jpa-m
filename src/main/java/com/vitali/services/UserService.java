@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -76,13 +77,37 @@ public class UserService implements UserDetailsService {
     }
 
     // It is function correctly
+//    @Transactional
+//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
+//        return userRepository.findById(id)
+//                .map(user -> userCreateMapper.map(userCreateDto, user))
+//                .map(userRepository::saveAndFlush)
+//                .map(userReadMapper::map);
+//    }
+
+//    @Transactional
+//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
+//        return userRepository.findById(id)
+//                .map(user -> {
+//                    User updatedUser = userCreateMapper.map(userCreateDto, user);
+//                    return userRepository.saveAndFlush(updatedUser);
+//                })
+//                .map(userReadMapper::map)
+//                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+//    }
+
     @Transactional
     public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
         return userRepository.findById(id)
                 .map(user -> userCreateMapper.map(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
-                .map(userReadMapper::map);
+                .map(userReadMapper::map)
+                .map(Optional::ofNullable)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
+
+
+
 
     // It is function correctly
     @Transactional

@@ -86,7 +86,6 @@ public class OrderController {
 
         Integer orderId = order.getId();
         session.setAttribute("orderId", orderId);
-        log.info("OrderController - Post makeOrder - orderId: {}", orderId);
         session.setAttribute("cart", userCart);
 
         return "redirect:/orderPreview/" + orderId;

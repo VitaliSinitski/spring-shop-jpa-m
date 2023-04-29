@@ -84,7 +84,7 @@ public class OrderService {
     @Transactional
     public OrderReadDto createOrder(Integer userId, Integer cartId, String information) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         // get cartItems
         List<CartItem> cartItems = cart.getCartItems();

@@ -65,16 +65,14 @@ public class CartController {
                              @RequestParam Integer quantity,
                              HttpSession session,
                              Model model) {
-        log.info("CartController - updateCart - cartItemId: {}", cartItemId);
-        log.info("CartController - updateCart - quantity: {}", quantity);
         if (quantity <= 0) {
             return "redirect:/cart/remove?id=" + cartItemId;
         }
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-        log.info("CartController - updateCart - cartId: {}", cartId);
         cartItemService.updateCartItemQuantity(cartId, cartItemId, quantity);
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
+
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", cartItemService.getTotalPrice(cartId));
         return "redirect:/cart/" + cartId;

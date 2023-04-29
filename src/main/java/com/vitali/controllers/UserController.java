@@ -1,7 +1,7 @@
 package com.vitali.controllers;
 
-import com.vitali.dto.user.UserCreateDto;
 import com.vitali.database.entities.enums.Role;
+import com.vitali.dto.user.UserCreateDto;
 import com.vitali.services.UserInformationService;
 import com.vitali.services.UserService;
 import com.vitali.validation.group.CreateAction;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.groups.Default;
 
 @Controller
@@ -43,7 +44,8 @@ public class UserController {
                     return "user";
                 })
                 .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                        () -> new EntityNotFoundException("User not found"));
     }
 
 
@@ -60,7 +62,7 @@ public class UserController {
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateDto user,
                          BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes){
+                         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -70,7 +72,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-//    @PutMapping("/{id}")
+    //    @PutMapping("/{id}")
     @PostMapping("/users/{id}/update")
     public String update(@PathVariable("id") Integer id,
                          @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateDto user) {
@@ -79,7 +81,7 @@ public class UserController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-//    @DeleteMapping("/{id}")
+    //    @DeleteMapping("/{id}")
     @PostMapping("/users/{id}/delete")
     public String delete(@PathVariable Integer id) {
         if (!userService.delete(id)) {

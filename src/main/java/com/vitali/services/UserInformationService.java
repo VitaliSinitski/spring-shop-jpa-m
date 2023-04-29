@@ -63,14 +63,6 @@ public class UserInformationService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
-//    public Optional<UserInformationReadDto> findUserInformationByUserId(Integer userId) {
-//        log.info("UserInformationService - findUserInformationByUserId - userId: {}", userId);
-//        UserInformation userInformation = userInformationRepository.findAllByUserId(userId).orElse(null);
-//        log.info("UserInformationService - findUserInformationByUserId - userInformation: {}", userInformation);
-////        return userInformationReadMapper.map(userInformation);
-//        return userInformationRepository.findUserInformationByUserId(userId)
-//                .map(userInformationReadMapper::map);
-//    }
 
     @Transactional
     public Optional<UserInformationReadDto> updateByUserId(Integer userId, UserInformationCreateDto userInformation) {

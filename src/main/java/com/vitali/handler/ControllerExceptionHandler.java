@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @ControllerAdvice(basePackages = "com.vitali.controllers")
-public class ControllerExceptionHandler /* extends ResponseEntityExceptionHandler*/ {
+public class ControllerExceptionHandler  extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public String handleExceptions(Exception exception, HttpServletRequest request) {
         log.error("Failed to return response", exception);
         return "error/error500";
     }
-
 
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+
+<div th:include="header.html"></div>
+
+<div th:if="${errorMessage}">
+    <h1>Error occurred</h1>
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">
+    <!--    [[${error}]]-->
+    <!--        <span th:text="${param.error}"></span>-->
+    <span th:text="${error}"></span>
+</div>
+
+</body>
+</html>
