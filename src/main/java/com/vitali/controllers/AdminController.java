@@ -38,7 +38,8 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(Authentication authentication) {
-        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+        if (authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             return "admin/main";
         } else {
             return "redirect:/login";

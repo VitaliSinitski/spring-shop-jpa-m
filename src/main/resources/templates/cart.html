@@ -18,11 +18,17 @@
 <!--    <span th:text="${param.error}"></span>-->
 <!--</div>-->
 
-<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">
+<!--<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">-->
+<div th:if="${message}" class="alert alert-danger">
 <!--    [[${error}]]-->
 <!--        <span th:text="${param.error}"></span>-->
-        <span th:text="${error}"></span>
+        <span th:text="${message}"></span>
 </div>
+
+<!--<div th:if="${message}" class="alert alert-warning">-->
+<!--    <p th:text="${message}"></p>-->
+<!--</div>-->
+
 
 
 

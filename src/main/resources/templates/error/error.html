@@ -14,10 +14,10 @@
     <p th:text="${errorMessage}"></p>
 </div>
 
-<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">
+<div th:if="${not #strings.isEmpty(message)}" class="alert alert-danger">
     <!--    [[${error}]]-->
     <!--        <span th:text="${param.error}"></span>-->
-    <span th:text="${error}"></span>
+    <span th:text="${message}"></span>
 </div>
 
 </body>

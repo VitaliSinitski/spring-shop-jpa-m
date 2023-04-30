@@ -14,8 +14,10 @@ import java.math.BigDecimal;
 public class ProductFilter {
     private String name;
     private BigDecimal price;
-    private CategoryReadDto category;
-    private ProducerReadDto producer;
+//    private CategoryReadDto category;
+//    private ProducerReadDto producer;
+    private Integer categoryId;
+    private Integer producerId;
     private String sortField;
     private String sortDirection;
 }

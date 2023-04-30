@@ -31,16 +31,6 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
-//    @ExceptionHandler(OutOfStockException.class)
-//    public String handleOutOfStockException(OutOfStockException exception,
-//                                            RedirectAttributes redirectAttributes,
-//                                            HttpSession session) {
-//        Object cartIdObject = session.getAttribute("cartId");
-//        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-//        redirectAttributes.addFlashAttribute("message", "Stock of goods is insufficient.");
-//        return "redirect:/cart/" + cartId;
-//    }
-
     @GetMapping
     public String findAllProducts(Model model, ProductFilter filter,
                                   @RequestParam(defaultValue = "0") int page,
@@ -68,11 +58,11 @@ public class ProductController {
         model.addAttribute("sortDirection", sortDirection);
 
         // Add sort and size parameters to pagination links
-        String url = uriBuilder.replaceQueryParam("sortField", sortField)
-                .replaceQueryParam("sortDirection", sortDirection)
-                .replaceQueryParam("size", size)
-                .toUriString();
-        model.addAttribute("url", url);
+//        String url = uriBuilder.replaceQueryParam("sortField", sortField)
+//                .replaceQueryParam("sortDirection", sortDirection)
+//                .replaceQueryParam("size", size)
+//                .toUriString();
+//        model.addAttribute("url", url);
 
         return "products";
     }
@@ -112,6 +102,4 @@ public class ProductController {
         }
         return "redirect:/products";
     }
-
-
 }

@@ -68,11 +68,23 @@ public class ProductService {
 //    }
 
 
-    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {    // 04.24.11.15
+//    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {    // 04.24.11.15
+//        QProduct product = QProduct.product;
+//        var predicate = QPredicates.builder()
+//                .add(filter.getName(), product.name::containsIgnoreCase)
+//                .add(filter.getPrice(), product.price::eq)
+//                .build();
+//        return productRepository.findAll(predicate, pageable)
+//                .map(productReadMapper::map);
+//    }
+
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) { // 04.30.21.15
         QProduct product = QProduct.product;
         var predicate = QPredicates.builder()
                 .add(filter.getName(), product.name::containsIgnoreCase)
                 .add(filter.getPrice(), product.price::eq)
+                .add(filter.getCategoryId(), product.category.id::eq)
+                .add(filter.getProducerId(), product.producer.id::eq)
                 .build();
         return productRepository.findAll(predicate, pageable)
                 .map(productReadMapper::map);

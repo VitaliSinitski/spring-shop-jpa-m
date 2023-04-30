@@ -20,22 +20,8 @@ import static com.vitali.database.entities.QProduct.product;
 @RequiredArgsConstructor
 public class FilterProductRepositoryImpl implements FilterProductRepository{
     private final EntityManager entityManager;
-//    @Override
-//    public List<Product> findAllByFilter(ProductFilter filter) {
-//        Predicate predicate = QPredicates.builder()
-//                .add(filter.getName(), product.name::containsIgnoreCase)
-//                .add(filter.getPrice(), product.price::eq)
-//                .add(filter.getQuantity(), product.quantity::eq)
-////                .add(filter.getCategory().getName(), product.category.name::eq)
-////                .add(filter.getProducer().getName(), product.producer.name::eq)
-//                .build();
-//
-//        return new JPAQuery<Product>(entityManager)
-//                .select(product)
-//                .from(product)
-//                .where(predicate)
-//                .fetch();
-//    }
+
+
     @Override
     public List<Product> findAllByFilter(ProductFilter filter) {
 //    public List<Product> findAllByFilter(ProductFilter filter, Sort sort) {
@@ -47,24 +33,14 @@ public class FilterProductRepositoryImpl implements FilterProductRepository{
                 .add(filter.getName(), product.name::containsIgnoreCase)
                 .add(filter.getPrice(), product.price::eq);
 
-        if (filter.getCategory() != null) {
-            builder.add(filter.getCategory().getId(), product.category.id::eq);
-            builder.add(filter.getCategory().getName(), product.category.name::containsIgnoreCase);
+        if (filter.getCategoryId() != null) {
+            builder.add(filter.getCategoryId(), product.category.id::eq);
+//            builder.add(filter.getCategory().getName(), product.category.name::containsIgnoreCase);
         }
-        if (filter.getProducer() != null) {
-            builder.add(filter.getProducer().getId(), product.producer.id::eq);
-            builder.add(filter.getProducer().getName(), product.producer.name::containsIgnoreCase);
+        if (filter.getProducerId() != null) {
+            builder.add(filter.getProducerId(), product.producer.id::eq);
+//            builder.add(filter.getProducer().getName(), product.producer.name::containsIgnoreCase);
         }
-
-//        JPAQuery<Product> query = new JPAQuery<>(entityManager);
-//        query.select(product)
-//                .from(product)
-//                .where(builder.build())
-//                .orderBy(product.producer.name.asc(), product.category.name.asc());
-////                .orderBy(product.category.name.asc(), product.producer.name.asc());
-//
-//        return query.fetch();
-
 
         return new JPAQuery<>(entityManager)
                 .select(product)

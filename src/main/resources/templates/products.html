@@ -14,21 +14,37 @@
 <div th:include="header.html"></div>
 
 <!-- Include menu -->
-<div class="menu">
-    <div th:include="menu.html"></div>
-</div>
+<!--<div class="menu">-->
+<!--    <div th:include="menu.html"></div>-->
+<!--</div>-->
 
 <!-- Display all products -->
 <div class="container">
     <br>
     <div>
-        <!-- Форма поиска с полями для сортировки и количества элементов на странице -->
-        <form action="/products" method="get">
+        <!--  Sort form -->
+        <!--        <form action="/products" method="get">-->
+        <form id="filter-form" action="/products" method="get">
+
             <label for="name">Name:
                 <input id="name" type="text" name="name" th:value="${filter.name}">
             </label>
             <label for="price">Price:
                 <input id="price" type="number" name="price" th:value="${filter.price}">
+            </label>
+            <label for="category">Category:
+                <select id="category" name="categoryId" onchange="this.form.submit()">
+                    <option value="">All categories</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}"
+                            th:text="${category.name}" th:selected="${category.id == filter.categoryId}"></option>
+                </select>
+            </label>
+            <label for="producer">Producer:
+                <select id="producer" name="producerId" onchange="this.form.submit()">
+                    <option value="">All producers</option>
+                    <option th:each="producer : ${producers}" th:value="${producer.id}"
+                            th:text="${producer.name}" th:selected="${producer.id == filter.producerId}"></option>
+                </select>
             </label>
             <input type="hidden" name="sortField" th:value="${sortField}">
             <input type="hidden" name="sortDirection" th:value="${sortDirection}">
@@ -39,8 +55,21 @@
                 <option value="20" th:selected="${page.size == 20}">20</option>
             </select>
             <button type="submit">Filter</button>
+            <button type="reset" onclick="resetFilter()">Reset</button>
         </form>
+
     </div>
+
+    <script>
+        function resetFilter() {
+            document.getElementById("name").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("category").value = "";
+            document.getElementById("producer").value = "";
+            document.getElementById("pageSize").value = "5";
+            document.getElementById("filter-form").submit();
+        }
+    </script>
 
     <br>
     <div class="product-grid">
@@ -64,35 +93,6 @@
     </div>
 
     <!-- Pagination -->
-
-
-<!--    <div class="pagination">        &lt;!&ndash; работает, но отображает все вертикально и кнопки все в куче &ndash;&gt;-->
-<!--        <form action="/products" method="get">-->
-<!--            <input type="hidden" name="name" th:value="${filter.name}"/>-->
-<!--            <input type="hidden" name="price" th:value="${filter.price}"/>-->
-<!--            <input type="hidden" name="sortField" th:value="${sortField}"/>-->
-<!--            <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>-->
-<!--            <input type="hidden" name="size" th:value="${page.size}"/>-->
-
-<!--            <div th:if="${page.number > 0}">-->
-<!--                <button type="submit" name="page" th:value="${page.number - 1}" aria-label="Previous">-->
-<!--                    <span aria-hidden="true">&laquo;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-
-<!--            <div th:each="i : ${#numbers.sequence(0, page.totalPages-1)}">-->
-<!--                <button type="submit" name="page" th:value="${i}" th:text="${i+1}"-->
-<!--                        th:class="${i==page.number ? 'active' : ''}"></button>-->
-<!--            </div>-->
-
-<!--            <div th:if="${page.number < page.totalPages-1}">-->
-<!--                <button type="submit" name="page" th:value="${page.number + 1}" aria-label="Next">-->
-<!--                    <span aria-hidden="true">&raquo;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-
     <div class="pagination">
         <form action="/products" method="get">
             <input type="hidden" name="name" th:value="${filter.name}"/>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,7 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-@ControllerAdvice(basePackages = "com.vitali.controllers")
+@ControllerAdvice(basePackages = "com.vitali")
 public class CustomExceptionHandler {
 
     @ExceptionHandler(OutOfStockException.class)
@@ -24,7 +25,8 @@ public class CustomExceptionHandler {
                                             HttpSession session) {
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+//        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+        redirectAttributes.addFlashAttribute("message", exception.getMessage());
         return "redirect:/cart/" + cartId;
     }
 
@@ -51,7 +53,7 @@ public class CustomExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleEntityNotFoundException(EntityNotFoundException exception,
                                                 Model model) {
-        model.addAttribute("error", exception.getMessage());
+        model.addAttribute("message", exception.getMessage());
         return "error/error";
     }
 

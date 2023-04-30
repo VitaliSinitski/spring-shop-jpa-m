@@ -45,10 +45,26 @@ public class CartController {
         return "cart";
     }
 
+//    @PostMapping("/add")
+//    public String addToCart(@RequestParam Integer quantity,
+//                            @RequestParam Integer productId,
+//                            HttpSession session) {
+//        ProductReadDto product = productService.findById(productId).orElse(null);
+//        if (product == null) {
+//            return "redirect:/products";
+//        }
+//        Object cartIdObject = session.getAttribute("cartId");
+//        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
+//
+//        cartItemService.create(quantity, productId, cartId);
+//        return "redirect:/products";
+//    }
+
     @PostMapping("/add")
     public String addToCart(@RequestParam Integer quantity,
                             @RequestParam Integer productId,
-                            HttpSession session) {
+                            HttpSession session,
+                            RedirectAttributes redirectAttributes) {
         ProductReadDto product = productService.findById(productId).orElse(null);
         if (product == null) {
             return "redirect:/products";
@@ -56,9 +72,18 @@ public class CartController {
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
 
+        List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
+        for (CartItemReadDto cartItem : cartItems) {
+            if (cartItem.getProduct().getId().equals(productId)) {
+                redirectAttributes.addFlashAttribute("message", "The product '" + product.getName() + "' is already in the cart.");
+                return "redirect:/cart/" + cartId;
+            }
+        }
+
         cartItemService.create(quantity, productId, cartId);
         return "redirect:/products";
     }
+
 
     @PostMapping("/update")
     public String updateCart(@RequestParam Integer cartItemId,
