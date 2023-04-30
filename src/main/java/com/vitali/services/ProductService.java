@@ -35,49 +35,6 @@ public class ProductService {
     private final ProductReadMapper productReadMapper;
     private final ImageService imageService;
 
-
-//    public Page<ProductReadDto> findAll(ProductFilter filter, PageRequest pageRequest) {
-//        QProduct product = QProduct.product;
-////        Predicate predicate = QPredicates.builder()
-////                .add(filter.getName(), product.name::containsIgnoreCase)
-////                .add(filter.getPrice(), product.price::eq)
-////                .build();
-////        pageRequest.getSort().stream().forEach(order -> predicate.add(order.getProperty(), order::eq));
-//
-//        BooleanBuilder predicate = new BooleanBuilder();
-//        predicate.and(QPredicates.builder()
-//                .add(filter.getName(), product.name::containsIgnoreCase)
-//                .add(filter.getPrice(), product.price::eq)
-//                .build());
-//        pageRequest.getSort().stream().forEach(order -> predicate.and(order.getProperty(), order::isEquals));
-//
-//        return productRepository.findAll(predicate, pageRequest)
-//                .map(productReadMapper::map);
-//    }
-
-
-//    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
-//        QProduct product = QProduct.product;
-//        var predicate = QPredicates.builder()
-//                .add(filter.getName(), product.name::containsIgnoreCase)
-//                .add(filter.getPrice(), product.price::eq)
-//                .build();
-//        pageable = pageable.withSort(Sort.by(Sort.Direction.fromString(filter.getSortDirection()), filter.getSortField()));
-//        return productRepository.findAll(predicate, pageable)
-//                .map(productReadMapper::map);
-//    }
-
-
-//    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {    // 04.24.11.15
-//        QProduct product = QProduct.product;
-//        var predicate = QPredicates.builder()
-//                .add(filter.getName(), product.name::containsIgnoreCase)
-//                .add(filter.getPrice(), product.price::eq)
-//                .build();
-//        return productRepository.findAll(predicate, pageable)
-//                .map(productReadMapper::map);
-//    }
-
     public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) { // 04.30.21.15
         QProduct product = QProduct.product;
         var predicate = QPredicates.builder()

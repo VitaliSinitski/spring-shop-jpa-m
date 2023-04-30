@@ -4,8 +4,8 @@ body {
     /*font-family: Amazon Ember, sans-serif;*/
 }
 
-
 .container {
+    /*display: flex; !*   new added   *!*/
     margin: 0 auto;
     max-width: 1000px; /* changed to make room for the menu */
     padding: 0 15px;
@@ -14,11 +14,22 @@ body {
 }
 
 
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+}
+
 .product-grid {
+    /*width: 80%;  !*   new added   *!*/
+    /*left: 100px;*/
+    margin-left: 200px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+
 
 .product-items {
     flex-basis: calc(100% / 5 - 20px);
@@ -60,51 +71,43 @@ body {
     margin-top: 20px;
 }
 
-/* Pagination styles */
 .pagination {
-    margin-top: 20px;
-    font-size: 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+}
+.pagination .page {
+    display: inline-block;
+    margin: 0 5px;
 }
 
+.pagination__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
 
 .pagination button {
-    margin: 0 5px;
-}
-
-
-.pagination ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-}
-
-.pagination ul li {
-    margin: 0 5px;
-}
-
-.pagination ul li a {
-    display: block;
+    font-size: 16px;
     padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     background-color: #fff;
-    border: 1px solid #ddd;
-    color: #666;
+    color: #555;
+    cursor: pointer;
 }
 
-.pagination ul li.active a {
+.pagination button.active {
     background-color: #007bff;
     color: #fff;
+    border-color: #007bff;
 }
 
-.pagination ul li.disabled a {
-    pointer-events: none;
-    color: #bbb;
-    background-color: #fff;
-    border: 1px solid #ddd;
+.pagination button[aria-label="Previous"]::before {
+    content: '\2190\0020';
 }
 
-.pagination ul li a:hover {
-    background-color: #eee;
+.pagination button[aria-label="Next"]::after {
+    content: '\0020\2192';
 }

@@ -1,0 +1,64 @@
+
+.menu-nav {
+    position: absolute;
+    /*position: fixed;*/
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/*ul {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    display: flex; !* Add this *!*/
+/*    flex-direction: column; !* Add this *!*/
+/*}*/
+
+ul li ul li {
+    opacity: 1;
+}
+
+input, select, button {
+    margin-bottom: 10px;
+}
+
+
+li {
+    margin-bottom: 10px;
+    display: block; /* Add this */
+}
+
+label {
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    display: block; /* New */
+}
+
+
+.filter-container {
+    /*position: fixed;*/
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    overflow-y: scroll;
+    z-index: 2;
+}
+

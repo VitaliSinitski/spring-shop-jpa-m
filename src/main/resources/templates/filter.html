@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Filter Results</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/filter.css}"/>
+</head>
+<body>
+<h1>Filter Results</h1>
+<!-- filter.html -->
+<div class="filter-container">
+    <form id="filter-form" action="/products" method="get" style="display: flex; flex-direction: column;">
+        <label for="name">Name:
+            <input id="name" type="text" name="name" th:value="${filter.name}">
+        </label>
+        <label for="price">Price:
+            <input id="price" type="number" name="price" th:value="${filter.price}">
+        </label>
+        <label for="category">Category:
+            <br>
+            <select id="category" name="categoryId" onchange="this.form.submit()">
+                <option value="">All categories</option>
+                <option th:each="category : ${categories}" th:value="${category.id}"
+                        th:text="${category.name}" th:selected="${category.id == filter.categoryId}"></option>
+            </select>
+        </label>
+        <label for="producer">Producer:
+            <br>
+            <select id="producer" name="producerId" onchange="this.form.submit()">
+                <option value="">All producers</option>
+                <option th:each="producer : ${producers}" th:value="${producer.id}"
+                        th:text="${producer.name}" th:selected="${producer.id == filter.producerId}"></option>
+            </select>
+        </label>
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDirection" th:value="${sortDirection}">
+        <label for="pageSize">Items per page:
+            <br>
+            <select id="pageSize" name="size" onchange="this.form.submit()">
+                <option value="5" th:selected="${page.size == 5}">5</option>
+                <option value="10" th:selected="${page.size == 10}">10</option>
+                <option value="20" th:selected="${page.size == 20}">20</option>
+            </select>
+        </label>
+        <button type="submit">Filter</button>
+        <button type="reset" onclick="resetFilter()">Reset</button>
+    </form>
+</div>
+
+<script>
+    function resetFilter() {
+        document.getElementById("name").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("category").value = "";
+        document.getElementById("producer").value = "";
+        document.getElementById("pageSize").value = "5";
+        document.getElementById("filter-form").submit();
+    }
+</script>
+
+
+</body>
+</html>
