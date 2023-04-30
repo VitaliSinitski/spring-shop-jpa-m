@@ -102,8 +102,10 @@ body {
 }
 
 .cart-total-price {
-    font-size: 20px;
+    font-size: 25px;
     margin-top: 20px;
+    font-style: initial;
+    color: darkred;
 }
 
 .cart-make-order {

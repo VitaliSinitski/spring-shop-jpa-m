@@ -38,8 +38,7 @@
     <table class="cart-table">
         <thead>
         <tr>
-            <th></th>
-            <th class="product-name">cartItem Id</th>
+            <th class="product-name">id</th>
             <th class="product-name"></th>
             <th class="product-name">Product</th>
             <th class="product-description">Product description</th>
@@ -82,7 +81,8 @@
     <div class="cart-make-order">
         <p>Total: <span class="cart-total-price" th:text="${totalPrice}"></span></p>
         <form method="post" action="/order" class="checkout-form">
-            <div class="cart-table-inform">
+            <div class="cart-table-inform">Put your additional information:
+                <br>
                 <label style="align-items: center">
                     <textarea name="inform" type="text" rows="15" cols="60"></textarea>
                 </label>

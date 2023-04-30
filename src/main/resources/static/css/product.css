@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
 .product-details {
     display: flex;
     justify-content: space-between;
@@ -16,9 +20,19 @@
     align-items: flex-end;
 }
 
+.product-details-name {
+    font-size: 26px;
+    font-style: initial;
+}
+
+.product-details-price {
+    font-size: 25px;
+    font-style: initial;
+}
+
 .product-name {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .product-price {
@@ -43,5 +57,21 @@
 .product-container {
     display: flex;
     justify-content: center;
+}
+
+button {
+    background-color:  #232f3e;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #334868;
 }
 
