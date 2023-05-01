@@ -17,11 +17,8 @@
 <div th:if="${product != null}" class="product-container">
     <div class="product-details">
         <form method="post" th:action="@{/cart/add}">
-            <!--            <div class="product-details-image">-->
-            <!--                <img th:src="${product.image}" height="200"/>-->
-            <!--            </div>-->
             <div th:if="${product.image}" class="product-details-image">
-                <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="250">
+                <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="350">
             </div>
 
             <div class="product-details-info">

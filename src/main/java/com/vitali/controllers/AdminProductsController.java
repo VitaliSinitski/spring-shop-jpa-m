@@ -1,11 +1,16 @@
 package com.vitali.controllers;
 
 import com.vitali.dto.product.ProductCreateDto;
+import com.vitali.dto.product.ProductFilter;
+import com.vitali.dto.product.ProductReadDto;
 import com.vitali.services.CategoryService;
 import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +22,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @Slf4j
 @Controller
@@ -33,15 +41,42 @@ public class AdminProductsController {
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
-
     @GetMapping
-//    @GetMapping("/products")
-    public String findAllProducts(Model model) {
-        model.addAttribute("products", productService.findAll());
+    public String findAllProducts(Model model, ProductFilter filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "name") String sortField,
+                                  @RequestParam(defaultValue = "asc") String sortDirection,
+                                  @RequestParam(name = "minPrice", required = false) BigDecimal minPrice,
+                                  @RequestParam(name = "maxPrice", required = false) BigDecimal maxPrice,
+                                  UriComponentsBuilder uriBuilder) {
+        filter.setSortField(sortField);
+        filter.setSortDirection(sortDirection);
+        filter.setMinPrice(minPrice);
+        filter.setMaxPrice(maxPrice);
+
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortField));
+        Page<ProductReadDto> productPage = productService.findAll(filter, pageable);
+
+        model.addAttribute("page", productPage);
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("filter", filter);
         model.addAttribute("producers", producerService.findAll());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+
         return "admin/products";
     }
+
+
+//    @GetMapping
+////    @GetMapping("/products")
+//    public String findAllProducts(Model model) {
+//        model.addAttribute("products", productService.findAll());
+//        model.addAttribute("categories", categoryService.findAll());
+//        model.addAttribute("producers", producerService.findAll());
+//        return "admin/products";
+//    }
 
 
 //    @GetMapping("/products/{id}")

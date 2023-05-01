@@ -35,17 +35,20 @@ public class ProductService {
     private final ProductReadMapper productReadMapper;
     private final ImageService imageService;
 
-    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) { // 04.30.21.15
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) { // 05.01.02.15
         QProduct product = QProduct.product;
         var predicate = QPredicates.builder()
                 .add(filter.getName(), product.name::containsIgnoreCase)
-                .add(filter.getPrice(), product.price::eq)
                 .add(filter.getCategoryId(), product.category.id::eq)
                 .add(filter.getProducerId(), product.producer.id::eq)
+                .add(filter.getPrice(), product.price::eq)
+                .add(filter.getMinPrice(), product.price::gt)
+                .add(filter.getMaxPrice(), product.price::lt)
                 .build();
         return productRepository.findAll(predicate, pageable)
                 .map(productReadMapper::map);
     }
+
 
 //    public List<ProductReadDto> findAll(ProductFilter filter, Sort sort) {
 ////        sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");

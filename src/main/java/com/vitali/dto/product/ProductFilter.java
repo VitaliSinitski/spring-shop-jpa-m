@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 public class ProductFilter {
     private String name;
     private BigDecimal price;
+    private BigDecimal minPrice;
+    private BigDecimal maxPrice;
     private Integer categoryId;
     private Integer producerId;
     private String sortField;

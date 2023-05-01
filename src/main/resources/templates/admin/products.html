@@ -8,8 +8,11 @@
 </head>
 <body>
 <div th:include="admin/header.html"></div>
+
+<!-- Include filter -->
+<div th:include="admin/filter.html"></div>
 <div></div>
-<table>
+<table class="products-table-admin">
     <thead>
     <tr>
         <th>ID</th>
@@ -24,7 +27,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product : ${products}">
+<!--    <tr th:each="product : ${products}">-->
+    <tr th:each="product : ${page.content}">
         <td th:text="${product.id}"></td>
         <td>
 <!--            <div class="product-image">-->
@@ -49,5 +53,6 @@
     </tr>
     </tbody>
 </table>
+<div th:include="admin/pagination.html"></div>
 </body>
 </html>

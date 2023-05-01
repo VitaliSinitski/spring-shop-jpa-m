@@ -21,7 +21,7 @@ h2 {
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    /*width: 100%;*/
     margin-bottom: 20px;
     margin-top: 10px;
 }
@@ -98,4 +98,9 @@ strong {
     font-weight: bold;
     /*color: #343a40;*/
     color: #334868;
+}
+
+.products-table-admin {
+    margin-left: 250px;
+    margin-right: 50px;
 }

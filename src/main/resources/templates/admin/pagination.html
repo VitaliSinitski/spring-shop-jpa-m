@@ -1,5 +1,5 @@
 <div class="pagination">
-    <form action="/products" method="get">
+    <form action="/admin/products" method="get">
         <input type="hidden" name="name" th:value="${filter.name}"/>
         <input type="hidden" name="price" th:value="${filter.price}"/>
         <input type="hidden" name="categoryId" th:value="${filter.categoryId}"/>
@@ -48,6 +48,48 @@
         </div>
     </form>
 </div>
+<style>
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .pagination .page {
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+    .pagination__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px;
+    }
+
+    .pagination button {
+        font-size: 16px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .pagination button.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+
+    .pagination button[aria-label="Previous"]::before {
+        content: '\2190\0020';
+    }
+
+    .pagination button[aria-label="Next"]::after {
+        content: '\0020\2192';
+    }
+</style>
 
 
 
