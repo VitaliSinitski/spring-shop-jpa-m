@@ -10,9 +10,24 @@
 <div th:include="header.html"></div>
 <div class="login-container">
     <form th:action="@{/registration/add}" method="post" class="login-form">
-        <div style="color: red" th:if="${param.error}">
-            Bad credentials
+<!--        <div style="color: red" th:if="${param.error}">-->
+<!--            Bad credentials-->
+<!--        </div>-->
+        <div th:if="${userErrors}">
+            <ul>
+                <li th:each="error : ${userErrors}">
+                    <span th:text="${error.defaultMessage}" style="color: red"></span>
+                </li>
+            </ul>
         </div>
+        <div th:if="${userInformationErrors}">
+            <ul>
+                <li th:each="error : ${userInformationErrors}">
+                    <span th:text="${error.defaultMessage}" style="color: red"></span>
+                </li>
+            </ul>
+        </div>
+
         <h2 class="login-header">Registration</h2>
 
         <label for="username">Username:
