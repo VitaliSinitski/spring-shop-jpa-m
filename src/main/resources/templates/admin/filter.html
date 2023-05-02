@@ -14,9 +14,9 @@
         <label for="name">Name:
             <input id="name" type="text" name="name" th:value="${filter.name}" placeholder="Name">
         </label>
-        <label for="price">Price:
-            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">
-        </label>
+<!--        <label for="price">Price:-->
+<!--            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">-->
+<!--        </label>-->
         <label for="minPrice">Min price:
             <input type="text" id="minPrice" th:name="${'minPrice'}" placeholder="Min Price" th:value="${filter.minPrice}">
         </label>
@@ -39,8 +39,25 @@
                         th:text="${producer.name}" th:selected="${producer.id == filter.producerId}"></option>
             </select>
         </label>
-        <input type="hidden" name="sortField" th:value="${sortField}">
-        <input type="hidden" name="sortDirection" th:value="${sortDirection}">
+
+        <div class="form-group">
+            <label for="sortField">Sort Field:</label>
+            <select class="form-control" id="sortField" name="sortField">
+                <option value="name" th:selected="${sortField == 'name'}">Name</option>
+                <option value="price" th:selected="${sortField == 'price'}">Price</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="sortDirection">Sort Direction:</label>
+            <select class="form-control" id="sortDirection" name="sortDirection">
+                <option value="asc" th:selected="${sortDirection == 'asc'}">Ascending</option>
+                <option value="desc" th:selected="${sortDirection == 'desc'}">Descending</option>
+            </select>
+        </div>
+
+<!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
+<!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
         <label for="pageSize">Items per page:
             <br>
             <select id="pageSize" name="size" onchange="this.form.submit()">

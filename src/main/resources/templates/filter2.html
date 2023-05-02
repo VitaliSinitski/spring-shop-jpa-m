@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Filter Results</title>
@@ -14,11 +14,8 @@
         <label for="name">
             <input id="name" type="hidden" name="name" th:value="${filter.name}">
         </label>
-<!--        <label for="name">Name:-->
-<!--            <input id="name" type="text" name="name" th:value="${filter.name}" placeholder="Name">-->
-<!--        </label>-->
 <!--        <label for="price">Price:-->
-<!--            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">-->
+<!--            <input id="price" type="number" name="price" th:value="${filter.price}">-->
 <!--        </label>-->
         <label for="minPrice">Min price:
             <input type="text" id="minPrice" name="minPrice" placeholder="Min Price" th:value="${filter.minPrice}">
@@ -26,10 +23,10 @@
         </label>
         <label for="maxPrice">Max price:
             <input type="text" id="maxPrice" name="maxPrice" placeholder="Max Price" th:value="${filter.maxPrice}">
-            <!--            <input type="text" id="maxPrice" th:name="${'maxPrice'}" placeholder="Max Price" th:value="${filter.maxPrice}">-->
+<!--            <input type="text" id="maxPrice" th:name="${'maxPrice'}" placeholder="Max Price" th:value="${filter.maxPrice}">-->
         </label>
+
         <label for="category">Category:
-            <br>
             <select id="category" name="categoryId" onchange="this.form.submit()">
                 <option value="">All categories</option>
                 <option th:each="category : ${categories}" th:value="${category.id}"
@@ -37,13 +34,13 @@
             </select>
         </label>
         <label for="producer">Producer:
-            <br>
             <select id="producer" name="producerId" onchange="this.form.submit()">
                 <option value="">All producers</option>
                 <option th:each="producer : ${producers}" th:value="${producer.id}"
                         th:text="${producer.name}" th:selected="${producer.id == filter.producerId}"></option>
             </select>
         </label>
+
         <div class="form-group">
             <label for="sortField">Sort Field:</label>
             <select class="form-control" id="sortField" name="sortField">
@@ -60,16 +57,14 @@
             </select>
         </div>
 
-<!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
-<!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
-        <label for="pageSize">Items per page:
-            <br>
-            <select id="pageSize" name="size" onchange="this.form.submit()">
-                <option value="5" th:selected="${page.size == 5}">5</option>
-                <option value="10" th:selected="${page.size == 10}">10</option>
-                <option value="20" th:selected="${page.size == 20}">20</option>
-            </select>
-        </label>
+        <!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
+        <!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
+        <label for="pageSize">Items per page:</label>
+        <select id="pageSize" name="size" onchange="this.form.submit()">
+            <option value="5" th:selected="${page.size == 5}">5</option>
+            <option value="10" th:selected="${page.size == 10}">10</option>
+            <option value="20" th:selected="${page.size == 20}">20</option>
+        </select>
         <button type="submit">Filter</button>
         <button type="reset" onclick="resetFilter()">Reset</button>
     </form>
@@ -79,8 +74,6 @@
     function resetFilter() {
         document.getElementById("name").value = "";
         // document.getElementById("price").value = "";
-        // document.getElementsByName("minPrice")[0].value = "";
-        // document.getElementsByName("maxPrice")[0].value = "";
         document.getElementById("minPrice").value = "";
         document.getElementById("maxPrice").value = "";
         document.getElementById("category").value = "";
@@ -91,7 +84,5 @@
         document.getElementById("filter-form").submit();
     }
 </script>
-
-
 </body>
 </html>

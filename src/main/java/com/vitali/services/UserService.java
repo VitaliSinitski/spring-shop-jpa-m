@@ -2,12 +2,17 @@ package com.vitali.services;
 
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.User;
+import com.vitali.database.entities.UserInformation;
 import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.UserInformationRepository;
 import com.vitali.database.repositories.UserRepository;
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.dto.user.UserReadDto;
+import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.mappers.user.UserCreateMapper;
 import com.vitali.mappers.user.UserReadMapper;
+import com.vitali.mappers.userInformation.UserInformationCreateMapper;
+import com.vitali.mappers.userInformation.UserInformationReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -31,9 +36,12 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
+    private final UserInformationRepository userInformationRepository;
     private final UserRepository userRepository;
     private final UserCreateMapper userCreateMapper;
     private final UserReadMapper userReadMapper;
+    private final UserInformationCreateMapper userInformationCreateMapper;
+    private final UserInformationReadMapper userInformationReadMapper;
     private final CartRepository cartRepository;
 
     public List<UserReadDto> findAll() {
@@ -56,28 +64,26 @@ public class UserService implements UserDetailsService {
     public UserReadDto findById(Integer id) {
         return userRepository.findById(id)
                 .map(userReadMapper::map)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("User with id: " + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
     @Transactional
-    public UserReadDto create(UserCreateDto userCreateDto) {
+    public UserReadDto create(UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
         Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
+        UserInformation userInformation = Optional.of(userInformationCreateDto)
+                .map(userInformationCreateMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation not found"));
         User user = Optional.of(userCreateDto)
                 .map(userCreateMapper::map)
                 .map(userRepository::save)
 //                .map(userRepository::saveAndFlush) // todo variant???
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         cart.setUser(user);
+        userInformation.setUser(user);
 //        user.setCart(cart);
         cartRepository.save(cart);
+        userInformationRepository.save(userInformation);
         return userReadMapper.map(user);
-
-//        return Optional.of(userCreateDto)
-//                .map(userCreateMapper::map)
-//                .map(userRepository::save)
-//                .map(userReadMapper::map)
-//                .orElseThrow();
     }
 
     // It is function correctly
@@ -107,7 +113,7 @@ public class UserService implements UserDetailsService {
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map)
                 .map(Optional::ofNullable)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
 
@@ -119,7 +125,7 @@ public class UserService implements UserDetailsService {
                     userRepository.delete(entity);
                     return true;
                 })
-                .orElse(false);
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
     @Override
@@ -128,8 +134,8 @@ public class UserService implements UserDetailsService {
                 .map(user -> new org.springframework.security.core.userdetails.User(
                         user.getUsername(),
                         user.getPassword(),
-                        Collections.singleton(user.getRole())
-                )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
+                        Collections.singleton(user.getRole())))
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
     }
 
 
@@ -142,29 +148,11 @@ public class UserService implements UserDetailsService {
         String username = getCurrentUsernameFromSecurityContext();
         if (username == null || !username.isEmpty()) {
             return userRepository.findUserByUsername(username)
-                    .map(userReadMapper::map).orElse(null);
+                    .map(userReadMapper::map)
+                    .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
         }
         return null;
     }
-
-
-//    public Long getCurrentUserId() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            Object principal = authentication.getPrincipal();
-//            if (principal instanceof UserDetails userDetails) {
-//                return getUserIdFromUserDetails(userDetails);
-//            }
-//        }
-//        return null;
-//    }
-//
-//    private Long getUserIdFromUserDetails(UserDetails userDetails) {
-//        // Retrieve the user id from your user details object
-//        // For example, if your user details object has a getId() method:
-//        return userDetails.getId();
-//    }
-
 
 }
 

@@ -42,8 +42,9 @@ public class ProductService {
                 .add(filter.getCategoryId(), product.category.id::eq)
                 .add(filter.getProducerId(), product.producer.id::eq)
                 .add(filter.getPrice(), product.price::eq)
-                .add(filter.getMinPrice(), product.price::gt)
-                .add(filter.getMaxPrice(), product.price::lt)
+//                .add(filter.getMinPrice(), product.price::gt)
+                .add(filter.getMinPrice(), product.price::goe)
+                .add(filter.getMaxPrice(), product.price::loe)
                 .build();
         return productRepository.findAll(predicate, pageable)
                 .map(productReadMapper::map);

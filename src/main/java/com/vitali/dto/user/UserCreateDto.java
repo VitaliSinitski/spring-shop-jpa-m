@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -17,8 +18,10 @@ import java.time.LocalDate;
 @UserInfo(groups = CreateAction.class)
 public class UserCreateDto {
     @Size(min = 2, max = 64)
+    @NotNull
     String username;
     @Email
+    @NotNull
     String email;
     @NotBlank(groups = CreateAction.class)
     String rawPassword;

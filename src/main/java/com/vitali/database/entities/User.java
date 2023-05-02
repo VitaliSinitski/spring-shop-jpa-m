@@ -20,20 +20,17 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class User{
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String username;
-//    @Column(unique = true, nullable = false)
     private String email;
-//    @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
     @Column
     private Role role;
-//    @Column(nullable = false)
     private boolean enabled;
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
