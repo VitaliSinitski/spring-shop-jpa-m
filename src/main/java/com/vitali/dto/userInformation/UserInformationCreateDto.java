@@ -27,7 +27,7 @@ public class UserInformationCreateDto {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Birthdate must not be empty")
-    @Past
+    @Past(message = "Birthdate must be past date")
     LocalDate birthDate;
     Integer userId;
 }

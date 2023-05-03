@@ -12,6 +12,7 @@ import com.vitali.services.UserInformationService;
 import com.vitali.services.UserService;
 import com.vitali.validation.group.CreateAction;
 import com.vitali.validation.group.UpdateAction;
+import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -61,18 +62,7 @@ public class UserController {
 //                        () -> new EntityNotFoundException("User not found"));
 //    }
 
-    @GetMapping("/users/{id}")
-    public String findById(@PathVariable Integer id,
-                           Model model) {
-        UserReadDto user = userService.findById(id);
-        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(user.getId());
-        log.info("UserController - findById - userInformation: {}", userInformation);
-        model.addAttribute("user", user);
-        model.addAttribute("userInformation", userInformation);
-        model.addAttribute("roles", Role.values());
 
-        return "user";
-    }
 
 
     @GetMapping("/registration")
@@ -86,9 +76,9 @@ public class UserController {
     }
 
     @PostMapping("/registration/add")
-    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateDto user,
+    public String create(@ModelAttribute @Validated UserCreateDto user,
                          BindingResult userBindingResult,
-                         @ModelAttribute @Validated({Default.class, CreateAction.class}) UserInformationCreateDto userInformation,
+                         @ModelAttribute @Validated UserInformationCreateDto userInformation,
                          BindingResult userInformationBindingResult,
                          RedirectAttributes redirectAttributes) {
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
@@ -131,20 +121,45 @@ public class UserController {
 //        return "redirect:/users/{id}";
 //    }
 
+    @GetMapping("/users/{id}")
+    public String findById(@PathVariable Integer id,
+                           Model model) {
+        UserReadDto user = userService.findById(id);
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(user.getId());
+//        log.info("UserController - findById - user: {}", user);
+//        log.info("UserController - findById - userInformation: {}", userInformation);
+        model.addAttribute("user", user);
+        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("roles", Role.values());
+
+        return "user";
+    }
+
     @PostMapping("/users/{id}/update")
-    public String update(@PathVariable("id") Integer id,
-                         @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserInformationCreateDto userInformationCreateDto,
-                         BindingResult bindingResult,
+    public String update(@PathVariable("id") Integer userId,
+                         @ModelAttribute("user") @Validated({Default.class, UpdateValidationGroup.class}) UserCreateDto userCreateDto,
+                         BindingResult userBindingResult,
+                         @ModelAttribute("userInformation") @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformationCreateDto,
+                         BindingResult userInformationBindingResult,
                          RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            log.info("OrderController - update - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
+//            log.info("OrderController - update - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
+            log.info("UserController - update - hasErrors - userCreateDto: {}", userCreateDto);
+            log.info("UserController - update - hasErrors - userInformationCreateDto: {}", userInformationCreateDto);
+            redirectAttributes.addFlashAttribute("user", userCreateDto);
+            redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
+            redirectAttributes.addFlashAttribute("userErrors", userBindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
             return "redirect:/users/{id}";
         }
-
-        UserReadDto user = userService.findById(id);
+        log.info("UserController - update - userCreateDto: {}", userCreateDto);
+        log.info("UserController - update - userInformationCreateDto: {}", userInformationCreateDto);
+        UserReadDto user = userService.findById(userId);
         UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
         Integer userInformationId = userInformationReadDto.getId();
+        log.info("UserController - update - user: {}", user);
+        log.info("UserController - update - userInformationReadDto: {}", userInformationReadDto);
+        userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/users/{id}";
     }
@@ -169,9 +184,9 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String editUser(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateDto userCreateDto,
+    public String editUser(@ModelAttribute @Validated({Default.class, UpdateValidationGroup.class}) UserCreateDto userCreateDto,
                            BindingResult userBindingResult,
-                           @ModelAttribute @Validated({Default.class, CreateAction.class}) UserInformationCreateDto userInformationCreateDto,
+                           @ModelAttribute @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformationCreateDto,
                            BindingResult userInformationBindingResult,
                            @ModelAttribute("userId") Integer userId,
                            @ModelAttribute("userInformationId") Integer userInformationId,
@@ -184,7 +199,9 @@ public class UserController {
             return "redirect:/user/edit";
         }
 
-        userService.updatePersonalInfo(userId, userInformationId, userCreateDto, userInformationCreateDto);
+        userService.update(userId, userCreateDto);
+        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
+//        userService.updatePersonalInfo(userId, userInformationId, userCreateDto, userInformationCreateDto);
         return "redirect:/user/edit";
     }
 

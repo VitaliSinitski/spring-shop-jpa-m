@@ -87,25 +87,36 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserReadDto updatePersonalInfo(Integer userId, Integer userInformationId, UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
-        UserInformation userInformation = userInformationRepository.findById(userInformationId)
+    public void updateUserAndUserInformation(Integer userInformationId, UserInformationCreateDto userInformationCreateDto) {
+        userInformationRepository.findById(userInformationId)
+                .map(userInformation -> userInformationCreateMapper.map(userInformationCreateDto, userInformation))
+                .map(userInformationRepository::saveAndFlush)
+                .map(userInformationReadMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
-
-
-
-
-
-
-
-
-
-        userInformation.setUser(user);
-//        user.setCart(cart);
-        userInformationRepository.save(userInformation);
-        return userReadMapper.map(user);
     }
+
+
+//    @Transactional
+//    public void updatePersonalInfo(Integer userId, Integer userInformationId, UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
+//
+//        userRepository.findById(userId)
+//                .map(user -> userCreateMapper.map(userCreateDto, user))
+//                .map(userRepository::save)
+//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
+//
+////        User user = userRepository.findById(userId)
+////                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
+//        UserInformation userInformation = userInformationRepository.findById(userInformationId)
+//                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
+//
+//        userCreateMapper.map(userCreateDto, user);
+//        userRepository.saveAndFlush(user);
+//
+//        userInformation.setUser(user);
+////        user.setCart(cart);
+//        userInformationRepository.save(userInformation);
+//        return userReadMapper.map(user);
+//    }
 
     // It is function correctly
 //    @Transactional
@@ -129,7 +140,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserReadDto update(Integer id, UserCreateDto userCreateDto) {
-        log.info("UserService - update - userCreateDto: {}", userCreateDto);
+//        log.info("UserService - update - userCreateDto: {}", userCreateDto);
         return userRepository.findById(id)
                 .map(user -> userCreateMapper.map(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
