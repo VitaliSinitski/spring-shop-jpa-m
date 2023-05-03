@@ -35,7 +35,7 @@
                 <a th:href="@{/products}">Home</a>
             </li>
 
-            <li>
+            <li sec:authorize="!hasAuthority('ADMIN')">
                 <a th:href="@{/cart/{id}(id=${session.cartId})}">Cart</a>
                 (<span th:text="${session.cartSize}"></span>)
             </li>
@@ -52,11 +52,6 @@
                 </form>
             </li>
 
-            <!--            <li>-->
-            <!--                (<span th:text="${session.cartId}"></span>)-->
-            <!--            </li>-->
-            <!--            <li><a href="#">Contacts</a></li>-->
-
             <li sec:authorize="isAnonymous()">
                 <form action="/login">
                     <button type="submit">Login</button>
@@ -66,6 +61,12 @@
             <li sec:authorize="isAuthenticated()">
                 <form action="/logout" method="post">
                     <button type="submit">Logout</button>
+                </form>
+            </li>
+
+            <li sec:authorize="hasAuthority('USER')">
+                <form action="/user/edit">
+                    <button type="submit">Config</button>
                 </form>
             </li>
 

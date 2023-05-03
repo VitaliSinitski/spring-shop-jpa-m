@@ -5,6 +5,7 @@
     <title>Header</title>
     <link rel="stylesheet" href="/css/header.css" th:href="@{/css/header.css}">
 
+
 </head>
 <body>
 <header>
@@ -35,7 +36,7 @@
                 <a th:href="@{/products}">Home</a>
             </li>
 
-            <li>
+            <li sec:authorize="!hasAuthority('ADMIN')">
                 <a th:href="@{/cart/{id}(id=${session.cartId})}">Cart</a>
                 (<span th:text="${session.cartSize}"></span>)
             </li>
@@ -66,6 +67,12 @@
             <li sec:authorize="isAuthenticated()">
                 <form action="/logout" method="post">
                     <button type="submit">Logout</button>
+                </form>
+            </li>
+
+            <li sec:authorize="hasAuthority('USER')">
+                <form action="/user/edit">
+                    <button type="submit">Config</button>
                 </form>
             </li>
 

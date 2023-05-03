@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Config</title>
     <link th:href="@{/css/login.css}" rel="stylesheet"/>
     <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="login-container">
-    <form th:action="@{/user/user-edit}" method="post" class="login-form">
+    <form th:action="@{/user/edit}" method="post" class="login-form">
 <!--        <div style="color: red" th:if="${param.error}">-->
 <!--            Bad credentials-->
 <!--        </div>-->
@@ -28,13 +28,13 @@
             </ul>
         </div>
 
-        <h2 class="login-header">Registration</h2>
+        <h2 class="login-header">Update user information</h2>
 
         <label for="username">Username:
-            <input type="text" id="username" name="username" th:value="${user.username}" required/>
+            <input type="text" id="username" name="username" th:value="${user.username}" readonly/>
         </label><br>
         <label for="rawPassword">Password:
-            <input type="password" id="rawPassword" name="rawPassword" required/>
+            <input type="password" id="rawPassword" name="rawPassword"/>
         </label><br>
         <label for="email">Email:
             <input type="email" id="email" name="email" th:value="${user.email}" required/>
@@ -56,7 +56,7 @@
         </label><br>
         <input type="hidden" id="enabled" name="enabled" value="true"/>
         <input type="hidden" id="role" name="role" value="USER"/>
-        <button class="login-submit" type="submit">Register</button>
+        <button class="login-submit" type="submit">Update</button>
     </form>
 </div>
 </body>

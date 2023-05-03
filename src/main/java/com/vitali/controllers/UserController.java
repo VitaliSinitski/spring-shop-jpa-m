@@ -143,28 +143,20 @@ public class UserController {
                          BindingResult userInformationBindingResult,
                          RedirectAttributes redirectAttributes) {
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
-//            log.info("OrderController - update - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
-            log.info("UserController - update - hasErrors - userCreateDto: {}", userCreateDto);
-            log.info("UserController - update - hasErrors - userInformationCreateDto: {}", userInformationCreateDto);
             redirectAttributes.addFlashAttribute("user", userCreateDto);
             redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
             redirectAttributes.addFlashAttribute("userErrors", userBindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
             return "redirect:/users/{id}";
         }
-        log.info("UserController - update - userCreateDto: {}", userCreateDto);
-        log.info("UserController - update - userInformationCreateDto: {}", userInformationCreateDto);
         UserReadDto user = userService.findById(userId);
         UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
         Integer userInformationId = userInformationReadDto.getId();
-        log.info("UserController - update - user: {}", user);
-        log.info("UserController - update - userInformationReadDto: {}", userInformationReadDto);
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/users/{id}";
     }
 
-    //    @DeleteMapping("/{id}")
     @PostMapping("/users/{id}/delete")
     public String delete(@PathVariable Integer id) {
         if (!userService.delete(id)) {
@@ -175,8 +167,9 @@ public class UserController {
 
     @GetMapping("/user/edit")
     public String editUserForm(Model model,
-                               @ModelAttribute("user") UserCreateDto user,
-                               @ModelAttribute("userInformation") UserInformationCreateDto userInformation) {
+                               @ModelAttribute("userId") Integer userId) {
+        UserReadDto user = userService.findById(userId);
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
         model.addAttribute("user", user);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("roles", Role.values());
@@ -189,7 +182,6 @@ public class UserController {
                            @ModelAttribute @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformationCreateDto,
                            BindingResult userInformationBindingResult,
                            @ModelAttribute("userId") Integer userId,
-                           @ModelAttribute("userInformationId") Integer userInformationId,
                            RedirectAttributes redirectAttributes) {
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
             redirectAttributes.addFlashAttribute("user", userCreateDto);
@@ -199,24 +191,12 @@ public class UserController {
             return "redirect:/user/edit";
         }
 
+        UserReadDto user = userService.findById(userId);
+        UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
+        Integer userInformationId = userInformationReadDto.getId();
+
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
-//        userService.updatePersonalInfo(userId, userInformationId, userCreateDto, userInformationCreateDto);
-        return "redirect:/user/edit";
-    }
-
-    //    @PostMapping("/order/updateUserInformation/{id}")
-    public String saveUserInformation(@PathVariable("id") Integer userInformationId,
-                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
-                                      BindingResult bindingResult,
-                                      @ModelAttribute("orderId") Integer orderId,
-                                      RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            log.info("OrderController - saveUserInformation - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/orderPreview/" + orderId;
-        }
-        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
-        return "redirect:/orderPreview/" + orderId;
+        return "redirect:/products";
     }
 }

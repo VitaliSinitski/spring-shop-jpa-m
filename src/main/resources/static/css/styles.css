@@ -126,3 +126,19 @@ body {
 .pagination button[aria-label="Next"]::after {
     content: '\0020\2192';
 }
+
+button {
+    background-color:  #232f3e;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #334868;
+}
