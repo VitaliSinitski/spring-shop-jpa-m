@@ -40,6 +40,12 @@ public class UserInformationService {
                 .collect(Collectors.toList());
     }
 
+
+    public UserInformationReadDto findById(Integer id) {
+        return userInformationRepository.findById(id)
+                .map(userInformationReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + id + " not found"));
+    }
 //    @Transactional
 //    public Optional<UserInformationReadDto> update(Integer id, UserInformationCreateDto userInformationCreateDto) {
 //        return userInformationRepository.findById(id)
@@ -48,9 +54,10 @@ public class UserInformationService {
 //                .map(userInformationReadMapper::map);
 //    }
 
-    public Optional<UserInformationReadDto> findUserInformationByUserId(Integer id) {
+    public UserInformationReadDto findUserInformationByUserId(Integer id) {
         return userInformationRepository.findUserInformationByUserId(id)
-                .map(userInformationReadMapper::map);
+                .map(userInformationReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation with user id: " + id + " not found"));
     }
 
     public UserInformationReadDto findUserInformationByOrderId(Integer orderId) {
@@ -60,7 +67,7 @@ public class UserInformationService {
         Integer userId = user.getId();
         return userInformationRepository.findUserInformationByUserId(userId)
                 .map(userInformationReadMapper::map)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation with user id: " + userId + " not found"));
     }
 
 
@@ -85,26 +92,40 @@ public class UserInformationService {
     }
 
     @Transactional
-    public UserInformation updateUserInformation(Integer userInformationId, UserInformationCreateDto userInformationCreateDto) {
-        log.info("UserInformationService - update - userInformationId: {}", userInformationId);
-        log.info("UserInformationService - update - userInformationCreateDto: {}", userInformationCreateDto);
-
-        UserInformation userInformation = userInformationRepository.findById(userInformationId)
-                .orElseThrow(() -> new NotFoundException("User information not found"));
-//        Integer userId = userInformationCreateDto.getUserId();
-//        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-        log.info("UserInformationService - update - before change - userInformation: {}", userInformation);
-
-        // update user information fields
-        userInformation.setFirstName(userInformationCreateDto.getFirstName());
-        userInformation.setLastName(userInformationCreateDto.getLastName());
-        userInformation.setPhone(userInformationCreateDto.getPhone());
-        userInformation.setAddress(userInformationCreateDto.getAddress());
-        userInformation.setBirthDate(userInformationCreateDto.getBirthDate());
-//        userInformation.setUser(user);
-
-        return userInformationRepository.save(userInformation);
+    public void updateUserInformation(Integer userInformationId, UserInformationCreateDto userInformationCreateDto) {
+        userInformationRepository.findById(userInformationId)
+                .map(userInformation -> userInformationCreateMapper.map(userInformationCreateDto, userInformation))
+                .map(userInformationRepository::saveAndFlush)
+                .map(userInformationReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
     }
+
+//    @Transactional
+//    public UserInformation updateUserInformation(Integer userInformationId, UserInformationCreateDto userInformationCreateDto) {
+//        log.info("UserInformationService - update - userInformationId: {}", userInformationId);
+//        log.info("UserInformationService - update - userInformationCreateDto: {}", userInformationCreateDto);
+//
+//        UserInformation userInformation = userInformationRepository.findById(userInformationId)
+//                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
+////        Integer userId = userInformationCreateDto.getUserId();
+////        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+//
+//        log.info("UserInformationService - update - before change - userInformation: {}", userInformation);
+//
+//        // update user information fields
+//
+////        userInformation.setUser(user);
+//        UserInformation updatedUserInformation = userInformationCreateMapper.map(userInformationCreateDto, userInformation);
+//
+//        return userInformationRepository.save(updatedUserInformation);
+//    }
+
+//    private static void map(UserInformationCreateDto userInformationCreateDto, UserInformation userInformation) {
+//        userInformation.setFirstName(userInformationCreateDto.getFirstName());
+//        userInformation.setLastName(userInformationCreateDto.getLastName());
+//        userInformation.setPhone(userInformationCreateDto.getPhone());
+//        userInformation.setAddress(userInformationCreateDto.getAddress());
+//        userInformation.setBirthDate(userInformationCreateDto.getBirthDate());
+//    }
 
 }

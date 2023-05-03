@@ -86,6 +86,27 @@ public class UserService implements UserDetailsService {
         return userReadMapper.map(user);
     }
 
+    @Transactional
+    public UserReadDto updatePersonalInfo(Integer userId, Integer userInformationId, UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
+        UserInformation userInformation = userInformationRepository.findById(userInformationId)
+                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
+
+
+
+
+
+
+
+
+
+        userInformation.setUser(user);
+//        user.setCart(cart);
+        userInformationRepository.save(userInformation);
+        return userReadMapper.map(user);
+    }
+
     // It is function correctly
 //    @Transactional
 //    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
@@ -107,14 +128,24 @@ public class UserService implements UserDetailsService {
 //    }
 
     @Transactional
-    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
+    public UserReadDto update(Integer id, UserCreateDto userCreateDto) {
+        log.info("UserService - update - userCreateDto: {}", userCreateDto);
         return userRepository.findById(id)
                 .map(user -> userCreateMapper.map(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map)
-                .map(Optional::ofNullable)
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
+
+//    @Transactional
+//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
+//        return userRepository.findById(id)
+//                .map(user -> userCreateMapper.map(userCreateDto, user))
+//                .map(userRepository::saveAndFlush)
+//                .map(userReadMapper::map)
+//                .map(Optional::ofNullable)
+//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
+//    }
 
 
     // It is function correctly

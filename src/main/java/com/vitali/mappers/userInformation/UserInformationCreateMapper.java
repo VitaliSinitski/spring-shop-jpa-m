@@ -23,13 +23,19 @@ public class UserInformationCreateMapper implements Mapper<UserInformationCreate
         return userInformation;
     }
 
+    @Override
+    public UserInformation map(UserInformationCreateDto fromObject, UserInformation userInformation) {
+        copy(fromObject, userInformation);
+        return userInformation;
+    }
+
     private void copy(UserInformationCreateDto object, UserInformation userInformation) {
         userInformation.setFirstName(object.getFirstName());
         userInformation.setLastName(object.getLastName());
         userInformation.setPhone(object.getPhone());
         userInformation.setAddress(object.getAddress());
         userInformation.setBirthDate(object.getBirthDate());
-        userInformation.setUser(getUser(object.getUserId()));
+//        userInformation.setUser(getUser(object.getUserId()));
     }
 
     public User getUser(Integer id) {

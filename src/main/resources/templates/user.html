@@ -7,6 +7,13 @@
 </head>
 <body>
 <div th:include="admin/header.html"></div>
+<div th:if="${errors}">
+    <ul>
+        <li th:each="error : ${errors}">
+            <span th:text="${error.defaultMessage}" style="color: red"></span>
+        </li>
+    </ul>
+</div>
 <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
 
     <table>
@@ -33,80 +40,53 @@
         </tr>
         <tr>
             <td>Username:</td>
-            <td>
-                <label for="username">
-                    <input id="username" type="text" name="username" th:value="*{username}" required>
-                </label>
-            </td>
+            <td><span th:text="*{username}"/></td>
         </tr>
         <tr>
             <td>Email:</td>
+            <td><span th:text="*{email}"/></td>
+        </tr>
+        <tr>
+            <td>FirstName:</td>
             <td>
-                <label for="email">
-                    <input id="email" type="email" name="email" th:value="*{email}" required>
+                <label for="firstName">
+                    <input id="firstName" type="text" name="firstName" th:value="${userInformation.firstName}" required>
                 </label>
             </td>
         </tr>
         <tr>
-            <td>First name:</td>
-            <td><span th:text="*{userInformation.firstName}"/></td>
-        </tr>
-        <tr>
-            <td>Last name:</td>
-            <td><span th:text="*{userInformation.lastName}"/></td>
+            <td>LastName:</td>
+            <td>
+                <label for="lastName">
+                    <input id="lastName" type="text" name="lastName" th:value="${userInformation.lastName}" required>
+                </label>
+            </td>
         </tr>
         <tr>
             <td>Phone:</td>
-            <td><span th:text="*{userInformation.phone}"/></td>
+            <td>
+                <label for="phone">
+                    <input id="phone" type="tel" name="phone" th:value="${userInformation.phone}" required>
+                </label>
+            </td>
         </tr>
         <tr>
-            <td>Addres:</td>
-            <td><span th:text="*{userInformation.address}"/></td>
+            <td>Address:</td>
+            <td>
+                <label for="address">
+                    <input id="address" type="text" name="address" th:value="${userInformation.address}" required>
+                </label>
+            </td>
         </tr>
         <tr>
             <td>BirthDate:</td>
-            <td><span th:text="*{userInformation.birthDate}"/></td>
+            <td>
+                <label for="birthDate">
+                    <input id="birthDate" type="date" name="birthDate" th:value="${userInformation.birthDate}" readonly>
+                </label>
+            </td>
         </tr>
-        <!--        <tr>-->
-        <!--            <td>BirthDate:</td>-->
-        <!--            <td>-->
-        <!--                <label for="birthDate">-->
-        <!--                    <input id="birthDate" type="date" name="birthDate" th:value="*{userInformation.birthDate}" required>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td>FirstName:</td>-->
-        <!--            <td>-->
-        <!--                <label for="firstName">-->
-        <!--                    <input id="firstName" type="text" name="firstName" th:value="*{userInformation.firstName}" required>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td>LastName:</td>-->
-        <!--            <td>-->
-        <!--                <label for="lastName">-->
-        <!--                    <input id="lastName" type="text" name="lastName" th:value="*{userInformation.lastName}" required>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td>Phone:</td>-->
-        <!--            <td>-->
-        <!--                <label for="phone">-->
-        <!--                    <input id="phone" type="tel" name="phone" th:value="*{userInformation.phone}" required>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-        <!--        <tr>-->
-        <!--            <td>Address:</td>-->
-        <!--            <td>-->
-        <!--                <label for="address">-->
-        <!--                    <input id="address" type="text" name="address" th:value="*{userInformation.address}" required>-->
-        <!--                </label>-->
-        <!--            </td>-->
-        <!--        </tr>-->
+
         <tr>
             <td>Enabled:</td>
             <td>

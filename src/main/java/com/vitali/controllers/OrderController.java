@@ -35,6 +35,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,8 +112,8 @@ public class OrderController {
         List<OrderItemReadDto> orderItems = orderItemService.getOrderItemsByOrderId(orderId);
 
         // get the user information
-        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // display the order items and the user information form
         model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
@@ -128,8 +129,15 @@ public class OrderController {
     @PostMapping("/order/updateUserInformation/{id}")
     public String saveUserInformation(@PathVariable("id") Integer userInformationId,
                                       @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
-                                      @ModelAttribute("orderId") Integer orderId) {
-        log.info("OrderController - saveUserInformation - orderId: {}", orderId);
+                                      BindingResult bindingResult,
+                                      @ModelAttribute("orderId") Integer orderId,
+                                      RedirectAttributes redirectAttributes,
+                                      @ModelAttribute("userId") Integer userId) {
+        if (bindingResult.hasErrors()) {
+            log.info("OrderController - saveUserInformation - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/orderPreview/" + orderId;
+        }
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/orderPreview/" + orderId;
     }
@@ -148,8 +156,8 @@ public class OrderController {
         }
 
         // update the user information
-        UserInformationReadDto updatedUserInformation = userInformationService.updateByUserId(userId, userInformation)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        UserInformationReadDto updatedUserInformation = userInformationService.updateByUserId(userId, userInformation)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // clear the cart
         boolean confirmation = cartItemService.deleteAllByCartId(cartId);
@@ -158,7 +166,8 @@ public class OrderController {
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
 
         model.addAttribute("orderItems", orderItems);
-        model.addAttribute("userInformation", updatedUserInformation);
+        model.addAttribute("userInformation", userInformation);
+//        model.addAttribute("userInformation", updatedUserInformation);
 
         return "redirect:/orderFinish/" + orderId;
     }
@@ -181,8 +190,7 @@ public class OrderController {
             return "redirect:/cart/" + cartId;
         }
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
-        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
         log.info("OrderController - @Get orderFinish - end - orderId: {}", orderId);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("orderItems", orderItems);

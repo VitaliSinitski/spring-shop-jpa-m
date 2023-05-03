@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link th:href="@{/css/user.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="admin/header.html"></div>
+<div th:if="${errors}">
+    <ul>
+        <li th:each="error : ${errors}">
+            <span th:text="${error.defaultMessage}" style="color: red"></span>
+        </li>
+    </ul>
+</div>
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">User Details</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>User id:</td>
+            <td>
+                <span th:text="*{id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Cart id:</td>
+            <td><span th:text="*{cart.id}"/></td>
+        </tr>
+        <tr>
+            <td>Cart createdDate:</td>
+            <td><span th:text="*{cart.createdDate}"/></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>
+                <label for="username">
+                    <input id="username" type="text" name="username" th:value="*{username}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <label for="email">
+                    <input id="email" type="email" name="email" th:value="*{email}" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>First name:</td>
+            <td><span th:text="*{userInformation.firstName}"/></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><span th:text="*{userInformation.lastName}"/></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><span th:text="*{userInformation.phone}"/></td>
+        </tr>
+        <tr>
+            <td>Addres:</td>
+            <td><span th:text="*{userInformation.address}"/></td>
+        </tr>
+        <tr>
+            <td>BirthDate:</td>
+            <td><span th:text="*{userInformation.birthDate}"/></td>
+        </tr>
+        <!--        <tr>-->
+        <!--            <td>BirthDate:</td>-->
+        <!--            <td>-->
+        <!--                <label for="birthDate">-->
+        <!--                    <input id="birthDate" type="date" name="birthDate" th:value="*{userInformation.birthDate}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>FirstName:</td>-->
+        <!--            <td>-->
+        <!--                <label for="firstName">-->
+        <!--                    <input id="firstName" type="text" name="firstName" th:value="*{userInformation.firstName}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>LastName:</td>-->
+        <!--            <td>-->
+        <!--                <label for="lastName">-->
+        <!--                    <input id="lastName" type="text" name="lastName" th:value="*{userInformation.lastName}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Phone:</td>-->
+        <!--            <td>-->
+        <!--                <label for="phone">-->
+        <!--                    <input id="phone" type="tel" name="phone" th:value="*{userInformation.phone}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Address:</td>-->
+        <!--            <td>-->
+        <!--                <label for="address">-->
+        <!--                    <input id="address" type="text" name="address" th:value="*{userInformation.address}" required>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <tr>
+            <td>Enabled:</td>
+            <td>
+                <input type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True
+                <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
+            </td>
+        </tr>
+
+        <tr>
+            <td>Role</td>
+            <td>
+                <label for="role">
+                    <select name="role" id="role">
+                        <option th:each="role : ${roles}" th:text="${role.name()}" th:value="${role}">Role
+                        </option>
+                    </select>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="submit">Update</button>
+</form>
+<br>
+<form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
+    <button type="submit" class="submit">Delete</button>
+</form>
+
+</body>
+</html>

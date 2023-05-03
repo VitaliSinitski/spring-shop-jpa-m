@@ -36,6 +36,7 @@ public class UserInterceptor implements HandlerInterceptor {
             Integer cartId = cart.getId();
             Integer userId = user.getId();
             UserInformation userInformation = user.getUserInformation();
+            Integer userInformationId = userInformation.getId();
             session.setAttribute("currentUserName", username);
             session.setAttribute("currentUser", user);
             session.setAttribute("userCart", cart);
@@ -43,6 +44,7 @@ public class UserInterceptor implements HandlerInterceptor {
             session.setAttribute("cartId", cartId);
             session.setAttribute("userId", userId);
             session.setAttribute("userInformation", userInformation);
+            session.setAttribute("userInformationId", userInformationId);
 
 //            log.info("!!! --- class UserInterceptor - preHandle - currentUserName: {}", username);
 //            log.info("!!! --- class UserInterceptor - preHandle - cartId: {}", cartId);
