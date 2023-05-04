@@ -1,5 +1,7 @@
-package com.vitali.exception;
+package com.vitali.handler;
 
+import com.vitali.exception.NotEnoughStockException;
+import com.vitali.exception.OutOfStockException;
 import com.vitali.util.ParameterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,12 +21,23 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 @ControllerAdvice(basePackages = "com.vitali")
-public class CustomExceptionHandler {
+public class CustomExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
 
     @ExceptionHandler(OutOfStockException.class)
     public String handleOutOfStockException(OutOfStockException exception,
                                             RedirectAttributes redirectAttributes,
                                             HttpSession session) {
+        Object cartIdObject = session.getAttribute("cartId");
+        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
+//        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+        redirectAttributes.addFlashAttribute("message", exception.getMessage());
+        return "redirect:/cart/" + cartId;
+    }
+
+    @ExceptionHandler(NotEnoughStockException.class)
+    public String handleNotEnoughStockException(NotEnoughStockException exception,
+                                                RedirectAttributes redirectAttributes,
+                                                HttpSession session) {
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
 //        redirectAttributes.addFlashAttribute("error", exception.getMessage());

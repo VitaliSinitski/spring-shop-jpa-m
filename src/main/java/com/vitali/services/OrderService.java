@@ -37,15 +37,6 @@ public class OrderService {
     private final CartItemService cartItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
 
-//    @Transactional
-//    public void createNewOrder(List<Integer> ids, String information, Integer cardId) {
-//        Cart cart = cartRepository.findById(cardId).orElse(null);
-//        Order order = Order.builder()
-//                .inform(information)
-//                .cart(cart)
-//                .build();
-//        order.setOrderItems(getOrderItemsByIds(ids));
-//    }
 
     public List<OrderReadDto> findAll() {
         return orderRepository.findAll().stream()
@@ -58,12 +49,6 @@ public class OrderService {
                 .map(orderReadMapper::map);
     }
 
-//    public OrderReadDto findById(Integer id) {
-//        return orderRepository.findById(id)
-//                .map(orderReadMapper::map)
-//                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + id + " not found"));
-//    }
-
     public List<OrderItem> getOrderItemsByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();
@@ -73,12 +58,6 @@ public class OrderService {
 
     @Transactional
     public boolean updateOrderStatus(OrderStatus orderStatus, Integer orderId) {
-//        Order order = orderRepository.findById(orderId)
-//                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-////                        .orElseThrow(() -> new NotFoundException("Order not found"));
-//
-//        order.setOrderStatus(Optional.ofNullable(orderStatus).orElse(Constants.DEFAULT_ORDER_STATUS));
-
         return orderRepository.findById(orderId)
                 .map(entity -> {
                     entity.setOrderStatus(orderStatus);

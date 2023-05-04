@@ -44,8 +44,6 @@ import static org.springframework.http.ResponseEntity.*;
 @RequiredArgsConstructor
 public class ProductRestController {
     private final ProductService productService;
-    private final CategoryService categoryService;
-    private final ProducerService producerService;
 
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
@@ -110,5 +108,4 @@ public class ProductRestController {
                 ? noContent().build()
                 : notFound().build();
     }
-
 }

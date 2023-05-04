@@ -1,5 +1,6 @@
 package com.vitali.controllers;
 
+import com.vitali.aop.ShoppingCartAspect;
 import com.vitali.converters.CartItemCreateConverter;
 
 import com.vitali.dto.cartItem.CartItemReadDto;
@@ -13,6 +14,7 @@ import com.vitali.services.ProductService;
 import com.vitali.util.ParameterUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,7 @@ import java.util.List;
 public class CartController {
     private final ProductService productService;
     private final CartItemService cartItemService;
+    private final ShoppingCartAspect shoppingCartAspect;
 
     @GetMapping("/{id}")
     public String showCart(@PathVariable Integer id,
@@ -44,21 +47,6 @@ public class CartController {
         model.addAttribute("totalPrice", cartItemService.getTotalPrice(id));
         return "cart";
     }
-
-//    @PostMapping("/add")
-//    public String addToCart(@RequestParam Integer quantity,
-//                            @RequestParam Integer productId,
-//                            HttpSession session) {
-//        ProductReadDto product = productService.findById(productId).orElse(null);
-//        if (product == null) {
-//            return "redirect:/products";
-//        }
-//        Object cartIdObject = session.getAttribute("cartId");
-//        Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-//
-//        cartItemService.create(quantity, productId, cartId);
-//        return "redirect:/products";
-//    }
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Integer quantity,

@@ -8,6 +8,7 @@ import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
+import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
@@ -138,10 +139,14 @@ public class ProductService {
 
         int restStock = product.getQuantity() - cartItem.getQuantity();
         if (restStock < 0) {
-            throw new OutOfStockException("There is not enough stock for " + cartItem.getProduct().getName()
+            throw new NotEnoughStockException("There is not enough stock for " + cartItem.getProduct().getName()
                                           + ". Current stock quantity: " + product.getQuantity()
                                           + ", customer ordered: " + cartItem.getQuantity() + ".");
         }
+        if (product.getQuantity() == null || product.getQuantity() == 0) {
+            throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
+        }
+
         product.setQuantity(restStock);
         productRepository.save(product);
         return true;

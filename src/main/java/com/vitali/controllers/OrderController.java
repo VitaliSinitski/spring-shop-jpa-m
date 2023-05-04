@@ -20,6 +20,7 @@ import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
+import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
 import com.vitali.services.CartItemService;
 import com.vitali.services.CartService;
@@ -82,9 +83,12 @@ public class OrderController {
             Product product = item.getProduct();
             if (item.getProduct().getQuantity() < item.getQuantity()) {
 //                throw new OutOfStockException("There is not enough stock for " + item.getProduct().getName());
-                throw new OutOfStockException("There is not enough stock for " + product.getName()
-                                              + "! Current stock quantity: " + product.getQuantity()
-                                              + ", customer ordered: " + item.getQuantity() + ".");
+                throw new NotEnoughStockException("There is not enough stock for " + product.getName()
+                                                  + "! Current stock quantity: " + product.getQuantity()
+                                                  + ", customer ordered: " + item.getQuantity() + ".");
+            }
+            if (item.getProduct().getQuantity() == null || item.getProduct().getQuantity() == 0) {
+                throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
             }
         }
 
@@ -145,22 +149,6 @@ public class OrderController {
     }
 
 
-//    @PostMapping("/order/updateUserInformation/{id}")
-//    public String saveUserInformation(@PathVariable("id") Integer userInformationId,
-//                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
-//                                      BindingResult bindingResult,
-//                                      @ModelAttribute("orderId") Integer orderId,
-//                                      RedirectAttributes redirectAttributes,
-//                                      @ModelAttribute("userId") Integer userId) {
-//        if (bindingResult.hasErrors()) {
-//            log.info("OrderController - saveUserInformation - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
-//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//            return "redirect:/orderPreview/" + orderId;
-//        }
-//        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
-//        return "redirect:/orderPreview/" + orderId;
-//    }
-
     @PostMapping("/orderPreview/{orderId}")
     public String orderFinish(@PathVariable Integer orderId,
                               @ModelAttribute("userInformation") UserInformationCreateDto userInformation,
@@ -173,10 +161,6 @@ public class OrderController {
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
-
-        // update the user information
-//        UserInformationReadDto updatedUserInformation = userInformationService.updateByUserId(userId, userInformation)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         // clear the cart
         boolean confirmation = cartItemService.deleteAllByCartId(cartId);

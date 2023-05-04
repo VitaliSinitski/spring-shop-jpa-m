@@ -37,12 +37,9 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepository;
     private final CartItemService cartItemService;
-    private final CartReadMapper cartReadMapper;
     private final OrderReadMapper orderReadMapper;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final OrderItemReadMapper orderItemReadMapper;
-    private final OrderItemService orderItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
     private final CartItemRepository cartItemRepository;
 
