@@ -10,8 +10,6 @@ import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
 import com.vitali.services.UserInformationService;
 import com.vitali.services.UserService;
-import com.vitali.validation.group.CreateAction;
-import com.vitali.validation.group.UpdateAction;
 import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,28 +96,6 @@ public class UserController {
         userService.create(user, userInformation);
         return "redirect:/login";
     }
-
-//    @PostMapping("/users/{id}/update")
-//    public String update(@PathVariable("id") Integer id,
-//                         @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateDto user) {
-//        return userService.update(id, user)
-//                .map(it -> "redirect:/users/{id}")
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//    }
-
-//    @PostMapping("/users/{id}/update")
-//    public String update(@PathVariable("id") Integer id,
-//                         @ModelAttribute @Validated({Default.class, UpdateAction.class}) UserCreateDto userCreateDto,
-//                         BindingResult bindingResult,
-//                         RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            log.info("OrderController - update - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
-//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//            return "redirect:/users/{id}";
-//        }
-//        userService.update(id, userCreateDto);
-//        return "redirect:/users/{id}";
-//    }
 
     @GetMapping("/users/{id}")
     public String findById(@PathVariable Integer id,

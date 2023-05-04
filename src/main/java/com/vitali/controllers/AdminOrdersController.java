@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -44,7 +46,8 @@ public class AdminOrdersController {
                     return "admin/order";
                 })
                 .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                        () -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
     }
 
 //    @PostMapping("/{id}/update")
@@ -84,8 +87,8 @@ public class AdminOrdersController {
         orderService.updateOrderStatus(orderStatus, orderId);
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
-            log.info("AdminOrdersController - updateOrder - order == null");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("Order with id: " + orderId + " not found");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         model.addAttribute("orderStatuses", OrderStatus.values());
         model.addAttribute("userInformation", userInformation);

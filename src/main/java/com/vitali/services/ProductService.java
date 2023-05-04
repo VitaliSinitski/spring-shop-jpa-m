@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,9 +82,15 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<ProductReadDto> findById(Integer id) {
+//    public Optional<ProductReadDto> findById(Integer id) {
+//        return productRepository.findById(id)
+//                .map(productReadMapper::map);
+//    }
+
+    public ProductReadDto findById(Integer id) {
         return productRepository.findById(id)
-                .map(productReadMapper::map);
+                .map(productReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
     @Transactional
@@ -99,14 +106,15 @@ public class ProductService {
     }
 
     @Transactional
-    public Optional<ProductReadDto> update(Integer id, ProductCreateDto productCreateDto) {
+    public ProductReadDto update(Integer id, ProductCreateDto productCreateDto) {
         return productRepository.findById(id)
                 .map(product -> {
 //                    uploadImage(productCreateDto.getImage());
                     return productCreateMapper.map(productCreateDto, product);
                 })
                 .map(productRepository::saveAndFlush)
-                .map(productReadMapper::map);
+                .map(productReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
 //    @Transactional

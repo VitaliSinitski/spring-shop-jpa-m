@@ -65,7 +65,7 @@ public class CartController {
                             @RequestParam Integer productId,
                             HttpSession session,
                             RedirectAttributes redirectAttributes) {
-        ProductReadDto product = productService.findById(productId).orElse(null);
+        ProductReadDto product = productService.findById(productId);
         if (product == null) {
             return "redirect:/products";
         }

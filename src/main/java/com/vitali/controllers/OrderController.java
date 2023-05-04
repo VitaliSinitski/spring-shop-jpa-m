@@ -28,6 +28,7 @@ import com.vitali.services.OrderService;
 import com.vitali.services.ProductService;
 import com.vitali.services.UserInformationService;
 import com.vitali.util.ParameterUtil;
+import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +50,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.groups.Default;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,22 +128,38 @@ public class OrderController {
         return "orderPreview";
     }
 
-
     @PostMapping("/order/updateUserInformation/{id}")
     public String saveUserInformation(@PathVariable("id") Integer userInformationId,
-                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
+                                      @ModelAttribute("userInformation")
+                                      @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformationCreateDto,
                                       BindingResult bindingResult,
                                       @ModelAttribute("orderId") Integer orderId,
                                       RedirectAttributes redirectAttributes,
                                       @ModelAttribute("userId") Integer userId) {
         if (bindingResult.hasErrors()) {
-            log.info("OrderController - saveUserInformation - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/orderPreview/" + orderId;
         }
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/orderPreview/" + orderId;
     }
+
+
+//    @PostMapping("/order/updateUserInformation/{id}")
+//    public String saveUserInformation(@PathVariable("id") Integer userInformationId,
+//                                      @ModelAttribute("userInformation") UserInformationCreateDto userInformationCreateDto,
+//                                      BindingResult bindingResult,
+//                                      @ModelAttribute("orderId") Integer orderId,
+//                                      RedirectAttributes redirectAttributes,
+//                                      @ModelAttribute("userId") Integer userId) {
+//        if (bindingResult.hasErrors()) {
+//            log.info("OrderController - saveUserInformation - bindingResult.hasErrors(): {}", bindingResult.hasErrors());
+//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//            return "redirect:/orderPreview/" + orderId;
+//        }
+//        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
+//        return "redirect:/orderPreview/" + orderId;
+//    }
 
     @PostMapping("/orderPreview/{orderId}")
     public String orderFinish(@PathVariable Integer orderId,
@@ -183,7 +202,6 @@ public class OrderController {
             return "redirect:/";
         }
 
-        log.info("OrderController - @Get orderFinish - orderId: {}", orderId);
         // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
@@ -191,7 +209,7 @@ public class OrderController {
         }
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
-        log.info("OrderController - @Get orderFinish - end - orderId: {}", orderId);
+
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("orderId", orderId);

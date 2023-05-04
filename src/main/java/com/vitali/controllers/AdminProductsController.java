@@ -80,23 +80,32 @@ public class AdminProductsController {
 
 
 //    @GetMapping("/products/{id}")
+//    @GetMapping("/{id}")
+//    public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
+//        return productService.findById(id)
+//                .map(product -> {
+//                    model.addAttribute("product", product);
+//                    model.addAttribute("categories", categoryService.findAll());
+//                    model.addAttribute("producers", producerService.findAll());
+//                    return "admin/product";
+////                    return "admin/product";
+//                })
+//                .orElseThrow(
+//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
     @GetMapping("/{id}")
     public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
-        return productService.findById(id)
-                .map(product -> {
-                    model.addAttribute("product", product);
-                    model.addAttribute("categories", categoryService.findAll());
-                    model.addAttribute("producers", producerService.findAll());
-                    return "admin/product";
-//                    return "admin/product";
-                })
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ProductReadDto product = productService.findById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("producers", producerService.findAll());
+        return "admin/product";
     }
 
     @GetMapping("/new") // registration
     public String newProduct(Model model,
-                               @ModelAttribute("product") ProductCreateDto product) {
+                             @ModelAttribute("product") ProductCreateDto product) {
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("producers", producerService.findAll());
@@ -109,7 +118,7 @@ public class AdminProductsController {
     public String createProduct(@ModelAttribute @Validated ProductCreateDto product,
                                 BindingResult bindingResult,                            // BindingResult must stay exactly after validation object!!!
                                 RedirectAttributes redirectAttributes,
-                                Model model){
+                                Model model) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", product);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -125,17 +134,24 @@ public class AdminProductsController {
         }
     }
 
-//    @PostMapping("/products/{id}/update")
+    //    @PostMapping("/products/{id}/update")
+//    @PostMapping("/{id}/update")
+//    public String updateProduct(@PathVariable("id") Integer id,
+//                                @ModelAttribute @Validated ProductCreateDto product) {
+//        return productService.update(id, product)
+//                .map(it -> "redirect:/admin/products/{id}")
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
     @PostMapping("/{id}/update")
     public String updateProduct(@PathVariable("id") Integer id,
-                         @ModelAttribute @Validated ProductCreateDto product) {
-        return productService.update(id, product)
-                .map(it -> "redirect:/admin/products/{id}")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-}
+                                @ModelAttribute @Validated ProductCreateDto product) {
+        productService.update(id, product);
+        return "redirect:/admin/products/{id}";
+    }
 
 
-//    @PostMapping("/products/{id}/delete")
+    //    @PostMapping("/products/{id}/delete")
     @PostMapping("/{id}/delete")
     public String deleteProduct(@PathVariable("id") Integer id) {
         if (!productService.delete(id)) {

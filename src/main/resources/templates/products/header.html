@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Header</title>
     <link rel="stylesheet" href="/css/header.css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css"
+          integrity="sha384-jS61CjYPX8+ZKjz4cNU4h4FzLtfESjO7Cqce3YAG00JHsojXpZvm0VBLf0GyJ7Rk" crossorigin="anonymous">
+
 
 
 </head>
@@ -42,38 +45,20 @@
             </li>
 
 
-            <!--                <li sec:authorize="hasRole('ADMIN')">-->
-            <!--                    <a href="/admin">Admin page</a>-->
-            <!--                </li>-->
-
             <li sec:authorize="hasAuthority('ADMIN')">
-                <!--            <li sec:authorize="hasRole('ADMIN')">-->
-                <form action="/admin/main" method="get">
-                    <button type="submit">Admin page</button>
-                </form>
+                <a th:href="@{/admin/main}">Admin page</a>
             </li>
 
-            <!--            <li>-->
-            <!--                (<span th:text="${session.cartId}"></span>)-->
-            <!--            </li>-->
-            <!--            <li><a href="#">Contacts</a></li>-->
-
             <li sec:authorize="isAnonymous()">
-                <form action="/login">
-                    <button type="submit">Login</button>
-                </form>
+                <a th:href="@{/login}">Login</a>
             </li>
 
             <li sec:authorize="isAuthenticated()">
-                <form action="/logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
+                <a th:href="@{/logout}">Logout</a>
             </li>
 
             <li sec:authorize="hasAuthority('USER')">
-                <form action="/user/edit">
-                    <button type="submit">Config</button>
-                </form>
+                <a th:href="@{/user/edit}">Config</a>
             </li>
 
             <li class="dropdown">

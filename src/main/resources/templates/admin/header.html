@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
@@ -23,19 +23,13 @@
             <li><a th:href="@{/users}">Users</a></li>
             <li><a th:href="@{/admin/orders}">Orders</a></li>
             <li><a th:href="@{/admin/products}">Products</a></li>
-<!--            <li><a href="#">Cart</a></li>-->
-<!--            <li><a href="#">Contacts</a></li>-->
-<!--            <li>-->
-<!--                <form th:action="@{/login}">-->
-<!--                    <button type="submit">Login</button>-->
-<!--                </form>-->
-<!--&lt;!&ndash;                <a href="#">Login</a>&ndash;&gt;-->
-<!--            </li>-->
-            <li>
-                <form action="/logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
-<!--                <a href="/logout">Logout</a>-->
+
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Login</a>
+            </li>
+
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">Logout</a>
             </li>
             <li class="dropdown">
 <!--                <a href="#">More</a>-->

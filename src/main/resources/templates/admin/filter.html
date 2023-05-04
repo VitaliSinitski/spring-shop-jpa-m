@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/filter.css}"/>
 </head>
 <body>
-<h1>Filter Results</h1>
+<!--<h1>Filter Results</h1>-->
 <!-- filter.html -->
 <div class="filter-container">
     <form id="filter-form" action="/admin/products" method="get" style="display: flex; flex-direction: column;">
@@ -74,7 +74,7 @@
 <script>
     function resetFilter() {
         document.getElementById("name").value = "";
-        document.getElementById("price").value = "";
+        // document.getElementById("price").value = "";
         document.getElementById("minPrice").value = "";
         document.getElementById("maxPrice").value = "";
         document.getElementById("category").value = "";

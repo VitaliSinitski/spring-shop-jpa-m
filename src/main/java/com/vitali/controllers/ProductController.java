@@ -97,16 +97,23 @@ public class ProductController {
 //    }
 
 
+//    @GetMapping("/{id}")
+//    public String findByIdProduct(@PathVariable Integer id, Model model) {
+//        return productService.findById(id)
+//                .map(product -> {
+//                    model.addAttribute("product", product);
+////                    model.addAttribute("categories", categoryService.findAll());
+//                    return "product";
+//                })
+//                .orElseThrow(
+//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
     @GetMapping("/{id}")
     public String findByIdProduct(@PathVariable Integer id, Model model) {
-        return productService.findById(id)
-                .map(product -> {
-                    model.addAttribute("product", product);
-//                    model.addAttribute("categories", categoryService.findAll());
-                    return "product";
-                })
-                .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ProductReadDto product = productService.findById(id);
+        model.addAttribute("product", product);
+        return "product";
     }
 
 
@@ -116,12 +123,19 @@ public class ProductController {
         return "redirect:/products/" + productService.create(product).getId();
     }
 
+//    @PostMapping("/{id}/update")
+//    public String update(@PathVariable("id") Integer id,
+//                         @ModelAttribute @Validated ProductCreateDto product) {
+//        return productService.update(id, product)
+//                .map(it -> "redirect:/products/{id}")
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
     @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Integer id,
                          @ModelAttribute @Validated ProductCreateDto product) {
-        return productService.update(id, product)
-                .map(it -> "redirect:/products/{id}")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        productService.update(id, product);
+        return "redirect:/products/{id}";
     }
 
     @PostMapping("/{id}/delete")

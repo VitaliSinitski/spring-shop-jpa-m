@@ -5,6 +5,7 @@
     <title>Header</title>
     <link rel="stylesheet" href="/css/header.css" th:href="@{/css/header.css}">
 
+
 </head>
 <body>
 <header>
@@ -45,30 +46,48 @@
             <!--                    <a href="/admin">Admin page</a>-->
             <!--                </li>-->
 
+<!--            <li sec:authorize="hasAuthority('ADMIN')">-->
+<!--                &lt;!&ndash;            <li sec:authorize="hasRole('ADMIN')">&ndash;&gt;-->
+<!--                <form action="/admin/main" method="get">-->
+<!--                    <button type="submit">Admin page</button>-->
+<!--                </form>-->
+<!--            </li>-->
+
             <li sec:authorize="hasAuthority('ADMIN')">
-                <!--            <li sec:authorize="hasRole('ADMIN')">-->
-                <form action="/admin/main" method="get">
-                    <button type="submit">Admin page</button>
-                </form>
+                <a th:href="@{/admin/main}">Admin page</a>
             </li>
+
+<!--            <li sec:authorize="isAnonymous()">-->
+<!--                <form action="/login">-->
+<!--                    <button type="submit">Login</button>-->
+<!--                </form>-->
+<!--            </li>-->
 
             <li sec:authorize="isAnonymous()">
-                <form action="/login">
-                    <button type="submit">Login</button>
-                </form>
+                <a th:href="@{/login}">Login</a>
             </li>
+
+
+<!--            <li sec:authorize="isAuthenticated()">-->
+<!--                <form action="/logout" method="post">-->
+<!--                    <button type="submit">Logout</button>-->
+<!--                </form>-->
+<!--            </li>-->
 
             <li sec:authorize="isAuthenticated()">
-                <form action="/logout" method="post">
-                    <button type="submit">Logout</button>
-                </form>
+                <a th:href="@{/logout}">Logout</a>
             </li>
 
+<!--            <li sec:authorize="hasAuthority('USER')">-->
+<!--                <form action="/user/edit">-->
+<!--                    <button type="submit">Config</button>-->
+<!--                </form>-->
+<!--            </li>-->
+
             <li sec:authorize="hasAuthority('USER')">
-                <form action="/user/edit">
-                    <button type="submit">Config</button>
-                </form>
+                <a th:href="@{/user/edit}">Config</a>
             </li>
+
 
             <li class="dropdown">
             </li>

@@ -58,6 +58,12 @@ public class OrderService {
                 .map(orderReadMapper::map);
     }
 
+//    public OrderReadDto findById(Integer id) {
+//        return orderRepository.findById(id)
+//                .map(orderReadMapper::map)
+//                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + id + " not found"));
+//    }
+
     public List<OrderItem> getOrderItemsByIds(List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();

@@ -57,8 +57,8 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public ProductReadDto findByIdProduct(@PathVariable Integer id) {
-        return productService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return productService.findById(id);
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     // Version 01
@@ -87,11 +87,12 @@ public class ProductRestController {
         return productService.create(product);
     }
 
+
+
     @PutMapping("/{id}")
     public ProductReadDto update(@PathVariable("id") Integer id,
                                  @Validated @RequestBody ProductCreateDto product) {
-        return productService.update(id, product)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return productService.update(id, product);
     }
 
 //    @DeleteMapping("/{id}")
