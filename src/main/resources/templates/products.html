@@ -22,27 +22,31 @@
 <!-- Include filter -->
 <div th:include="filter.html"></div>
 
-<!-- Display all products -->
-    <br>
-    <div class="product-grid">
-        <div class="product-items" th:each="product : ${page.content}">
-            <div class="product">
-                <div th:if="${product.image}" class="product-image">
-                    <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="200">
-                </div>
-                <div class="product-info">
-                    <div class="product-name" th:text="${product.name}"></div>
-                    <div class="product-description" th:text="${product.description}"></div>
-                    <div class="product-price" th:text="${product.price}"></div>
+<div th:if="${message}" class="alert alert-danger" style="color: red">
+    <span th:text="${message}"></span>
+</div>
 
-                    <!-- Link to product details page -->
-                    <div class="product-action">
-                        <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button">Show</a>
-                    </div>
+<!-- Display all products -->
+<br>
+<div class="product-grid">
+    <div class="product-items" th:each="product : ${page.content}">
+        <div class="product">
+            <div th:if="${product.image}" class="product-image">
+                <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="200">
+            </div>
+            <div class="product-info">
+                <div class="product-name" th:text="${product.name}"></div>
+                <div class="product-description" th:text="${product.description}"></div>
+                <div class="product-price" th:text="${product.price}"></div>
+
+                <!-- Link to product details page -->
+                <div class="product-action">
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button">Show</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <div th:include="pagination.html"></div>
 

@@ -1,15 +1,14 @@
 package com.vitali.aop;
 
 import com.vitali.dto.product.ProductReadDto;
+import com.vitali.exception.NotEnoughProductException;
 import com.vitali.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -23,19 +22,24 @@ public class CustomAspect {
     private final ProductService productService;
 
     @Pointcut("@within(org.springframework.stereotype.Controller)")
-    public void isControllerLayer() {}
+    public void isControllerLayer() {
+    }
 
     @Pointcut("@within(org.springframework.stereotype.Service)")
-    public void isServiceLayer() {}
+    public void isServiceLayer() {
+    }
 
     @Pointcut("execution(public * com.vitali.services.*Service.findById(*))")
-    public void anyFindByIdServiceMethod() {}
+    public void anyFindByIdServiceMethod() {
+    }
 
     @Pointcut("execution(* com.vitali.controllers.CartController.*(..))")
-    private void isCartControllerClass() {}
+    private void isCartControllerClass() {
+    }
 
     @Pointcut("execution(* com.vitali.controllers.CartController.addToCart(..))")
-    public void addToCartMethod() {}
+    public void addToCartMethod() {
+    }
 
 
     @Before(value = "addToCartMethod() " +
@@ -50,12 +54,17 @@ public class CustomAspect {
         if (product == null) {
             return;
         }
-        log.info("Adding {} units of product {} to cart", quantity, product.getName());
+//        log.info("Adding {} units of product {} to cart", quantity, product.getName());
 
-        Integer remainingQuantity = productQuantity - quantity;
-        log.info("Product {} has {} units remaining in stock", product.getName(), remainingQuantity);
+        if (productQuantity < quantity) {
+            log.info("There is not enough stock for {}! Current stock quantity: {}, customer ordered: {}",
+                    product.getName(), product.getQuantity(), quantity);
+            throw new NotEnoughProductException("There is not enough stock for this product! Current stock quantity: "
+                                                + product.getQuantity()
+                                                + ", you want to order: " + quantity + ".");
+        }
+
     }
-
 
 
 //    @Before(value = "isCartControllerClass() && addToCartMethod() && args(quantity, productId,..)",
@@ -63,7 +72,6 @@ public class CustomAspect {
 //    public void logAddToCart(Integer quantity, Integer productId) {
 //        log.info("Adding {} quantity of product with id {} to cart", quantity, productId);
 //    }
-
 
 
     //    @Before("execution(public * com.vitali.services.*Service.findById(*))") // may put pointcut description inside

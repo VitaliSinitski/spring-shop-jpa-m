@@ -41,7 +41,6 @@ public class CartController {
     public String showCart(@PathVariable Integer id,
                            Model model, HttpSession session,
                            RedirectAttributes redirectAttributes) {
-
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(id);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", cartItemService.getTotalPrice(id));
@@ -69,6 +68,7 @@ public class CartController {
         }
 
         cartItemService.create(quantity, productId, cartId);
+//        session.removeAttribute("productId");
         return "redirect:/products";
     }
 

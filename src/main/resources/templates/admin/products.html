@@ -53,6 +53,6 @@
     </tr>
     </tbody>
 </table>
-<div th:include="admin/pagination.html"></div>
+<div th:if="${page.size > 0}" th:include="admin/pagination.html"></div>
 </body>
 </html>

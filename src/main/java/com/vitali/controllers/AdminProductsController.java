@@ -119,6 +119,7 @@ public class AdminProductsController {
                                 BindingResult bindingResult,                            // BindingResult must stay exactly after validation object!!!
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
+        log.info("AdminProductsController - createProduct - product: {}", product);
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", product);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -130,7 +131,7 @@ public class AdminProductsController {
             model.addAttribute("producers", producerService.findAll());
             productService.create(product);
 //        return "redirect:/admin/products/" + productService.create(product).getId();
-            return "admin/products";
+            return "redirect:/admin/products";
         }
     }
 

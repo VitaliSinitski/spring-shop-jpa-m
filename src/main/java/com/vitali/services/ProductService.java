@@ -141,7 +141,7 @@ public class ProductService {
         if (restStock < 0) {
             throw new NotEnoughStockException("There is not enough stock for " + cartItem.getProduct().getName()
                                           + ". Current stock quantity: " + product.getQuantity()
-                                          + ", customer ordered: " + cartItem.getQuantity() + ".");
+                                          + ", you ordered: " + cartItem.getQuantity() + ".");
         }
         if (product.getQuantity() == null || product.getQuantity() == 0) {
             throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");

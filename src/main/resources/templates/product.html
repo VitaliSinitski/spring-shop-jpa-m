@@ -13,6 +13,8 @@
 <!--    <div th:include="menu.html"></div>-->
 <!--</div>-->
 
+
+
 <!-- Product Details Page -->
 <div th:if="${product != null}" class="product-container">
     <div class="product-details">
@@ -31,6 +33,10 @@
                 <div class="product-details-category" th:text="${product.category.name}"></div>
                 <br>
 
+                <div th:if="${message}" class="alert alert-danger" style="color: red">
+                    <span th:text="${message}"></span>
+                </div>
+                <br><br>
                 <div sec:authorize="!hasAuthority('ADMIN')" class="product-details-quantity">
 
                     <div th:if="${product.quantity > 0}">
@@ -44,7 +50,7 @@
                         </button>
                     </div>
                     <div th:if="${product.quantity <= 0}">
-                        <span style="color: red">"Current product is out of stock."</span>
+                        <span style="color: red">Current product is out of stock.</span>
                     </div>
 
                 </div>

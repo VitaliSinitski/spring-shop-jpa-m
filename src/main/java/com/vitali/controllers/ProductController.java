@@ -110,7 +110,10 @@ public class ProductController {
 //    }
 
     @GetMapping("/{id}")
-    public String findByIdProduct(@PathVariable Integer id, Model model) {
+    public String findByIdProduct(@PathVariable Integer id,
+                                  Model model,
+                                  HttpSession session) {
+        session.setAttribute("productId", id);
         ProductReadDto product = productService.findById(id);
         model.addAttribute("product", product);
         return "product";
