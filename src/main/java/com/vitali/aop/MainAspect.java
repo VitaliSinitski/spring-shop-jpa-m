@@ -18,8 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class MainAspect {
 
     /*
