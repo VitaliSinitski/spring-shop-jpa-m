@@ -140,13 +140,23 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserReadDto update(Integer id, UserCreateDto userCreateDto) {
-//        log.info("UserService - update - userCreateDto: {}", userCreateDto);
         return userRepository.findById(id)
                 .map(user -> userCreateMapper.map(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
+
+    @Transactional
+    public UserReadDto updatePassword(Integer id, UserCreateDto userCreateDto) {
+        log.info("UserService - update - userCreateDto: {}", userCreateDto);
+        return userRepository.findById(id)
+                .map(user -> userCreateMapper.mapPassword(userCreateDto, user))
+                .map(userRepository::saveAndFlush)
+                .map(userReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
+    }
+
 
 //    @Transactional
 //    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {

@@ -1,9 +1,9 @@
 package com.vitali.handler;
 
 import com.vitali.database.repositories.FilterProductRepository;
-import com.vitali.exception.NotEnoughProductException;
-import com.vitali.exception.NotEnoughStockException;
-import com.vitali.exception.OutOfStockException;
+import com.vitali.dto.user.UserCreateDto;
+import com.vitali.dto.userInformation.UserInformationCreateDto;
+import com.vitali.exception.*;
 import com.vitali.util.ParameterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,11 +20,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-@ControllerAdvice(basePackages = "com.vitali")
-public class CustomExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
+@ControllerAdvice/*(basePackages = "com.vitali")*/
+public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler*/ {
     private final FilterProductRepository productRepository;
 
-    public CustomExceptionHandler(@Qualifier("productRepository") FilterProductRepository productRepository) {
+    public ExceptionHandlerController(@Qualifier("productRepository") FilterProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -94,6 +95,31 @@ public class CustomExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
         return "error/error";
     }
 
+
+    @ExceptionHandler(UpdatingPasswordNotMatchingException.class)
+    public String handleUpdatingPasswordNotMatchingException(UpdatingPasswordNotMatchingException exception,
+                                                             RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+        return "error/error";
+    }
+
+//    @ExceptionHandler(RegistrationPasswordNotMatchingException.class)
+//    public String handleRegistrationPasswordNotMatchingException(RegistrationPasswordNotMatchingException exception,
+//                                                                 RedirectAttributes redirectAttributes,
+//                                                                 @ModelAttribute("user") UserCreateDto user,
+//                                                                 @ModelAttribute("userInformation") UserInformationCreateDto userInformation) {
+//        redirectAttributes.addFlashAttribute("user", user);
+//        redirectAttributes.addFlashAttribute("userInformation", userInformation);
+//        redirectAttributes.addFlashAttribute("errors", exception.getMessage());
+//        return "redirect:/registration";
+//    }
+
+    @ExceptionHandler(RegistrationPasswordNotMatchingException.class)
+    public String handleRegistrationPasswordNotMatchingException(RegistrationPasswordNotMatchingException exception,
+                                                                 RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+        return "redirect:/registration";
+    }
 
 }
 

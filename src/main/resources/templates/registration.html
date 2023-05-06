@@ -13,6 +13,11 @@
 <!--        <div style="color: red" th:if="${param.error}">-->
 <!--            Bad credentials-->
 <!--        </div>-->
+        <div th:if="${error}">
+            <ul>
+                <li th:text="${error}" style="color: red"></li>
+            </ul>
+        </div>
         <div th:if="${userErrors}">
             <ul>
                 <li th:each="error : ${userErrors}">
@@ -35,6 +40,9 @@
         </label><br>
         <label for="rawPassword">Password:
             <input type="password" id="rawPassword" name="rawPassword" required/>
+        </label><br>
+        <label for="matchingPassword">Repeat password:
+            <input type="password" id="matchingPassword" name="matchingPassword" required/>
         </label><br>
         <label for="email">Email:
             <input type="email" id="email" name="email" th:value="${user.email}" required/>

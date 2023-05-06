@@ -13,6 +13,11 @@
 <!--        <div style="color: red" th:if="${param.error}">-->
 <!--            Bad credentials-->
 <!--        </div>-->
+        <div th:if="${error}">
+            <ul>
+                <li th:text="${error}" style="color: red"></li>
+            </ul>
+        </div>
         <div th:if="${userErrors}">
             <ul>
                 <li th:each="error : ${userErrors}">
@@ -33,9 +38,12 @@
         <label for="username">Username:
             <input type="text" id="username" name="username" th:value="${user.username}" readonly/>
         </label><br>
-        <label for="rawPassword">Password:
-            <input type="password" id="rawPassword" name="rawPassword"/>
-        </label><br>
+<!--        <label for="rawPassword">Password:-->
+<!--            <input type="password" id="rawPassword" name="rawPassword"/>-->
+<!--        </label><br>-->
+<!--        <label for="matchingPassword">Repeat password:-->
+<!--            <input type="password" id="matchingPassword" name="matchingPassword"/>-->
+<!--        </label><br>-->
         <label for="email">Email:
             <input type="email" id="email" name="email" th:value="${user.email}" required/>
         </label><br>
@@ -58,6 +66,11 @@
         <input type="hidden" id="role" name="role" value="USER"/>
         <button class="login-submit" type="submit">Update</button>
     </form>
+</div>
+<div>
+    <form th:action="@{/user/edit/password}" class="login-form">
+        <button class="user-edit-password-submit" type="submit">Change password</button>
+    </form><br>
 </div>
 </body>
 </html>

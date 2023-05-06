@@ -1,8 +1,5 @@
 package com.vitali.controllers;
 
-import com.vitali.converters.UserCreateConverter;
-import com.vitali.converters.UserInformationCreateConverter;
-import com.vitali.database.entities.UserInformation;
 import com.vitali.database.entities.enums.Role;
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.dto.user.UserReadDto;
@@ -35,33 +32,24 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserInformationService userInformationService;
-    private final UserCreateConverter userCreateConverter;
-    private final UserInformationCreateConverter userInformationCreateConverter;
 
 
     @GetMapping("/users")
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
-//        model.addAttribute("userInformation", userInformationService.findAll());
         model.addAttribute("currentUser", userService.getCurrentUserByUsernameFromSecurityContext());
         return "users";
     }
 
-//    @GetMapping("/users/{id}")
-//    public String findById(@PathVariable Integer id, Model model) {
-//        return userService.findById(id)
-//                .map(user -> {
-//                    model.addAttribute("user", user);
-//                    model.addAttribute("roles", Role.values());
-//                    return "user";
-//                })
-//                .orElseThrow(
-////                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//                        () -> new EntityNotFoundException("User not found"));
+//    @GetMapping("/registration")
+//    public String registration(Model model,
+//                               @ModelAttribute("user") UserCreateDto user,
+//                               @ModelAttribute("userInformation") UserInformationCreateDto userInformation) {
+//        model.addAttribute("user", user);
+//        model.addAttribute("userInformation", userInformation);
+//        model.addAttribute("roles", Role.values());
+//        return "registration";
 //    }
-
-
-
 
     @GetMapping("/registration")
     public String registration(Model model,
@@ -70,8 +58,35 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("roles", Role.values());
+        model.addAttribute("rawPassword", user.getRawPassword());
+        model.addAttribute("matchingPassword", user.getMatchingPassword());
         return "registration";
     }
+
+
+
+//    @PostMapping("/registration/add")
+//    public String create(@ModelAttribute @Validated UserCreateDto user,
+//                         BindingResult userBindingResult,
+//                         @ModelAttribute @Validated UserInformationCreateDto userInformation,
+//                         BindingResult userInformationBindingResult,
+//                         RedirectAttributes redirectAttributes) {
+//        if (!user.getRawPassword().equals(user.getMatchingPassword())) {
+//            throw new RegistrationPasswordNotMatchingException("Passwords do not match");
+//        }
+//
+//        if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
+//            redirectAttributes.addFlashAttribute("user", user);
+//            redirectAttributes.addFlashAttribute("userInformation", userInformation);
+//            redirectAttributes.addFlashAttribute("userErrors", userBindingResult.getAllErrors());
+//            redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
+//            return "redirect:/registration";
+//        }
+//
+//        userService.create(user, userInformation);
+//        return "redirect:/login";
+//    }
+
 
     @PostMapping("/registration/add")
     public String create(@ModelAttribute @Validated UserCreateDto user,
@@ -79,6 +94,13 @@ public class UserController {
                          @ModelAttribute @Validated UserInformationCreateDto userInformation,
                          BindingResult userInformationBindingResult,
                          RedirectAttributes redirectAttributes) {
+        if (!user.getRawPassword().equals(user.getMatchingPassword())) {
+            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("userInformation", userInformation);
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
+            return "redirect:/registration";
+        }
+
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("userInformation", userInformation);
@@ -86,12 +108,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
             return "redirect:/registration";
         }
-
-//        UserCreateDto userCreateDto = userCreateConverter.convert(request);
-//        UserInformationCreateDto userInformationCreateDto = userInformationCreateConverter.convert(request);
-//
-//        log.info("UserController - create - userCreateDto: {}", userCreateDto);
-//        log.info("UserController - create - userInformationCreateDto: {}", userInformationCreateDto);
 
         userService.create(user, userInformation);
         return "redirect:/login";
@@ -102,8 +118,6 @@ public class UserController {
                            Model model) {
         UserReadDto user = userService.findById(id);
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(user.getId());
-//        log.info("UserController - findById - user: {}", user);
-//        log.info("UserController - findById - userInformation: {}", userInformation);
         model.addAttribute("user", user);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("roles", Role.values());
@@ -159,6 +173,14 @@ public class UserController {
                            BindingResult userInformationBindingResult,
                            @ModelAttribute("userId") Integer userId,
                            RedirectAttributes redirectAttributes) {
+
+        if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
+            redirectAttributes.addFlashAttribute("user", userCreateDto);
+            redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
+            return "redirect:/user/edit";
+        }
+
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
             redirectAttributes.addFlashAttribute("user", userCreateDto);
             redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
@@ -173,6 +195,27 @@ public class UserController {
 
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/user/edit/password")
+    public String editUserPasswordForm(Model model,
+                               @ModelAttribute("userId") Integer userId) {
+        UserReadDto user = userService.findById(userId);
+        model.addAttribute("user", user);
+        return "user/user-edit-password";
+    }
+
+    @PostMapping("/user/edit/password")
+    public String editUserPassword(@ModelAttribute @Validated({Default.class, UpdateValidationGroup.class}) UserCreateDto userCreateDto,
+                           @ModelAttribute("userId") Integer userId,
+                           RedirectAttributes redirectAttributes) {
+        if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
+            redirectAttributes.addFlashAttribute("user", userCreateDto);
+            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
+            return "redirect:/user/edit/password";
+        }
+        userService.updatePassword(userId, userCreateDto);
         return "redirect:/products";
     }
 }

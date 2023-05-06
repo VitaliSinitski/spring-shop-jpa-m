@@ -57,3 +57,20 @@ body {
 .login-submit:hover {
     background-color: #334868;
 }
+
+.user-edit-password-submit {
+    background-color:  #232f3e;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px;
+    transition: background-color 0.2s;
+    width: 35%;
+    margin: 0 auto;
+}
+
+.user-edit-password-submit:hover {
+    background-color: #334868;
+}

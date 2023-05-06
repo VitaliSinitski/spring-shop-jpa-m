@@ -29,6 +29,7 @@ public class UserCreateDto {
 //    @PasswordNotBlankAndSize(checkOnCreate = true, min = 8, max = 20)
     @PasswordNotBlankAndSize(checkOnCreate = false, groups = {UpdateValidationGroup.class})
     String rawPassword;
+    String matchingPassword;
     Role role;
     Boolean enabled;
     Integer cartId;
