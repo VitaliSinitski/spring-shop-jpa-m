@@ -95,24 +95,12 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
         return "error/error";
     }
 
-
     @ExceptionHandler(UpdatingPasswordNotMatchingException.class)
     public String handleUpdatingPasswordNotMatchingException(UpdatingPasswordNotMatchingException exception,
                                                              RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", exception.getMessage());
-        return "error/error";
+        return "user/user-edit-password";
     }
-
-//    @ExceptionHandler(RegistrationPasswordNotMatchingException.class)
-//    public String handleRegistrationPasswordNotMatchingException(RegistrationPasswordNotMatchingException exception,
-//                                                                 RedirectAttributes redirectAttributes,
-//                                                                 @ModelAttribute("user") UserCreateDto user,
-//                                                                 @ModelAttribute("userInformation") UserInformationCreateDto userInformation) {
-//        redirectAttributes.addFlashAttribute("user", user);
-//        redirectAttributes.addFlashAttribute("userInformation", userInformation);
-//        redirectAttributes.addFlashAttribute("errors", exception.getMessage());
-//        return "redirect:/registration";
-//    }
 
     @ExceptionHandler(RegistrationPasswordNotMatchingException.class)
     public String handleRegistrationPasswordNotMatchingException(RegistrationPasswordNotMatchingException exception,
@@ -122,4 +110,3 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
     }
 
 }
-

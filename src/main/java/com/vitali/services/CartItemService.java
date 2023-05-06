@@ -2,23 +2,20 @@ package com.vitali.services;
 
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.OrderItem;
 import com.vitali.database.repositories.CartItemRepository;
 import com.vitali.database.repositories.CartRepository;
 import com.vitali.dto.cartItem.CartItemCreateDto;
 import com.vitali.dto.cartItem.CartItemReadDto;
 import com.vitali.mappers.cartItem.CartItemCreateMapper;
 import com.vitali.mappers.cartItem.CartItemReadMapper;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -32,13 +29,6 @@ public class CartItemService {
     private final CartItemCreateMapper cartItemCreateMapper;
 
     @Transactional
-    public Integer create(CartItemCreateDto cartItemCreateDto) {
-        CartItem cartItemEntity = cartItemCreateMapper.map(cartItemCreateDto);
-        return cartItemRepository.save(cartItemEntity).getId();
-    }
-
-    // I use this
-    @Transactional
     public Integer create(Integer quantity, Integer productId, Integer cartId) {
         CartItemCreateDto cartItemCreateDto = CartItemCreateDto.builder()
                 .quantity(quantity)
@@ -49,12 +39,6 @@ public class CartItemService {
         return cartItemRepository.save(cartItemEntity).getId();
     }
 
-
-    public Optional<CartItemReadDto> findById(Integer id) {
-        return cartItemRepository.findById(id)
-                .map(cartItemReadMapper::map);
-    }
-
     public List<CartItemReadDto> findAllByCartId(Integer id) {
         return cartItemRepository.findCartItemsByCartId(id)
                 .stream()
@@ -62,132 +46,39 @@ public class CartItemService {
                 .collect(Collectors.toList());
     }
 
-//    public List<CartItemReadDto> findAllByOrderId(Integer id) {
-//        return cartItemRepository.findCartItemsByOrderId(id).stream()
-//                .map(cartItemReadMapper::map)
-//                .collect(Collectors.toList());
-//    }
-
-//    @Transactional
-//    public boolean delete(Integer id) {
-//        Optional<CartItem> maybeCartItem = cartItemRepository.findById(id);
-//        maybeCartItem.ifPresent(cartItemRepository::delete);
-//        return maybeCartItem.isPresent();
-//    }
-
-    @Transactional
-    public boolean delete(Integer id) {
-        return cartItemRepository.findById(id)
-                .map(entity -> {
-                    cartItemRepository.delete(entity);
-                    return true;
-                })
-                .orElse(false);
-    }
-
-    // it is function good
     @Transactional
     public boolean delete(Integer cartId, Integer cartItemId) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-        CartItem cartItemToDelete = cartItemRepository.findById(cartItemId).orElse(null);
-        if (cartItemToDelete == null) {
-            return false;
-        }
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new EntityNotFoundException("Cart with id: " + cartId + " not found"));
+        CartItem cartItemToDelete = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new EntityNotFoundException("CartItem with id: " + cartItemId + " not found"));
         cart.deleteCartItem(cartItemToDelete);
         cartRepository.save(cart);
         return true;
     }
 
-    // it is function good
     @Transactional
     public boolean deleteAllByCartId(Integer cartId) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new EntityNotFoundException("Cart with id: " + cartId + " not found"));
         List<CartItem> cartItemsToDelete = cartItemRepository.findAllByCartId(cartId);
         if (cartItemsToDelete.isEmpty()) {
             return false;
         }
-        for(CartItem cartItem : cartItemsToDelete) {
+        for (CartItem cartItem : cartItemsToDelete) {
             cart.deleteCartItem(cartItem);
         }
         cartRepository.save(cart);
         return true;
     }
 
-//    @Transactional
-//    public boolean deleteAll(Integer cartId, List<CartItem> cartItems) {
-//        Cart cart = cartRepository.findById(cartId).orElse(null);
-//        if (cartItems.isEmpty()) {
-//            return false;
-//        }
-//        for(CartItem cartItem : cartItems) {
-//            cart.deleteCartItem(cartItem);
-//        }
-//        cartRepository.save(cart);
-//        return true;
-//    }
-
-
-//    @Transactional
-//    public void deleteAllByCartId(Integer cartId) {
-//        log.info("CartItemService - deleteAllByCartId - cartId: {}", cartId);
-//
-//        List<CartItem> cartItems = cartItemRepository.findAll();
-//
-//        log.info("CartItemService - deleteAllByCartId - cartItems: {}", cartItems);
-//
-//        cartItems.removeIf(cartItem -> Objects.equals(cartItem.getCart().getId(), cartId));
-//
-//        log.info("CartItemService - deleteAllByCartId - after removing");
-//    }
-
-
     @Transactional
     public void updateCartItemQuantity(Integer cartId, Integer cartItemId, Integer quantity) {
-        cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId)
-                .ifPresent(cartItem -> {
-                    cartItem.setQuantity(quantity);
-                    cartItemRepository.save(cartItem);
-                });
+        CartItem cartItem = cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId)
+                .orElseThrow(() -> new EntityNotFoundException("CartItem with id: " + cartItemId + " not found"));
+        cartItem.setQuantity(quantity);
+        cartItemRepository.save(cartItem);
     }
-
-//    @Transactional
-//    public void deleteCartItem(Integer cartId, Integer cartItemId) {
-//        log.info("CartService - deleteCartItem - cartItemRepository.findCartItemByIdAndCartId = {}", cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId));
-//        cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId)
-//                .ifPresent(cartItemRepository::delete);
-//    }
-
-//    @Transactional
-//    public void deleteCartItem(Integer cartId, Integer cartItemId) {
-//        log.info("CartService - deleteCartItem - cartId: {}, cartItemId: {}", cartId, cartItemId);
-//        cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId)
-//                .ifPresent(cartItem -> {
-//                    log.info("CartService - deleteCartItem - found cartItem: {}", cartItem);
-//                    cartItemRepository.delete(cartItem);
-//                });
-//    }
-
-//    @Transactional
-//    public boolean deleteCartItem(Integer cartId, Integer cartItemId) {
-//        return cartItemRepository.findCartItemByIdAndCartId(cartItemId, cartId)
-//                .map(entity -> {
-//                    cartItemRepository.delete(entity);
-//                    return true;
-//                })
-//                .orElse(false);
-//    }
-
-    @Transactional
-    public void deleteCartItem(Integer cartItemId) {
-        log.info("CartItemService - deleteCartItem - cartItemId: {}", cartItemId);
-
-        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(); //
-        log.info("CartItemService - deleteCartItem - cartItem: {}", cartItem);
-        cartItemRepository.deleteById(cartItemId);
-
-//        cartItemRepository.deleteCartItemByIdAndCartId(cartItemId, cartId);
-    }
-
 
     public BigDecimal getTotalPrice(Integer cartId) {
         List<CartItem> cartItems = cartItemRepository.findAllByCartId(cartId);
@@ -200,5 +91,4 @@ public class CartItemService {
         }
         return totalPrice;
     }
-
 }

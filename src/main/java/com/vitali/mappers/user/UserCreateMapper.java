@@ -31,52 +31,29 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
                 .ifPresent(user::setPassword);
-        log.info("UserCreateMapper - mapPassword - user: {}", user);
         return user;
     }
 
     @Override
     public User map(UserCreateDto userCreateDto) {
-//        Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
-//        return getUser(userCreateDto);
-//        User userEntity = User.builder()
-//                .email(userCreateDto.getEmail())
-//                .password(userCreateDto.getPassword())
-//                .roles(Collections.singleton(Role.USER))
-//                .build();
         User user = new User();
         copy(userCreateDto, user);
         return user;
     }
 
     private void copy(UserCreateDto object, User user) {
-        if (!Objects.equals(object.getRawPassword(), object.getMatchingPassword())) {
-            throw new RuntimeException("Password is not equals!");
-        }
+//        if (!Objects.equals(object.getRawPassword(), object.getMatchingPassword())) {
+//            throw new RuntimeException("Password is not equals!");
+//        }
 
         user.setUsername(object.getUsername());
         user.setEmail(object.getEmail());
         user.setRole(object.getRole());
         user.setEnabled(object.getEnabled());
 
-
         Optional.ofNullable(object.getRawPassword())
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)
                 .ifPresent(user::setPassword);
     }
-
-//    public User getUser(UserCreateDto object) {
-//        return User.builder()
-//                .username(object.getUsername())
-//                .email(object.getEmail())
-//                .password(object.getRawPassword())
-//                .role(object.getRole())
-//                .firstName(object.getFirstName())
-//                .lastName(object.getLastName())
-//                .birthDate(object.getBirthDate())
-//                .enabled(object.getEnabled())
-//                .build();
-//    }
-
 }

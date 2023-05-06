@@ -14,15 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.groups.Default;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -41,16 +38,6 @@ public class UserController {
         return "users";
     }
 
-//    @GetMapping("/registration")
-//    public String registration(Model model,
-//                               @ModelAttribute("user") UserCreateDto user,
-//                               @ModelAttribute("userInformation") UserInformationCreateDto userInformation) {
-//        model.addAttribute("user", user);
-//        model.addAttribute("userInformation", userInformation);
-//        model.addAttribute("roles", Role.values());
-//        return "registration";
-//    }
-
     @GetMapping("/registration")
     public String registration(Model model,
                                @ModelAttribute("user") UserCreateDto user,
@@ -62,31 +49,6 @@ public class UserController {
         model.addAttribute("matchingPassword", user.getMatchingPassword());
         return "registration";
     }
-
-
-
-//    @PostMapping("/registration/add")
-//    public String create(@ModelAttribute @Validated UserCreateDto user,
-//                         BindingResult userBindingResult,
-//                         @ModelAttribute @Validated UserInformationCreateDto userInformation,
-//                         BindingResult userInformationBindingResult,
-//                         RedirectAttributes redirectAttributes) {
-//        if (!user.getRawPassword().equals(user.getMatchingPassword())) {
-//            throw new RegistrationPasswordNotMatchingException("Passwords do not match");
-//        }
-//
-//        if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
-//            redirectAttributes.addFlashAttribute("user", user);
-//            redirectAttributes.addFlashAttribute("userInformation", userInformation);
-//            redirectAttributes.addFlashAttribute("userErrors", userBindingResult.getAllErrors());
-//            redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
-//            return "redirect:/registration";
-//        }
-//
-//        userService.create(user, userInformation);
-//        return "redirect:/login";
-//    }
-
 
     @PostMapping("/registration/add")
     public String create(@ModelAttribute @Validated UserCreateDto user,

@@ -76,7 +76,6 @@ public class UserService implements UserDetailsService {
         User user = Optional.of(userCreateDto)
                 .map(userCreateMapper::map)
                 .map(userRepository::save)
-//                .map(userRepository::saveAndFlush) // todo variant???
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         cart.setUser(user);
         userInformation.setUser(user);
@@ -148,26 +147,14 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserReadDto updatePassword(Integer id, UserCreateDto userCreateDto) {
+    public void updatePassword(Integer id, UserCreateDto userCreateDto) {
         log.info("UserService - update - userCreateDto: {}", userCreateDto);
-        return userRepository.findById(id)
+        userRepository.findById(id)
                 .map(user -> userCreateMapper.mapPassword(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
-
-
-//    @Transactional
-//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
-//        return userRepository.findById(id)
-//                .map(user -> userCreateMapper.map(userCreateDto, user))
-//                .map(userRepository::saveAndFlush)
-//                .map(userReadMapper::map)
-//                .map(Optional::ofNullable)
-//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
-//    }
-
 
     // It is function correctly
     @Transactional
@@ -189,7 +176,6 @@ public class UserService implements UserDetailsService {
                         Collections.singleton(user.getRole())))
                 .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
     }
-
 
     public String getCurrentUsernameFromSecurityContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
