@@ -32,8 +32,7 @@ public class CategoryServiceTest {
     @Test
     public void testFindAll() {
         // given
-        List<Category> categories = Collections.singletonList(CATEGORY);
-        when(categoryRepository.findAll()).thenReturn(categories);
+        when(categoryRepository.findAll()).thenReturn(CATEGORY_LIST);
         when(categoryReadMapper.map(CATEGORY)).thenReturn(CATEGORY_READ_DTO);
 
         // when
@@ -41,6 +40,6 @@ public class CategoryServiceTest {
 
         // then
         assertThat(result).hasSize(SIZE_ONE);
-        assertThat(result.get(SIZE_ZERO).getName()).isEqualTo("New Category");
+        assertThat(result.get(SIZE_ZERO).getName()).isEqualTo(CATEGORY_NAME);
     }
 }

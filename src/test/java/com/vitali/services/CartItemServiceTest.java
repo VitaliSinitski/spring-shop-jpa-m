@@ -49,7 +49,7 @@ public class CartItemServiceTest {
         when(cartItemRepository.save(CART_ITEM)).thenReturn(CART_ITEM);
 
         // when
-        Integer createdCartItemID = cartItemService.create(QUANTITY_TWO, PRODUCT_ID_ONE, CART_ID);
+        Integer createdCartItemID = cartItemService.create(QUANTITY_TWO, PRODUCT_ID_ONE, CART_ID_ONE);
 
         // then
         assertThat(createdCartItemID).isEqualTo(CART_ITEM.getId());
@@ -61,15 +61,15 @@ public class CartItemServiceTest {
     @Test
     public void findAllByCartIdSuccess() {
         // given
-        when(cartItemRepository.findCartItemsByCartId(CART_ID)).thenReturn(CART_ITEM_LIST);
+        when(cartItemRepository.findCartItemsByCartId(CART_ID_ONE)).thenReturn(CART_ITEM_LIST);
         when(cartItemReadMapper.map(CART_ITEM)).thenReturn(CART_ITEM_READ_DTO);
 
         // when
-        List<CartItemReadDto> result = cartItemService.findAllByCartId(CART_ID);
+        List<CartItemReadDto> result = cartItemService.findAllByCartId(CART_ID_ONE);
 
         // then
         assertThat(result).isEqualTo(CART_ITEM_READ_DTO_LIST);
-        verify(cartItemRepository).findCartItemsByCartId(CART_ID);
+        verify(cartItemRepository).findCartItemsByCartId(CART_ID_ONE);
         verify(cartItemReadMapper).map(CART_ITEM);
     }
 
@@ -78,18 +78,18 @@ public class CartItemServiceTest {
     public void deleteSuccess() {
         // given
         Cart cart = new Cart();
-        cart.setId(CART_ID);
+        cart.setId(CART_ID_ONE);
         cart.addCartItem(CART_ITEM);
 
-        when(cartRepository.findById(CART_ID)).thenReturn(Optional.of(cart));
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(Optional.of(cart));
         when(cartItemRepository.findById(CART_ITEM_ID)).thenReturn(Optional.of(CART_ITEM));
 
         // when
-        boolean isDeleted = cartItemService.delete(CART_ID, CART_ITEM_ID);
+        boolean isDeleted = cartItemService.delete(CART_ID_ONE, CART_ITEM_ID);
 
         // then
         assertTrue(isDeleted);
-        verify(cartRepository).findById(CART_ID);
+        verify(cartRepository).findById(CART_ID_ONE);
         verify(cartItemRepository).findById(CART_ITEM_ID);
         verify(cartRepository).save(cart);
 
@@ -98,14 +98,14 @@ public class CartItemServiceTest {
     @Test
     public void deleteCartItemNotFoundThrowEntityNotFoundException() {
         // given
-        when(cartRepository.findById(CART_ID)).thenReturn(Optional.of(CART));
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(Optional.of(CART));
         when(cartItemRepository.findById(CART_ITEM_ID)).thenReturn(Optional.empty());
 
         // when
-        assertThrows(EntityNotFoundException.class, () -> cartItemService.delete(CART_ID, CART_ITEM_ID));
+        assertThrows(EntityNotFoundException.class, () -> cartItemService.delete(CART_ID_ONE, CART_ITEM_ID));
 
         // then
-        verify(cartRepository).findById(CART_ID);
+        verify(cartRepository).findById(CART_ID_ONE);
         verify(cartItemRepository).findById(CART_ITEM_ID);
         verifyNoMoreInteractions(cartRepository, cartItemRepository);
     }
@@ -113,13 +113,13 @@ public class CartItemServiceTest {
     @Test
     public void deleteCartNotFoundThrowEntityNotFoundException() {
         // given
-        when(cartRepository.findById(CART_ID)).thenReturn(Optional.empty());
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(Optional.empty());
 
         // when
-        assertThrows(EntityNotFoundException.class, () -> cartItemService.delete(CART_ID, CART_ITEM_ID));
+        assertThrows(EntityNotFoundException.class, () -> cartItemService.delete(CART_ID_ONE, CART_ITEM_ID));
 
         // then
-        verify(cartRepository).findById(CART_ID);
+        verify(cartRepository).findById(CART_ID_ONE);
         verifyNoMoreInteractions(cartRepository, cartItemRepository);
     }
 
@@ -128,20 +128,20 @@ public class CartItemServiceTest {
     public void deleteAllByCartIdSuccess() {
         // given
         Cart cart = new Cart();
-        cart.setId(CART_ID);
+        cart.setId(CART_ID_ONE);
         CartItem cartItem1 = CartItem.builder().quantity(QUANTITY_TWO).cart(cart).build();
         CartItem cartItem2 = CartItem.builder().quantity(QUANTITY_ONE).cart(cart).build();
         List<CartItem> cartItems = Arrays.asList(cartItem1, cartItem2);
 
-        when(cartRepository.findById(CART_ID)).thenReturn(Optional.of(cart));
-        when(cartItemRepository.findAllByCartId(CART_ID)).thenReturn(cartItems);
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(Optional.of(cart));
+        when(cartItemRepository.findAllByCartId(CART_ID_ONE)).thenReturn(cartItems);
 
         // when
-        boolean result = cartItemService.deleteAllByCartId(CART_ID);
+        boolean result = cartItemService.deleteAllByCartId(CART_ID_ONE);
 
         // then
-        verify(cartRepository, times(TIMES_ONE)).findById(CART_ID);
-        verify(cartItemRepository, times(TIMES_ONE)).findAllByCartId(CART_ID);
+        verify(cartRepository, times(TIMES_ONE)).findById(CART_ID_ONE);
+        verify(cartItemRepository, times(TIMES_ONE)).findAllByCartId(CART_ID_ONE);
         verify(cartRepository, times(TIMES_ONE)).save(cart);
         assertThat(result).isTrue();
         assertThat(cart.getCartItems()).isEmpty();
@@ -151,15 +151,15 @@ public class CartItemServiceTest {
     @Test
     public void deleteAllByCartIdCartItemsNotFound() {
         // given
-        when(cartRepository.findById(CART_ID)).thenReturn(Optional.of(new Cart()));
-        when(cartItemRepository.findAllByCartId(CART_ID)).thenReturn(new ArrayList<>());
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(Optional.of(new Cart()));
+        when(cartItemRepository.findAllByCartId(CART_ID_ONE)).thenReturn(new ArrayList<>());
 
         // when
-        boolean result = cartItemService.deleteAllByCartId(CART_ID);
+        boolean result = cartItemService.deleteAllByCartId(CART_ID_ONE);
 
         // then
-        verify(cartRepository, times(TIMES_ONE)).findById(CART_ID);
-        verify(cartItemRepository, times(TIMES_ONE)).findAllByCartId(CART_ID);
+        verify(cartRepository, times(TIMES_ONE)).findById(CART_ID_ONE);
+        verify(cartItemRepository, times(TIMES_ONE)).findAllByCartId(CART_ID_ONE);
         verify(cartRepository, never()).save(any(Cart.class));
         assertThat(result).isFalse();
     }
@@ -170,9 +170,9 @@ public class CartItemServiceTest {
         when(cartRepository.findById(anyInt())).thenReturn(java.util.Optional.empty());
 
         // when and then
-        assertThatThrownBy(() -> cartItemService.deleteAllByCartId(CART_ID))
+        assertThatThrownBy(() -> cartItemService.deleteAllByCartId(CART_ID_ONE))
                 .isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("Cart with id: " + CART_ID + " not found");
+                .hasMessage("Cart with id: " + CART_ID_ONE + " not found");
     }
 
 
@@ -185,13 +185,13 @@ public class CartItemServiceTest {
         cart.addCartItem(cartItem1);
         cart.addCartItem(cartItem2);
 
-        when(cartRepository.findById(CART_ID)).thenReturn(java.util.Optional.of(cart));
-        when(cartItemRepository.findAllByCartId(CART_ID)).thenReturn(List.of(cartItem1, cartItem2));
+        when(cartRepository.findById(CART_ID_ONE)).thenReturn(java.util.Optional.of(cart));
+        when(cartItemRepository.findAllByCartId(CART_ID_ONE)).thenReturn(List.of(cartItem1, cartItem2));
         RuntimeException exception = new RuntimeException();
         doThrow(exception).when(cartRepository).save(cart);
 
         // when and then
-        assertThatThrownBy(() -> cartItemService.deleteAllByCartId(CART_ID))
+        assertThatThrownBy(() -> cartItemService.deleteAllByCartId(CART_ID_ONE))
                 .isSameAs(exception);
     }
 
@@ -204,14 +204,14 @@ public class CartItemServiceTest {
         cartItem.setId(CART_ITEM_ID);
         cartItem.setQuantity(QUANTITY_TWO);
 
-        when(cartItemRepository.findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID)).thenReturn(Optional.of(cartItem));
+        when(cartItemRepository.findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE)).thenReturn(Optional.of(cartItem));
 
         // when
-        cartItemService.updateCartItemQuantity(CART_ID, CART_ITEM_ID, QUANTITY_THREE);
+        cartItemService.updateCartItemQuantity(CART_ID_ONE, CART_ITEM_ID, QUANTITY_THREE);
 
         // then
         assertThat(cartItem.getQuantity()).isEqualTo(QUANTITY_THREE);
-        verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID);
+        verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE);
         verify(cartItemRepository, times(TIMES_ONE)).save(cartItem);
         verifyNoMoreInteractions(cartItemRepository);
         verifyNoInteractions(cartRepository, cartItemReadMapper, cartItemCreateMapper);
@@ -220,14 +220,14 @@ public class CartItemServiceTest {
     @Test
     public void updateCartItemQuantityCartItemNotFoundThrowEntityNotFoundException() {
         // given
-        when(cartItemRepository.findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID)).thenReturn(Optional.empty());
+        when(cartItemRepository.findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE)).thenReturn(Optional.empty());
 
         // when, then
-        assertThatThrownBy(() -> cartItemService.updateCartItemQuantity(CART_ID, CART_ITEM_ID, QUANTITY_THREE))
+        assertThatThrownBy(() -> cartItemService.updateCartItemQuantity(CART_ID_ONE, CART_ITEM_ID, QUANTITY_THREE))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("CartItem with id: " + CART_ITEM_ID + " not found");
 
-        verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID);
+        verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE);
         verifyNoMoreInteractions(cartItemRepository);
         verifyNoInteractions(cartRepository, cartItemReadMapper, cartItemCreateMapper);
     }
@@ -238,7 +238,7 @@ public class CartItemServiceTest {
         doThrow(new RuntimeException("Exception during saving Cart Item")).when(cartItemRepository).findCartItemByIdAndCartId(anyInt(), anyInt());
 
         // when, then
-        assertThatThrownBy(() -> cartItemService.updateCartItemQuantity(CART_ID, CART_ITEM_ID, QUANTITY_TWO))
+        assertThatThrownBy(() -> cartItemService.updateCartItemQuantity(CART_ID_ONE, CART_ITEM_ID, QUANTITY_TWO))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Exception during saving Cart Item");
     }
@@ -267,10 +267,10 @@ public class CartItemServiceTest {
 
         List<CartItem> cartItems = Arrays.asList(cartItem1, cartItem2);
 
-        when(cartItemRepository.findAllByCartId(CART_ID)).thenReturn(cartItems);
+        when(cartItemRepository.findAllByCartId(CART_ID_ONE)).thenReturn(cartItems);
 
         // When
-        BigDecimal totalPrice = cartItemService.getTotalPrice(CART_ID);
+        BigDecimal totalPrice = cartItemService.getTotalPrice(CART_ID_ONE);
 
         // Then
         Assertions.assertThat(totalPrice).isEqualTo(new BigDecimal("35.00"));
@@ -279,10 +279,10 @@ public class CartItemServiceTest {
     @Test
     public void getTotalPriceWithEmptyCart() {
         // Given
-        when(cartItemRepository.findAllByCartId(CART_ID)).thenReturn(new ArrayList<>());
+        when(cartItemRepository.findAllByCartId(CART_ID_ONE)).thenReturn(new ArrayList<>());
 
         // When
-        BigDecimal totalPrice = cartItemService.getTotalPrice(CART_ID);
+        BigDecimal totalPrice = cartItemService.getTotalPrice(CART_ID_ONE);
 
         // Then
         Assertions.assertThat(totalPrice).isEqualTo(BigDecimal.ZERO);

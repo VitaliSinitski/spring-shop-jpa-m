@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ProducerService {
     private final ProducerRepository producerRepository;
-    private final ProducerCreateMapper producerCreateMapper;
     private final ProducerReadMapper producerReadMapper;
 
     public List<ProducerReadDto> findAll() {

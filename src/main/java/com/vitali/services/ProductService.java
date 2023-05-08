@@ -44,7 +44,6 @@ public class ProductService {
                 .add(filter.getCategoryId(), product.category.id::eq)
                 .add(filter.getProducerId(), product.producer.id::eq)
                 .add(filter.getPrice(), product.price::eq)
-//                .add(filter.getMinPrice(), product.price::gt)
                 .add(filter.getMinPrice(), product.price::goe)
                 .add(filter.getMaxPrice(), product.price::loe)
                 .build();
@@ -52,41 +51,12 @@ public class ProductService {
                 .map(productReadMapper::map);
     }
 
-
-//    public List<ProductReadDto> findAll(ProductFilter filter, Sort sort) {
-////        sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");
-//        return productRepository.findAllByFilter(filter, sort)
-//                .stream().map(productReadMapper::map)
-//                .collect(Collectors.toList());
-//    }
-//
-//    public List<ProductReadDto> findAll(ProductFilter filter) {
-//        Sort sort = Sort.by(Sort.Direction.ASC, "category.name", "producer.name");
-//        return productRepository.findAllByFilter(filter, sort)
-//                .stream().map(productReadMapper::map)
-//                .collect(Collectors.toList());
-//    }
-
-
-//    public List<ProductReadDto> findAll(ProductFilter filter) {
-//        List<ProductReadDto> products = productRepository.findAllByFilter(filter)
-//                .stream()
-//                .map(productReadMapper::map)
-//                .collect(Collectors.toList());
-//        products.sort(Comparator.comparing(ProductReadDto.)
-//                .thenComparing(ProductReadDto::getProducerName));
-
-
     public List<ProductReadDto> findAll() {
         return productRepository.findAll()
                 .stream().map(productReadMapper::map)
                 .collect(Collectors.toList());
     }
 
-//    public Optional<ProductReadDto> findById(Integer id) {
-//        return productRepository.findById(id)
-//                .map(productReadMapper::map);
-//    }
 
     public ProductReadDto findById(Integer id) {
         return productRepository.findById(id)
@@ -118,20 +88,6 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
-//    @Transactional
-//    public boolean updateProductQuantityByCartItem(CartItem cartItem) {
-//        Product product = cartItem.getProduct();
-//        Integer productId = cartItem.getProduct().getId();
-//
-//        int restStock = product.getQuantity() - cartItem.getQuantity();
-//        if (restStock >= 0) {
-//            product.setQuantity(restStock);
-//            productRepository.save(product);
-//            return true;
-//        }
-//        return false;
-//    }
-
     @Transactional
     public boolean updateProductQuantityByCartItem(CartItem cartItem) {
         Product product = cartItem.getProduct();
@@ -159,7 +115,7 @@ public class ProductService {
                     productRepository.delete(entity);
                     return true;
                 })
-                .orElse(false);
+                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
     // 97.20:20
