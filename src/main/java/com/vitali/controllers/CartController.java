@@ -7,9 +7,7 @@ import com.vitali.dto.cartItem.CartItemReadDto;
 
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.services.CartItemService;
-import com.vitali.services.CartService;
 
-import com.vitali.services.OrderItemService;
 import com.vitali.services.ProductService;
 import com.vitali.util.ParameterUtil;
 import lombok.RequiredArgsConstructor;

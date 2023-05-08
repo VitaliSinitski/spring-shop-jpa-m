@@ -1,20 +1,12 @@
 package com.vitali.services;
 
-import com.vitali.database.entities.User;
 import com.vitali.database.repositories.CartRepository;
 import com.vitali.database.repositories.UserRepository;
 import com.vitali.mappers.user.UserCreateMapper;
 import com.vitali.mappers.user.UserReadMapper;
-import com.vitali.util.Constants;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import static com.vitali.util.Constants.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserServiceTest {

@@ -5,8 +5,6 @@ import com.vitali.database.entities.Product;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
-import com.vitali.services.CartItemService;
-import com.vitali.services.CartService;
 import com.vitali.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

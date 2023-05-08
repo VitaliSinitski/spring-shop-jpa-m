@@ -22,12 +22,10 @@ public class ImageService {
     @Value("${app.image.bucket:C:\\Work\\IdeaProjects\\spring-shop\\src\\main\\resources\\static\\images}")
     private String bucket;
 
-//    private final String basePath = IMAGE_BASE_PATH;
 
     // save data
     @SneakyThrows
     public void upload(String imagePath, InputStream imageContent) {
-//        Path imageFullPath = Path.of(IMAGE_BASE_PATH, imagePath);
         Path imageFullPath = Path.of(bucket, imagePath);
 
         try (imageContent) {
@@ -38,7 +36,6 @@ public class ImageService {
 
     @SneakyThrows
     public Optional<byte[]> get(String imagePath) {
-//        Path fullImagePath = Path.of(IMAGE_BASE_PATH, imagePath);
         Path imageFullPath = Path.of(bucket, imagePath);
 
         return Files.exists(imageFullPath)

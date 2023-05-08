@@ -84,12 +84,9 @@ public class AdminOrdersController {
                               @ModelAttribute OrderStatus orderStatus,
                               Model model) {
         UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
+        OrderReadDto order = orderService.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
         orderService.updateOrderStatus(orderStatus, orderId);
-        OrderReadDto order = orderService.findById(orderId).orElse(null);
-        if (order == null) {
-            throw new EntityNotFoundException("Order with id: " + orderId + " not found");
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
         model.addAttribute("orderStatuses", OrderStatus.values());
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("order", order);

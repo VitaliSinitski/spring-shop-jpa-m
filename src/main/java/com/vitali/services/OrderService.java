@@ -1,13 +1,9 @@
 package com.vitali.services;
 
-import com.vitali.constants.Constants;
 import com.vitali.database.entities.*;
 import com.vitali.database.entities.enums.OrderStatus;
 import com.vitali.database.repositories.*;
-import com.vitali.dto.order.OrderCreateDto;
 import com.vitali.dto.order.OrderReadDto;
-import com.vitali.dto.product.ProductCreateDto;
-import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.cartItem.CartItemToOrderItemMapper;
 import com.vitali.mappers.order.OrderCreateMapper;
@@ -16,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.webjars.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -32,7 +27,6 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final OrderItemRepository orderItemRepository;
     private final OrderReadMapper orderReadMapper;
-    private final OrderCreateMapper orderCreateMapper;
     private final ProductService productService;
     private final CartItemService cartItemService;
     private final CartItemToOrderItemMapper cartItemToOrderItemMapper;
@@ -49,21 +43,14 @@ public class OrderService {
                 .map(orderReadMapper::map);
     }
 
-    public List<OrderItem> getOrderItemsByIds(List<Integer> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return orderItemRepository.findAllByIdIn(ids);
-    }
-
     @Transactional
-    public boolean updateOrderStatus(OrderStatus orderStatus, Integer orderId) {
-        return orderRepository.findById(orderId)
+    public void updateOrderStatus(OrderStatus orderStatus, Integer orderId) {
+        orderRepository.findById(orderId)
                 .map(entity -> {
                     entity.setOrderStatus(orderStatus);
                     return true;
                 })
-                .orElse(false);
+                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
     }
 
     @Transactional
@@ -82,15 +69,11 @@ public class OrderService {
 
             // update the product quantity
             boolean stockConfirmation = productService.updateProductQuantityByCartItem(cartItem);
-
             if (!stockConfirmation) {
                 throw new OutOfStockException(cartItem.getProduct().getName());
-//                throw new OutOfStockException("Stock of goods is insufficient.(Current stock quantity: "
-//                                              + cartItem.getProduct().getQuantity() + ", customer ordered: "
-//                                              + cartItem.getQuantity() + ")");
             }
-
         }
+
         // create Order object
         Order order = new Order();
 
@@ -107,15 +90,5 @@ public class OrderService {
         // delete the cart items
         cartItemService.deleteAllByCartId(cartId);
         return orderReadMapper.map(savedOrder);
-    }
-
-
-
-    @Transactional
-    public Optional<Object> update(Integer id, OrderCreateDto orderCreateDto) {
-        return orderRepository.findById(id)
-                .map(order -> orderCreateMapper.map(orderCreateDto, order))
-                .map(orderRepository::saveAndFlush)
-                .map(orderReadMapper::map);
     }
 }

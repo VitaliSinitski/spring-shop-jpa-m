@@ -1,40 +1,23 @@
 package com.vitali.controllers;
 
-import com.vitali.converters.OrderItemCreateConverter;
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.Order;
-import com.vitali.database.entities.OrderItem;
+
 import com.vitali.database.entities.Product;
-import com.vitali.database.entities.User;
-import com.vitali.database.entities.UserInformation;
-import com.vitali.database.entities.enums.OrderStatus;
-import com.vitali.database.repositories.CartRepository;
-import com.vitali.database.repositories.OrderItemRepository;
-import com.vitali.database.repositories.OrderRepository;
-import com.vitali.database.repositories.UserInformationRepository;
-import com.vitali.database.repositories.UserRepository;
-import com.vitali.dto.cartItem.CartItemReadDto;
+
 import com.vitali.dto.order.OrderReadDto;
-import com.vitali.dto.orderItem.OrderItemCreateDto;
 import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
 import com.vitali.services.CartItemService;
-import com.vitali.services.CartService;
 import com.vitali.services.OrderItemService;
 import com.vitali.services.OrderService;
-import com.vitali.services.ProductService;
 import com.vitali.services.UserInformationService;
-import com.vitali.util.ParameterUtil;
 import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -116,7 +99,7 @@ public class OrderController {
         }
 
         // get the order items
-        List<OrderItemReadDto> orderItems = orderItemService.getOrderItemsByOrderId(orderId);
+        List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
 
         // get the user information
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
