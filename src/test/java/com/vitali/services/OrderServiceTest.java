@@ -1,29 +1,14 @@
 package com.vitali.services;
 
-import com.vitali.database.entities.Cart;
-import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.OrderItem;
-import com.vitali.database.entities.Product;
-import com.vitali.database.entities.User;
-import com.vitali.database.entities.enums.OrderStatus;
 import com.vitali.database.entities.Order;
-import com.vitali.database.repositories.CartRepository;
-import com.vitali.database.repositories.OrderItemRepository;
 import com.vitali.database.repositories.OrderRepository;
-import com.vitali.database.repositories.UserRepository;
 import com.vitali.dto.order.OrderReadDto;
-import com.vitali.dto.orderItem.OrderItemReadDto;
-import com.vitali.mappers.cartItem.CartItemToOrderItemMapper;
 import com.vitali.mappers.order.OrderReadMapper;
-import com.vitali.util.ParameterUtil;
-import com.vitali.util.TestConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.persistence.EntityNotFoundException;
