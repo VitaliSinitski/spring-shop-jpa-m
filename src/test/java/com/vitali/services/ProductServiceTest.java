@@ -1,10 +1,13 @@
 package com.vitali.services;
 
 import com.querydsl.core.types.Predicate;
+import com.vitali.database.entities.CartItem;
 import com.vitali.database.entities.Product;
 import com.vitali.database.entities.QProduct;
 import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.product.ProductReadDto;
+import com.vitali.exception.NotEnoughStockException;
+import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import org.junit.jupiter.api.Test;
@@ -16,12 +19,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static com.vitali.util.TestConstants.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
@@ -40,6 +47,8 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
+
+    // findAll with ProductFilter
     @Test
     public void findAllWithProductFilterSuccess() {
         //given
@@ -66,6 +75,7 @@ public class ProductServiceTest {
         verify(productReadMapper).map(any(Product.class));
     }
 
+    // findAll
     @Test
     public void findAllSuccess() {
         // given
@@ -80,27 +90,188 @@ public class ProductServiceTest {
         assertThat(result.get(SIZE_ZERO).getName()).isEqualTo(PRODUCT_NAME);
     }
 
+    // findById
     @Test
-    void findById() {
+    public void findByIdSuccess() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE));
+        when(productReadMapper.map(PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
+
+        // when
+        ProductReadDto result = productService.findById(PRODUCT_ID_ONE);
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(PRODUCT_READ_DTO_ONE);
+    }
+
+    // create
+    @Test
+    public void createSuccess() {
+        // given
+        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE)).thenReturn(PRODUCT_ONE);
+        when(productRepository.save(PRODUCT_ONE)).thenReturn(PRODUCT_ONE);
+        when(productReadMapper.map(PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
+
+        // when
+        ProductReadDto actualProductReadDto = productService.create(PRODUCT_CREATE_DTO_ONE);
+
+        // then
+        assertThat(actualProductReadDto).isEqualTo(PRODUCT_READ_DTO_ONE);
+    }
+
+    // update
+    @Test
+    public void updateSuccess() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE));
+        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE, PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
+        when(productRepository.saveAndFlush(UPDATED_PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
+        when(productReadMapper.map(UPDATED_PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
+
+        // when
+        ProductReadDto actualProductReadDto = productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO_ONE);
+
+        // then
+        assertThat(actualProductReadDto).isEqualTo(PRODUCT_READ_DTO_ONE);
     }
 
     @Test
-    void create() {
+    public void updateProductNotFoundThrowEntityNotFoundException() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.empty());
+
+        // when and then
+        assertThatThrownBy(() -> productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO_ONE))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Product with id: " + PRODUCT_ID_ONE + " not found");
+    }
+
+    // updateProductQuantityByCartItem
+    @Test
+    public void updateProductQuantityByCartItemSuccess() {
+        // Given
+        Product product = new Product();
+        product.setId(PRODUCT_ID_ONE);
+        product.setName(PRODUCT_NAME);
+        product.setQuantity(QUANTITY_TEN);
+
+        CartItem cartItem = new CartItem();
+        cartItem.setProduct(product);
+        cartItem.setQuantity(QUANTITY_FIVE);
+
+        when(productRepository.save(product)).thenReturn(product);
+
+        // When
+        boolean result = productService.updateProductQuantityByCartItem(cartItem);
+
+        // Then
+        assertThat(result).isTrue();
+        assertThat(product.getQuantity()).isEqualTo(QUANTITY_FIVE);
+        verify(productRepository, times(TIMES_ONE)).save(product);
     }
 
     @Test
-    void update() {
+    public void updateProductQuantityByCartItemNotEnoughStockException() {
+        // Given
+        CartItem cartItem = new CartItem();
+        Product product = new Product();
+        product.setId(PRODUCT_ID_ONE);
+        product.setName(PRODUCT_NAME);
+        product.setQuantity(QUANTITY_TWO);
+        cartItem.setProduct(product);
+        cartItem.setQuantity(QUANTITY_THREE);
+
+        // When
+        Throwable throwable = catchThrowable(() -> productService.updateProductQuantityByCartItem(cartItem));
+
+        // Then
+        assertThat(throwable).isInstanceOf(NotEnoughStockException.class)
+                .hasMessageContaining("There is not enough stock for Test Product. Current stock quantity: 2, you ordered: 3.");
     }
 
     @Test
-    void updateProductQuantityByCartItem() {
+    @Transactional
+    public void updateProductQuantityByCartItemOutOfStockException() {
+        // given
+        CartItem cartItem = new CartItem();
+        Product product = new Product();
+        product.setId(PRODUCT_ID_ONE);
+        product.setName(PRODUCT_NAME);
+        product.setQuantity(QUANTITY_ZERO);
+        cartItem.setProduct(product);
+        cartItem.setQuantity(QUANTITY_THREE);
+
+        // when and then
+        assertThatThrownBy(() -> productService.updateProductQuantityByCartItem(cartItem))
+                .isInstanceOf(OutOfStockException.class)
+                .hasMessageContaining("Product: " + product.getName() + " is out of stock.");
+    }
+
+
+    // delete
+    @Test
+    public void deleteSuccess() {
+        // given
+        Product product = new Product();
+        product.setId(PRODUCT_ID_ONE);
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(product));
+
+        // when
+        boolean isDeleted = productService.delete(PRODUCT_ID_ONE);
+
+        // then
+        assertThat(isDeleted).isTrue();
+        verify(productRepository, times(TIMES_ONE)).delete(product);
     }
 
     @Test
-    void delete() {
+    public void deleteProductNotFoundThrowEntityNotFoundException() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> productService.delete(PRODUCT_ID_ONE))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Product with id: " + PRODUCT_ID_ONE + " not found");
+    }
+
+    // findImage
+    @Test
+    public void findImageProductNotFoundEmptyOptional() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.empty());
+
+        // when
+        Optional<byte[]> result = productService.findImage(PRODUCT_ID_ONE);
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
+
+    @Test
+    public void findImageProductWithoutImageEmptyOptional() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE));
+
+        // when
+        Optional<byte[]> result = productService.findImage(PRODUCT_ID_ONE);
+
+        // then
+        assertThat(result).isEmpty();
     }
 
     @Test
-    void findImage() {
+    public void findImageSuccess() {
+        // given
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE_WITH_IMAGE_STRING));
+        when(imageService.get(PRODUCT_IMAGE_STRING)).thenReturn(Optional.of(PRODUCT_IMAGE_BYTES));
+
+        // when
+        Optional<byte[]> result = productService.findImage(PRODUCT_ID_ONE);
+
+        // then
+        assertThat(result).isPresent().hasValue(PRODUCT_IMAGE_BYTES);
     }
 }

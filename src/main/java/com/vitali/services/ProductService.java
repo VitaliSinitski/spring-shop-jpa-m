@@ -93,15 +93,17 @@ public class ProductService {
         Product product = cartItem.getProduct();
         Integer productId = cartItem.getProduct().getId();
 
+        if (product.getQuantity() == null || product.getQuantity() == 0) {
+            throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
+        }
+
         int restStock = product.getQuantity() - cartItem.getQuantity();
         if (restStock < 0) {
             throw new NotEnoughStockException("There is not enough stock for " + cartItem.getProduct().getName()
                                           + ". Current stock quantity: " + product.getQuantity()
                                           + ", you ordered: " + cartItem.getQuantity() + ".");
         }
-        if (product.getQuantity() == null || product.getQuantity() == 0) {
-            throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
-        }
+
 
         product.setQuantity(restStock);
         productRepository.save(product);
