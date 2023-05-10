@@ -24,7 +24,6 @@ public class UserInformationCreateDto {
     @NotBlank
     String phone;
     String address;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Birthdate must not be empty")
     @Past(message = "Birthdate must be past date")

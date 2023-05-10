@@ -12,7 +12,6 @@ import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.mappers.user.UserCreateMapper;
 import com.vitali.mappers.user.UserReadMapper;
 import com.vitali.mappers.userInformation.UserInformationCreateMapper;
-import com.vitali.mappers.userInformation.UserInformationReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -41,7 +40,6 @@ public class UserService implements UserDetailsService {
     private final UserCreateMapper userCreateMapper;
     private final UserReadMapper userReadMapper;
     private final UserInformationCreateMapper userInformationCreateMapper;
-    private final UserInformationReadMapper userInformationReadMapper;
     private final CartRepository cartRepository;
 
     public List<UserReadDto> findAll() {
@@ -49,17 +47,6 @@ public class UserService implements UserDetailsService {
                 .map(userReadMapper::map)
                 .collect(Collectors.toList());
     }
-
-//    public Integer create(UserCreateDto userCreateDto) {
-//        User userEntity = userCreateMapper.map(userCreateDto);
-////        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-//        return userRepository.save(userEntity).getId();
-//    }
-
-//    public Optional<UserReadDto> findById(Integer id) {
-//        return userRepository.findById(id)
-//                .map(userReadMapper::map);
-//    }
 
     public UserReadDto findById(Integer id) {
         return userRepository.findById(id)
@@ -70,72 +57,28 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserReadDto create(UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
         Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
-        UserInformation userInformation = Optional.of(userInformationCreateDto)
+
+        UserInformation userInformation = Optional.ofNullable(userInformationCreateDto)
                 .map(userInformationCreateMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("UserInformation not found"));
-        User user = Optional.of(userCreateDto)
+
+//        UserInformation userInformation = Optional.of(userInformationCreateDto)
+//                .map(userInformationCreateMapper::map)
+//                .orElseThrow(() -> new EntityNotFoundException("UserInformation not found"));
+
+        User user = Optional.ofNullable(userCreateDto)
                 .map(userCreateMapper::map)
                 .map(userRepository::save)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
         cart.setUser(user);
         userInformation.setUser(user);
+
 //        user.setCart(cart);
         cartRepository.save(cart);
         userInformationRepository.save(userInformation);
         return userReadMapper.map(user);
     }
-
-    @Transactional
-    public void updateUserAndUserInformation(Integer userInformationId, UserInformationCreateDto userInformationCreateDto) {
-        userInformationRepository.findById(userInformationId)
-                .map(userInformation -> userInformationCreateMapper.map(userInformationCreateDto, userInformation))
-                .map(userInformationRepository::saveAndFlush)
-                .map(userInformationReadMapper::map)
-                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
-    }
-
-
-//    @Transactional
-//    public void updatePersonalInfo(Integer userId, Integer userInformationId, UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
-//
-//        userRepository.findById(userId)
-//                .map(user -> userCreateMapper.map(userCreateDto, user))
-//                .map(userRepository::save)
-//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
-//
-////        User user = userRepository.findById(userId)
-////                .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found"));
-//        UserInformation userInformation = userInformationRepository.findById(userInformationId)
-//                .orElseThrow(() -> new EntityNotFoundException("UserInformation with id: " + userInformationId + " not found"));
-//
-//        userCreateMapper.map(userCreateDto, user);
-//        userRepository.saveAndFlush(user);
-//
-//        userInformation.setUser(user);
-////        user.setCart(cart);
-//        userInformationRepository.save(userInformation);
-//        return userReadMapper.map(user);
-//    }
-
-    // It is function correctly
-//    @Transactional
-//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
-//        return userRepository.findById(id)
-//                .map(user -> userCreateMapper.map(userCreateDto, user))
-//                .map(userRepository::saveAndFlush)
-//                .map(userReadMapper::map);
-//    }
-
-//    @Transactional
-//    public Optional<UserReadDto> update(Integer id, UserCreateDto userCreateDto) {
-//        return userRepository.findById(id)
-//                .map(user -> {
-//                    User updatedUser = userCreateMapper.map(userCreateDto, user);
-//                    return userRepository.saveAndFlush(updatedUser);
-//                })
-//                .map(userReadMapper::map)
-//                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-//    }
 
     @Transactional
     public UserReadDto update(Integer id, UserCreateDto userCreateDto) {

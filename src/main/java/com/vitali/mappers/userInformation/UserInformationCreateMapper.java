@@ -18,6 +18,7 @@ public class UserInformationCreateMapper implements Mapper<UserInformationCreate
     private final UserRepository userRepository;
     @Override
     public UserInformation map(UserInformationCreateDto userInformationCreateDto) {
+        log.info("UserInformationCreateMapper - map - userInformationCreateDto: {}", userInformationCreateDto);
         UserInformation userInformation = new UserInformation();
         copy(userInformationCreateDto, userInformation);
         return userInformation;
@@ -25,6 +26,7 @@ public class UserInformationCreateMapper implements Mapper<UserInformationCreate
 
     @Override
     public UserInformation map(UserInformationCreateDto fromObject, UserInformation userInformation) {
+        log.info("UserInformationCreateMapper - map - userInformationCreateDto: {}", fromObject);
         copy(fromObject, userInformation);
         return userInformation;
     }
