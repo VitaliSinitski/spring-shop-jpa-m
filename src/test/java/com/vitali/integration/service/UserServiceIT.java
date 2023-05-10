@@ -40,7 +40,7 @@ public class UserServiceIT {
 
         // then
         assertThat(users).isNotNull();
-        assertThat(users).hasSize(12);
+        assertThat(users).hasSize(5);
     }
 
     @Test

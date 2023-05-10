@@ -1,5 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/test/v-1.0/changelog-v.1.0.yaml
+      file: db/changelog/test/v-1.0/create-test-tables-v.1.0.yaml
   - include:
-      file: db/changelog/test/v-1.1/changelog-v.1.1.yaml
+      file: db/changelog/test/v-1.1/insert-into-test-tables-v.1.1.yaml

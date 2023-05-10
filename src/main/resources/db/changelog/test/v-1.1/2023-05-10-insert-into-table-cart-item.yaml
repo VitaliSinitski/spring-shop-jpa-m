@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-table-cart_item
+      author: vitali
+      changes:
+        - insert:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: quantity
+                  value: 2
+              - column:
+                  name: product_id
+                  value: 5
+              - column:
+                  name: cart_id
+                  value: 5
+        - insert:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: quantity
+                  value: 4
+              - column:
+                  name: product_id
+                  value: 4
+              - column:
+                  name: cart_id
+                  value: 5
+        - insert:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: quantity
+                  value: 1
+              - column:
+                  name: product_id
+                  value: 3
+              - column:
+                  name: cart_id
+                  value: 5
+        - insert:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: quantity
+                  value: 5
+              - column:
+                  name: product_id
+                  value: 2
+              - column:
+                  name: cart_id
+                  value: 5
+        - insert:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: quantity
+                  value: 3
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: cart_id
+                  value: 5

@@ -7,7 +7,7 @@ spring:
     password: root
 
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-test/master.yaml
+    change-log: classpath:db/changelog/db.changelog-test-master.yaml
     enabled: true
 
 #server:

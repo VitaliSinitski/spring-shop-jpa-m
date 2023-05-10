@@ -1,0 +1,245 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-table-product
+      author: vitali
+      changes:
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'AEG Х-1602+М-7606-N'
+              - column:
+                  name: description
+                  value: 'Комбинация side by side AEG Х-1602+М-7606-N'
+              - column:
+                  name: price
+                  value: 900
+              - column:
+                  name: quantity
+                  value: 7
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: producer_id
+                  value: 1
+              - column:
+                  name: image
+                  value: '3.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'AEG NYHSDA-875N'
+              - column:
+                  name: description
+                  value: 'Х-NYHSDA-N'
+              - column:
+                  name: price
+                  value: 850
+              - column:
+                  name: quantity
+                  value: 9
+              - column:
+                  name: category_id
+                  value: 2
+              - column:
+                  name: producer_id
+                  value: 1
+              - column:
+                  name: image
+                  value: '9.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Bosch Х-1602+М-7606-N'
+              - column:
+                  name: description
+                  value: 'Холодильник Bosch Serie 4 VitaFresh KGN39IJ22R'
+              - column:
+                  name: price
+                  value: 900
+              - column:
+                  name: quantity
+                  value: 7
+              - column:
+                  name: category_id
+                  value: 3
+              - column:
+                  name: producer_id
+                  value: 2
+              - column:
+                  name: image
+                  value: '1.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Bosch K-7802+М-7606-N'
+              - column:
+                  name: description
+                  value: 'Комбинация side by side Bosch Х-234256М-7606-N'
+              - column:
+                  name: price
+                  value: 1300
+              - column:
+                  name: quantity
+                  value: 9
+              - column:
+                  name: category_id
+                  value: 4
+              - column:
+                  name: producer_id
+                  value: 2
+              - column:
+                  name: image
+                  value: '4.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Samsung Х-1602-150+М-7606-152-N'
+              - column:
+                  name: description
+                  value: 'Samsung Х-1602-150+М-7606-152-N'
+              - column:
+                  name: price
+                  value: 980
+              - column:
+                  name: quantity
+                  value: 12
+              - column:
+                  name: category_id
+                  value: 5
+              - column:
+                  name: producer_id
+                  value: 4
+              - column:
+                  name: image
+                  value: '3.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Samsung Х-16026789KY7606-142-N'
+              - column:
+                  name: description
+                  value: 'Samsung Х-DFADFE606-142-N'
+              - column:
+                  name: price
+                  value: 1280
+              - column:
+                  name: quantity
+                  value: 10
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: producer_id
+                  value: 4
+              - column:
+                  name: image
+                  value: '2.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Siemens Х-1602+М-7606-N'
+              - column:
+                  name: description
+                  value: 'Холодильник Siemens Serie 4 VitaFresh KGN39IJ22R'
+              - column:
+                  name: price
+                  value: 900
+              - column:
+                  name: quantity
+                  value: 7
+              - column:
+                  name: category_id
+                  value: 3
+              - column:
+                  name: producer_id
+                  value: 5
+              - column:
+                  name: image
+                  value: '7.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'Siemens K-7802+М-7606-N'
+              - column:
+                  name: description
+                  value: 'Siemens Х-234256М-7606-N'
+              - column:
+                  name: price
+                  value: 1300
+              - column:
+                  name: quantity
+                  value: 9
+              - column:
+                  name: category_id
+                  value: 5
+              - column:
+                  name: producer_id
+                  value: 5
+              - column:
+                  name: image
+                  value: '10.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'LG Х-1602-140+М-7606-142-N'
+              - column:
+                  name: description
+                  value: 'LG Serie 6 VitaFresh Plus KGN39AX32R-7606-142-N'
+              - column:
+                  name: price
+                  value: 1100
+              - column:
+                  name: quantity
+                  value: 8
+              - column:
+                  name: category_id
+                  value: 1
+              - column:
+                  name: producer_id
+                  value: 3
+              - column:
+                  name: image
+                  value: '6.jpg'
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: 'LG VitaFresh Plus KGN39AX32R-N'
+              - column:
+                  name: description
+                  value: 'LG Serie 6 VitaFresh Plus KGN39AX32R-7606-142-N'
+              - column:
+                  name: price
+                  value: 1050
+              - column:
+                  name: quantity
+                  value: 12
+              - column:
+                  name: category_id
+                  value: 2
+              - column:
+                  name: producer_id
+                  value: 3
+              - column:
+                  name: image
+                  value: '5.jpg'

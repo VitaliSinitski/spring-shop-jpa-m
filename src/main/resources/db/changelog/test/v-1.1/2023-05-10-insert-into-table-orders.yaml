@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-table-orders
+      author: vitali
+      changes:
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: inform
+                  value: 'New order 1'
+              - column:
+                  name: updated_date
+                  value: '2023-05-01 12:40:19'
+              - column:
+                  name: order_status
+                  value: 'PENDING'
+              - column:
+                  name: cart_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: created_date
+                  value: '2023-04-01 11:32:13'
+              - column:
+                  name: inform
+                  value: 'New order 2'
+              - column:
+                  name: updated_date
+                  value: '2023-05-01 12:40:19'
+              - column:
+                  name: order_status
+                  value: 'PENDING'
+              - column:
+                  name: cart_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: inform
+                  value: 'New order 3'
+              - column:
+                  name: updated_date
+                  value: '2023-05-01 12:40:19'
+              - column:
+                  name: order_status
+                  value: 'PENDING'
+              - column:
+                  name: cart_id
+                  value: 3
+              - column:
+                  name: user_id
+                  value: 3
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: inform
+                  value: 'New order 4'
+              - column:
+                  name: updated_date
+                  value: '2023-05-01 12:40:19'
+              - column:
+                  name: order_status
+                  value: 'PENDING'
+              - column:
+                  name: cart_id
+                  value: 4
+              - column:
+                  name: user_id
+                  value: 4
+        - insert:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: created_date
+                  value: '2023-05-01 11:33:13'
+              - column:
+                  name: inform
+                  value: 'New order 5'
+              - column:
+                  name: updated_date
+                  value: '2023-05-01 12:40:19'
+              - column:
+                  name: order_status
+                  value: 'PENDING'
+              - column:
+                  name: cart_id
+                  value: 5
+              - column:
+                  name: user_id
+                  value: 5

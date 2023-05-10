@@ -10,4 +10,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/v-1.1/2023-04-01-insert-into-table-producer.xml
   - include:
+      file: db/changelog/v-1.1/2023-04-01-insert-into-table-producer-category.xml
+  - include:
       file: db/changelog/v-1.1/2023-04-01-insert-into-table-product.xml

@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-table-producer
+      author: vitali
+      changes:
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: AEG
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Bosch
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: LG
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Samsung
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Siemens

@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-table-category
+      author: vitali
+      changes:
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: 'Side-By-Side'
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: 'Compact'
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: 'Freezer-on-Top'
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: 'Freezerless'
+        - insert:
+            tableName: category
+            columns:
+              - column:
+                  name: name
+                  value: 'Internal-Freezer'

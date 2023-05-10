@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include: 
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-user.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-user-information.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-cart.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-category.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-producer.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-producer-category.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-product.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-orders.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-order-item.yaml
+  - include:
+      file: db/changelog/test/v-1.1/2023-05-10-insert-into-table-cart-item.yaml

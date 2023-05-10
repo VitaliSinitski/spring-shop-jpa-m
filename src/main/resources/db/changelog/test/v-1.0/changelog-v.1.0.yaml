@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include: 
-      file: db/changelog/v-1.0/2023-04-01-create-tables.xml

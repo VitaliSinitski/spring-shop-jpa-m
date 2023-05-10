@@ -1,0 +1,421 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-user
+      author: vitali
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(128)
+                  defaultValue: "{noop}123"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: bool
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: user
+
+  - changeSet:
+      id: create-table-user_information
+      author: vitali
+      changes:
+        - createTable:
+            tableName: user_information
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_user_information_user
+                    referencedTableName: user
+                    referencedColumnNames: id
+      rollback:
+        - dropTable:
+            tableName: user_information
+
+  - changeSet:
+      id: create-table-cart
+      author: vitali
+      changes:
+        - createTable:
+            tableName: cart
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_user
+                    referencedTableName: user
+                    referencedColumnNames: id
+      rollback:
+        - dropTable:
+            tableName: cart
+
+  - changeSet:
+      id: create-table-orders
+      author: vitali
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: inform
+                  type: varchar(255)
+              - column:
+                  name: updated_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_status
+                  type: varchar(16)
+                  defaultValue: PENDING
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cart_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_cart
+                    referencedTableName: cart
+                    referencedColumnNames: id
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_user
+                    referencedTableName: user
+                    referencedColumnNames: id
+      rollback:
+        - dropTable:
+            tableName: orders
+
+  - changeSet:
+      id: create-table-category
+      author: vitali
+      changes:
+        - createTable:
+            tableName: category
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: categoryPK
+              - column:
+                  name: name
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: category
+
+  - changeSet:
+      id: create-table-producer
+      author: vitali
+      changes:
+        - createTable:
+            tableName: producer
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: producerPK
+              - column:
+                  name: name
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: producer
+
+  - changeSet:
+      id: create-table-producer-category
+      author: vitali
+      changes:
+        - createTable:
+            tableName: producer_category
+            columns:
+              - column:
+                  name: producer_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: int
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: producer_category
+
+  - changeSet:
+      id: create-table-product
+      author: vitali
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(8,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image
+                  type: varchar(255)
+              - column:
+                  name: category_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_category
+                    referencedTableName: category
+                    referencedColumnNames: id
+              - column:
+                  name: producer_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_product_producer
+                    referencedTableName: producer
+                    referencedColumnNames: id
+      rollback:
+        - dropTable:
+            tableName: product
+
+  - changeSet:
+      id: P-key-producer-category
+      author: vitali
+      changes:
+        - addPrimaryKey:
+            tableName: producer_category
+            columnNames: producer_id, category_id
+
+  - changeSet:
+      id: FK_producer_id_producer_category
+      author: vitali
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: producer_category
+            baseColumnNames: producer_id
+            constraintName: FK_producer_id_producer_category
+            deferrable: false
+            initiallyDeferred: false
+            referencedTableName: producer
+            referencedColumnNames: id
+
+  - changeSet:
+      id: create-table-order_item
+      author: vitali
+      changes:
+        - createTable:
+            tableName: order_item
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_item_product
+                    referencedTableName: product
+                    referencedColumnNames: id
+              - column:
+                  name: cart_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_item_cart
+                    referencedTableName: cart
+                    referencedColumnNames: id
+              - column:
+                  name: orders_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_order_item_orders
+                    referencedTableName: orders
+                    referencedColumnNames: id
+      rollback:
+          - dropTable:
+              tableName: order_item
+
+  - changeSet:
+      id: create-table-cart_item
+      author: vitali
+      changes:
+        - createTable:
+            tableName: cart_item
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_item_product
+                    referencedTableName: product
+                    referencedColumnNames: id
+              - column:
+                  name: cart_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_cart_item_cart
+                    referencedTableName: cart
+                    referencedColumnNames: id
+      rollback:
+        - dropTable:
+            tableName: cart_item
