@@ -53,6 +53,7 @@ public class TestConstants {
     public static final Integer SIZE_ZERO = 0;
     public static final Integer SIZE_ONE = 1;
     public static final Integer SIZE_TWO = 2;
+    public static final Integer SIZE_FIVE = 5;
     public static final Integer QUANTITY_ZERO = 0;
     public static final Integer QUANTITY_ONE = 1;
     public static final Integer QUANTITY_TWO = 2;
@@ -69,10 +70,11 @@ public class TestConstants {
     public static final BigDecimal PRODUCT_PRICE_FIFTY = BigDecimal.valueOf(50);
     public static final BigDecimal PRODUCT_PRICE_ONE_HUNDRED = BigDecimal.valueOf(100);
     public static final BigDecimal PRODUCT_PRICE_ONE_HUNDRED_FIFTY = BigDecimal.valueOf(150);
-    public static final String USER_NAME = "Jack";
-    public static final String USER_EMAIL = "jack@gmail.com";
+    public static final String USER_NAME = "Jacky";
+    public static final String USER_EMAIL = "jacky@gmail.com";
     public static final String USER_PASSWORD = "password";
-    public static final String USER_INFORMATION_FIRST_NAME = "Jack";
+    public static final String USER_PASSWORD_NEW = "newPassword";
+    public static final String USER_INFORMATION_FIRST_NAME = "Jacky";
     public static final String USER_INFORMATION_LAST_NAME = "Black";
     public static final String USER_INFORMATION_PHONE = "+1234567890";
     public static final String USER_INFORMATION_ADDRESS = "Test Address";
@@ -83,6 +85,7 @@ public class TestConstants {
     public static final String CATEGORY_NAME = "New Category";
     public static final String PRODUCT_IMAGE_STRING = "image";
     public static final String PRODUCER_NAME = "New Producer";
+    public static final String AUTHORITY = "authority";
     public static final Boolean ENABLED = true;
     public static final Cart CART = Cart.builder().id(CART_ID_ONE).build();
     public static final CartItemReadDto CART_ITEM_READ_DTO = new CartItemReadDto();
@@ -134,8 +137,15 @@ public class TestConstants {
 
     public static final User USER = User.builder().id(USER_ID_ONE).username(USER_NAME).email(USER_EMAIL)
             .role(Role.USER).enabled(ENABLED).build();
+    public static final User USER_NO_ID = User.builder().username(USER_NAME).password(USER_PASSWORD).email(USER_EMAIL)
+            .role(Role.USER).enabled(ENABLED).build();
+    public static final User USER_NO_PASSWORD = User.builder().username(USER_NAME).email(USER_EMAIL)
+            .role(Role.USER).enabled(ENABLED).build();
     public static final UserCreateDto USER_CREATE_DTO = UserCreateDto.builder().username(USER_NAME).email(USER_EMAIL)
             .rawPassword(USER_PASSWORD).role(Role.USER).enabled(ENABLED).build();
+    public static final UserCreateDto USER_CREATE_DTO_MODIFIED = UserCreateDto.builder().username(USER_NAME).email("jackys@gmail.com")
+            .role(Role.ADMIN).enabled(false).build();
+    public static final UserCreateDto USER_CREATE_DTO_PASSWORD_NEW = UserCreateDto.builder().rawPassword(USER_PASSWORD_NEW).build();
     public static final UserReadDto USER_READ_DTO = UserReadDto.builder().id(USER_ID_ONE).username(USER_NAME).email(USER_EMAIL)
             .password(USER_PASSWORD).role(Role.USER).enabled(ENABLED).build();
     public static final UserInformation USER_INFORMATION = UserInformation.builder().id(USER_INFORMATION_ID)
