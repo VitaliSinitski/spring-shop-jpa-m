@@ -56,6 +56,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserReadDto create(UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
+        log.info("UserService class - crate - userCreateDto: {}", userCreateDto);
         Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
 
         UserInformation userInformation = Optional.ofNullable(userInformationCreateDto)
@@ -100,14 +101,19 @@ public class UserService implements UserDetailsService {
     }
 
     // It is function correctly
+//    @Transactional
+//    public boolean delete(Integer id) {
+//        return userRepository.findById(id)
+//                .map(entity -> {
+//                    userRepository.delete(entity);
+//                    return true;
+//                })
+//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
+//    }
+
     @Transactional
-    public boolean delete(Integer id) {
-        return userRepository.findById(id)
-                .map(entity -> {
-                    userRepository.delete(entity);
-                    return true;
-                })
-                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
     }
 
     @Override

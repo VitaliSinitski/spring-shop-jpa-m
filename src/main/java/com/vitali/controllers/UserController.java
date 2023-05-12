@@ -10,13 +10,11 @@ import com.vitali.services.UserService;
 import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -57,6 +55,7 @@ public class UserController {
                          @ModelAttribute @Validated UserInformationCreateDto userInformation,
                          BindingResult userInformationBindingResult,
                          RedirectAttributes redirectAttributes) {
+        log.info("UserController class - crate - user: {}", user);
         if (!user.getRawPassword().equals(user.getMatchingPassword())) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("userInformation", userInformation);
@@ -64,7 +63,7 @@ public class UserController {
             return "redirect:/registration";
         }
 
-        if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
+        if (userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("userInformation", userInformation);
             redirectAttributes.addFlashAttribute("userErrors", userBindingResult.getAllErrors());
@@ -114,9 +113,7 @@ public class UserController {
 
     @PostMapping("/users/{id}/delete")
     public String delete(@PathVariable Integer id) {
-        if (!userService.delete(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        userService.delete(id);
         return "redirect:/users";
     }
 
@@ -165,7 +162,7 @@ public class UserController {
 
     @GetMapping("/user/edit/password")
     public String editUserPasswordForm(Model model,
-                               @ModelAttribute("userId") Integer userId) {
+                                       @ModelAttribute("userId") Integer userId) {
         UserReadDto user = userService.findById(userId);
         model.addAttribute("user", user);
         return "user/user-edit-password";
@@ -173,8 +170,8 @@ public class UserController {
 
     @PostMapping("/user/edit/password")
     public String editUserPassword(@ModelAttribute @Validated({Default.class, UpdateValidationGroup.class}) UserCreateDto userCreateDto,
-                           @ModelAttribute("userId") Integer userId,
-                           RedirectAttributes redirectAttributes) {
+                                   @ModelAttribute("userId") Integer userId,
+                                   RedirectAttributes redirectAttributes) {
         if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
             redirectAttributes.addFlashAttribute("user", userCreateDto);
             redirectAttributes.addFlashAttribute("error", "Passwords do not match");

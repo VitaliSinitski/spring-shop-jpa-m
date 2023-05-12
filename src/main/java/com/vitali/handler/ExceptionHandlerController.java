@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,25 +61,6 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
         return "redirect:/products";
     }
 
-//    @ExceptionHandler(EntityNotFoundException.class)
-//    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message", "User not found");
-//        body.put("timestamp", LocalDateTime.now());
-//        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-//    }
-
-//    @ExceptionHandler(EntityNotFoundException.class)
-//    public String handleEntityNotFoundException(EntityNotFoundException exception,
-//                                                RedirectAttributes redirectAttributes,
-//                                                WebRequest request) {
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("message", "User not found");
-//        body.put("timestamp", LocalDateTime.now());
-//        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-//    }
-
-
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleEntityNotFoundException(EntityNotFoundException exception,
@@ -124,8 +106,8 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(DeletingUserByExistingCartItemsException.class)
     public String handleDeletingUserByExistingCartItemsException(DeletingUserByExistingCartItemsException exception,
-                                                              RedirectAttributes redirectAttributes,
-                                                              HttpSession session) {
+                                                                 RedirectAttributes redirectAttributes,
+                                                                 HttpSession session) {
         Object userIdObject = session.getAttribute("userId");
         Integer userId = ParameterUtil.getIntegerFromObject(userIdObject);
         if (userId != null) {
@@ -135,4 +117,14 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
         return "redirect:/users";
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExistsException(UserAlreadyExistsException exception,
+                                                   RedirectAttributes redirectAttributes) {
+        UserCreateDto userCreateDto = exception.getUserCreateDto();
+        UserInformationCreateDto userInformationCreateDto = exception.getUserInformationCreateDto();
+        redirectAttributes.addFlashAttribute("user", userCreateDto);
+        redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
+        redirectAttributes.addFlashAttribute("error", exception.getMessage());
+        return "redirect:/registration";
+    }
 }

@@ -120,6 +120,11 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
+//    @Transactional
+//    public void delete(Integer id) {
+//        productRepository.deleteById(id);
+//    }
+
     // 97.20:20
     @SneakyThrows
     private void uploadImage(MultipartFile image) {
