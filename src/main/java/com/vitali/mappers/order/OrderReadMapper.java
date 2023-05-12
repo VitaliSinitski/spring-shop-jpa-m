@@ -23,7 +23,6 @@ public class OrderReadMapper implements Mapper<Order, OrderReadDto> {   // Done
     private final UserReadMapper userReadMapper;
     @Override
     public OrderReadDto map(Order object) {
-        log.info("OrderReadMapper - map - start");
         return OrderReadDto.builder()
                 .id(object.getId())
                 .createdDate(object.getCreatedDate())

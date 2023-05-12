@@ -109,4 +109,30 @@ public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler
         return "redirect:/registration";
     }
 
+    @ExceptionHandler(DeletingUserByExistingOrdersException.class)
+    public String handleDeletingUserByExistingOrdersException(DeletingUserByExistingOrdersException exception,
+                                                              RedirectAttributes redirectAttributes,
+                                                              HttpSession session) {
+        Object userIdObject = session.getAttribute("userId");
+        Integer userId = ParameterUtil.getIntegerFromObject(userIdObject);
+        if (userId != null) {
+            redirectAttributes.addFlashAttribute("error", exception.getMessage());
+            return "redirect:/users/" + userId;
+        }
+        return "redirect:/users";
+    }
+
+    @ExceptionHandler(DeletingUserByExistingCartItemsException.class)
+    public String handleDeletingUserByExistingCartItemsException(DeletingUserByExistingCartItemsException exception,
+                                                              RedirectAttributes redirectAttributes,
+                                                              HttpSession session) {
+        Object userIdObject = session.getAttribute("userId");
+        Integer userId = ParameterUtil.getIntegerFromObject(userIdObject);
+        if (userId != null) {
+            redirectAttributes.addFlashAttribute("error", exception.getMessage());
+            return "redirect:/users/" + userId;
+        }
+        return "redirect:/users";
+    }
+
 }

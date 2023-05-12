@@ -27,6 +27,10 @@ public class ParameterUtil {
         return Optional.ofNullable((Integer)object).orElse(null);
     }
 
+//    Object userIdObj = session.getAttribute("userId");
+//    Integer userId = userIdObj != null ? (Integer) userIdObj : null;
+
+
     public static List<Integer> getIntegerListFromObject(String[] selectedItems) {
         List<Integer> result = new ArrayList<>();
         if (selectedItems != null) {

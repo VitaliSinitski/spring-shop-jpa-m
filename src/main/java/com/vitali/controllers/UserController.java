@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.groups.Default;
 
 @Slf4j
@@ -77,13 +78,15 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public String findById(@PathVariable Integer id,
-                           Model model) {
+                           Model model,
+                           HttpSession session) {
         UserReadDto user = userService.findById(id);
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(user.getId());
+        session.setAttribute("userId", id);
+        log.info("UserController - findById - userId: {}", id);
         model.addAttribute("user", user);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("roles", Role.values());
-
         return "user";
     }
 
@@ -136,12 +139,12 @@ public class UserController {
                            @ModelAttribute("userId") Integer userId,
                            RedirectAttributes redirectAttributes) {
 
-        if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
-            redirectAttributes.addFlashAttribute("user", userCreateDto);
-            redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
-            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
-            return "redirect:/user/edit";
-        }
+//        if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
+//            redirectAttributes.addFlashAttribute("user", userCreateDto);
+//            redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
+//            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
+//            return "redirect:/user/edit";
+//        }
 
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
             redirectAttributes.addFlashAttribute("user", userCreateDto);

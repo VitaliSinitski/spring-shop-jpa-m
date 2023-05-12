@@ -7,6 +7,11 @@
 </head>
 <body>
 <div th:include="admin/header.html"></div>
+<div th:if="${error}">
+    <ul>
+        <li th:text="${error}" style="color: red"></li>
+    </ul>
+</div>
 <div th:if="${userErrors}">
     <ul>
         <li th:each="error : ${userErrors}">
@@ -37,13 +42,13 @@
                 <span th:text="${user.id}" th:value="${user.id}"/>
             </td>
         </tr>
-<!--        <tr>-->
-<!--            <td>-->
-<!--                <label for="password">-->
-<!--                    <input id="password" type="hidden" name="password" th:value="${user.password}" readonly>-->
-<!--                </label>-->
-<!--            </td>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>-->
+        <!--                <label for="password">-->
+        <!--                    <input id="password" type="hidden" name="password" th:value="${user.password}" readonly>-->
+        <!--                </label>-->
+        <!--            </td>-->
+        <!--        </tr>-->
         <tr>
             <td>Cart id:</td>
             <td><span th:text="${user.cart.id}" th:value="${user.cart.id}"/></td>
@@ -54,7 +59,7 @@
         </tr>
         <tr>
             <td>Username:</td>
-<!--            <td><span th:text="${user.username}" th:value="${user.username}"/></td>-->
+            <!--            <td><span th:text="${user.username}" th:value="${user.username}"/></td>-->
             <td>
                 <label for="username">
                     <input id="username" type="text" name="username" th:value="${user.username}" readonly>
@@ -63,7 +68,7 @@
         </tr>
         <tr>
             <td>Email:</td>
-<!--            <td><span th:text="${user.email}" th:value="${user.email}"/></td>-->
+            <!--            <td><span th:text="${user.email}" th:value="${user.email}"/></td>-->
             <td>
                 <label for="email">
                     <input id="email" type="email" name="email" th:value="${user.email}" required>
@@ -124,7 +129,8 @@
             <td>
                 <label for="role">
                     <select name="role" id="role">
-                        <option th:each="role : ${roles}" th:text="${role.name()}" th:value="${role}" th:selected="${role == user.role}">Role
+                        <option th:each="role : ${roles}" th:text="${role.name()}" th:value="${role}"
+                                th:selected="${role == user.role}">Role
                         </option>
                     </select>
                 </label>
