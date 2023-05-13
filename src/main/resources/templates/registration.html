@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title th:text="#{registration.title}">Registration</title>
+    <!--    <title>Registration</title>-->
     <link th:href="@{/css/login.css}" rel="stylesheet"/>
     <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
 </head>
@@ -10,9 +11,9 @@
 <div th:include="header.html"></div>
 <div class="login-container">
     <form th:action="@{/registration/add}" method="post" class="login-form">
-<!--        <div style="color: red" th:if="${param.error}">-->
-<!--            Bad credentials-->
-<!--        </div>-->
+        <!--        <div style="color: red" th:if="${param.error}">-->
+        <!--            Bad credentials-->
+        <!--        </div>-->
         <div th:if="${error}">
             <ul>
                 <li th:text="${error}" style="color: red"></li>
@@ -33,38 +34,62 @@
             </ul>
         </div>
 
-        <h2 class="login-header">Registration</h2>
+        <h2 class="login-header" th:text="#{registration.header}">Registration</h2>
+        <label for="username" th:text="#{registration.username}">Username:</label>
+        <!--        <label for="username" th:text="#{registration.username}">Username:-->
+        <!--            <label th:text="#{registration.username}">Username:-->
+        <input type="text" id="username" name="username" th:value="${user.username}" th:placeholder="#{registration.username}" required/>
+        <!--        </label><br>-->
 
-        <label for="username">Username:
-            <input type="text" id="username" name="username" th:value="${user.username}" required/>
-        </label><br>
-        <label for="rawPassword">Password:
+        <!--        <label th:text="#{registration.username}">Username:-->
+        <!--            <input type="text" id="username" name="username" th:value="${user.username}" required th:placeholder="#{registration.username}"/>-->
+        <!--        </label>-->
+        <br>
+
+        <label for="rawPassword" th:text="#{registration.password}">Password:</label>
+<!--        <label for="rawPassword">Password:-->
             <input type="password" id="rawPassword" name="rawPassword" required/>
-        </label><br>
-        <label for="matchingPassword">Repeat password:
+<!--        </label>-->
+        <br>
+        <label for="matchingPassword" th:text="#{registration.repeatPassword}">Repeat password:</label>
+<!--        <label for="matchingPassword">Repeat password:-->
             <input type="password" id="matchingPassword" name="matchingPassword" required/>
-        </label><br>
-        <label for="email">Email:
+<!--        </label>-->
+        <br>
+        <label for="email" th:text="#{registration.email}">Email:</label>
+<!--        <label for="email">Email:-->
             <input type="email" id="email" name="email" th:value="${user.email}" required/>
-        </label><br>
-        <label for="firstName">First Name:
+<!--        </label>-->
+        <br>
+        <label for="firstName" th:text="#{registration.firstName}">First Name:</label>
+<!--        <label for="firstName">First Name:-->
             <input type="text" id="firstName" name="firstName" th:value="${userInformation.firstName}"/>
-        </label><br>
-        <label for="lastName">Last Name:
+<!--        </label>-->
+        <br>
+        <label for="lastName" th:text="#{registration.lastName}">Last Name:</label>
+<!--        <label for="lastName">Last Name:-->
             <input type="text" id="lastName" name="lastName" th:value="${userInformation.lastName}"/>
-        </label><br>
-        <label for="birthDate">Birthdate:
+<!--        </label>-->
+        <br>
+        <label for="birthDate" th:text="#{registration.birthDate}">Birthdate:</label>
+<!--        <label for="birthDate">Birthdate:-->
             <input type="date" id="birthDate" name="birthDate" th:value="${userInformation.birthDate}"/>
-        </label><br>
-        <label for="phone">Phone:
+<!--        </label>-->
+        <br>
+        <label for="phone" th:text="#{registration.phone}">Phone:</label>
+<!--        <label for="phone">Phone:-->
             <input type="tel" id="phone" name="phone" th:value="${userInformation.phone}"/>
-        </label><br>
-        <label for="address">Address:
+<!--        </label>-->
+        <br>
+        <label for="address" th:text="#{registration.address}">Address:</label>
+<!--        <label for="address">Address:-->
             <input type="text" id="address" name="address" th:value="${userInformation.address}"/>
-        </label><br>
+<!--        </label>-->
+        <br>
         <input type="hidden" id="enabled" name="enabled" value="true"/>
         <input type="hidden" id="role" name="role" value="USER"/>
-        <button class="login-submit" type="submit">Register</button>
+        <button class="login-submit" type="submit" th:text="#{registration.submit}">Register</button>
+<!--        <button class="login-submit" type="submit">Register</button>-->
     </form>
 </div>
 </body>

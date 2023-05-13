@@ -11,87 +11,81 @@
 <header>
     <div class="logo">
         <div th:if="${#authentication.isAuthenticated()}">
-            <p>Hello, <span th:text="${#authentication.name}"></span>!</p>
+            <p th:text="#{header.hello}">Hello,
+            </p>
+            <p>
+                <span th:text="${#authentication.name}"></span>!
+            </p>
         </div>
-        <!--        <div>-->
-        <!--            <h3>Welcome, <span th:text="${session.currentUserName}"></span>!</h3>-->
-        <!--            <h3>Welcome, <span th:text="${session.userCart}"></span>!</h3>-->
-        <!--        </div>-->
     </div>
-
-<!--        <div class="search" th:if="${filter.name}">-->
-<!--            <form action="#" method="get">-->
-<!--                <input type="text" name="name" th:value="${filter.name}" placeholder="Search...">-->
-<!--                <button type="submit"><i class="fas fa-search"></i></button>-->
-<!--            </form>-->
-<!--&lt;!&ndash;            <label for="name">&ndash;&gt;-->
-<!--&lt;!&ndash;                <input id="name" type="text" name="name" th:value="${filter.name}" placeholder="Search...">&ndash;&gt;-->
-<!--&lt;!&ndash;            </label>&ndash;&gt;-->
-<!--        </div>-->
 
     <nav class="header-nav">
         <ul class="menu-list">
 
             <li>
-                <a th:href="@{/products}">Home</a>
+                <a th:href="@{/products}" th:text="#{header.home}">Home</a>
             </li>
 
             <li sec:authorize="!hasAuthority('ADMIN')">
-                <a th:href="@{/cart/{id}(id=${session.cartId})}">Cart</a>
+                <a th:href="@{/cart/{id}(id=${session.cartId})}" th:text="#{header.cart}">Cart</a>
                 (<span th:text="${session.cartSize}"></span>)
             </li>
 
-
-            <!--                <li sec:authorize="hasRole('ADMIN')">-->
-            <!--                    <a href="/admin">Admin page</a>-->
-            <!--                </li>-->
-
-<!--            <li sec:authorize="hasAuthority('ADMIN')">-->
-<!--                &lt;!&ndash;            <li sec:authorize="hasRole('ADMIN')">&ndash;&gt;-->
-<!--                <form action="/admin/main" method="get">-->
-<!--                    <button type="submit">Admin page</button>-->
-<!--                </form>-->
-<!--            </li>-->
-
             <li sec:authorize="hasAuthority('ADMIN')">
-                <a th:href="@{/admin/main}">Admin page</a>
+                <a th:href="@{/admin/main}" th:text="#{header.adminPage}">Admin page</a>
             </li>
-
-<!--            <li sec:authorize="isAnonymous()">-->
-<!--                <form action="/login">-->
-<!--                    <button type="submit">Login</button>-->
-<!--                </form>-->
-<!--            </li>-->
 
             <li sec:authorize="isAnonymous()">
-                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/login}" th:text="#{header.login}">Login</a>
             </li>
-
-
-<!--            <li sec:authorize="isAuthenticated()">-->
-<!--                <form action="/logout" method="post">-->
-<!--                    <button type="submit">Logout</button>-->
-<!--                </form>-->
-<!--            </li>-->
 
             <li sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">Logout</a>
+                <a th:href="@{/logout}" th:text="#{header.logout}">Logout</a>
             </li>
-
-<!--            <li sec:authorize="hasAuthority('USER')">-->
-<!--                <form action="/user/edit">-->
-<!--                    <button type="submit">Config</button>-->
-<!--                </form>-->
-<!--            </li>-->
 
             <li sec:authorize="hasAuthority('USER')">
-                <a th:href="@{/user/edit}">Config</a>
+                <a th:href="@{/user/edit}" th:text="#{header.config}">Config</a>
             </li>
-
+            <li>
+                <a href="?lang=en">EN</a><br>
+                <a href="?lang=ru">RU</a>
+            </li>
+            <!--            <li><a href="?lang=ru">Русский</a></li>-->
+            <!--            <li><a href="?lang=en">English</a></li>-->
+            <!--            <li><a href="?lang=ru">Русский</a></li>-->
 
             <li class="dropdown">
             </li>
         </ul>
+        <!--        <label>-->
+        <!--            <select onchange="location = this.value;">-->
+        <!--                <option th:selected="${#locale.language == 'en'}" th:value="'/?lang=en'">English</option>-->
+        <!--                <option th:selected="${#locale.language == 'ru'}" th:value="'/?lang=ru'">Русский</option>-->
+        <!--            </select>-->
+        <!--        </label>-->
+        <!--        <div class="language-switcher">-->
+        <!--            <form th:action="@{/change-language}" method="post">-->
+        <!--                <label>-->
+        <!--                    <select name="lang">-->
+        <!--                        <option value="en" th:selected="${#locale.language == 'en'}">English</option>-->
+        <!--                        <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>-->
+        <!--                    </select>-->
+        <!--                </label>-->
+        <!--                &lt;!&ndash;                <button type="submit">OK</button>&ndash;&gt;-->
+        <!--            </form>-->
+        <!--        </div>-->
+        <!--        <div class="language-switcher">-->
+        <!--            <form th:action="@{/language}" method="post">-->
+        <!--                <select name="language" onchange="this.form.submit()">-->
+        <!--                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>-->
+        <!--                    <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>-->
+        <!--                </select>-->
+        <!--            </form>-->
+        <!--        </div>-->
+        <!--        <ul class="language-list">-->
+        <!--            <li><a href="?lang=en">English</a></li>-->
+        <!--            <li><a href="?lang=ru">Русский</a></li>-->
+        <!--        </ul>-->
     </nav>
 </header>
 </body>

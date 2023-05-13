@@ -26,11 +26,6 @@ public class AdminController {
     private final CategoryService categoryService;
     private final ProducerService producerService;
 
-//    @GetMapping
-//    public String toMainPage(Model model) {
-//        return "admin/main";
-//    }
-
     @GetMapping("/main")
     public String main(Model model) {
         return "admin/main";

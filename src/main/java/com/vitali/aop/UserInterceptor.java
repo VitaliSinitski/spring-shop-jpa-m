@@ -35,14 +35,11 @@ public class UserInterceptor implements HandlerInterceptor {
                 if (!user.getRole().equals(Role.ADMIN)) {
                     if (session.getAttribute("currentUserName") == null) {
                         session.setAttribute("currentUserName", username);
-                        log.info("!!! --- class UserInterceptor - preHandle - currentUserName: {}", username);
                     }
                     if (session.getAttribute("currentUser") == null || session.getAttribute("userId") == null) {
                         Integer userId = user.getId();
                         session.setAttribute("currentUser", user);
-                        log.info("!!! --- class UserInterceptor - preHandle - currentUser: {}", user);
                         session.setAttribute("userId", userId);
-                        log.info("!!! --- class UserInterceptor - preHandle - userId: {}", userId);
                     }
                     if (session.getAttribute("userInformation") == null || session.getAttribute("userInformationId") == null) {
                         UserInformation userInformation = user.getUserInformation();
@@ -57,15 +54,11 @@ public class UserInterceptor implements HandlerInterceptor {
                         if (session.getAttribute("userCart") == null || session.getAttribute("cartId") == null) {
                             Integer cartId = cart.getId();
                             session.setAttribute("userCart", cart);
-                            log.info("!!! --- class UserInterceptor - preHandle - cart: {}", cart);
                             session.setAttribute("cartId", cartId);
-                            log.info("!!! --- class UserInterceptor - preHandle - cartId: {}", cartId);
                         }
                         Integer cartSize = Optional.ofNullable(cart.getCartItems()).map(List::size).orElse(0);
                         if (!cartSize.equals(session.getAttribute("cartSize"))) {
-//                        if (cartSize != 0) {
                             session.setAttribute("cartSize", cartSize);
-                            log.info("!!! --- class UserInterceptor - preHandle - currentUser cartSize: {}", cartSize);
                         }
                     }
                 }

@@ -1,19 +1,15 @@
 package com.vitali.handler;
 
-import com.vitali.database.repositories.FilterProductRepository;
 import com.vitali.dto.user.UserCreateDto;
 import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.exception.*;
 import com.vitali.util.ParameterUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,11 +19,11 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @ControllerAdvice/*(basePackages = "com.vitali")*/
 public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler*/ {
-    private final FilterProductRepository productRepository;
-
-    public ExceptionHandlerController(@Qualifier("productRepository") FilterProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+//    private final FilterProductRepository productRepository;
+//
+//    public ExceptionHandlerController(@Qualifier("productRepository") FilterProductRepository productRepository) {
+//        this.productRepository = productRepository;
+//    }
 
     @ExceptionHandler(OutOfStockException.class)
     public String handleOutOfStockException(OutOfStockException exception,

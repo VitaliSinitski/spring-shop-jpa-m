@@ -50,34 +50,6 @@ public class AdminOrdersController {
                         () -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
     }
 
-//    @PostMapping("/{id}/update")
-//    public String updateOrder(@PathVariable("id") Integer orderId,
-//                              @ModelAttribute OrderStatus orderStatus,
-//                              Model model) {
-//        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
-//        orderService.updateOrderStatus(orderStatus, orderId);
-//        model.addAttribute("orderStatuses", OrderStatus.values());
-//        model.addAttribute("userInformation", userInformation);
-//        model.addAttribute("order", orderService.findById(orderId));
-//        return "redirect:/admin/orders/{id}";
-//
-////                .map(it -> "redirect:/admin/orders/{id}")
-////                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-////    }
-//    }
-
-//    @PostMapping("/{id}/update")
-//    public String updateOrder(@PathVariable("id") Integer orderId,
-//                              @ModelAttribute OrderStatus orderStatus,
-//                              Model model) {
-//        UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
-//        orderService.updateOrderStatus(orderStatus, orderId);
-//        OrderReadDto updatedOrder = orderService.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//        model.addAttribute("orderStatuses", OrderStatus.values());
-//        model.addAttribute("userInformation", userInformation);
-//        model.addAttribute("order", updatedOrder);
-//        return "redirect:/admin/orders/{id}";
-//    }
 
     @PostMapping("/{id}/update")
     public String updateOrder(@PathVariable("id") Integer orderId,

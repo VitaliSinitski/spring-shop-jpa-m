@@ -7,7 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<Product, Integer>, FilterProductRepository, QuerydslPredicateExecutor<Product> {
+public interface ProductRepository extends JpaRepository<Product, Integer>, /*FilterProductRepository,*/ QuerydslPredicateExecutor<Product> {
 
     List<Product> findProductsByCategoryId(Integer id);
 
