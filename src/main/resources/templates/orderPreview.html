@@ -54,16 +54,16 @@
         </div>
         <!--        <input type="hidden" th:field="${order.id}">-->
         <input type="hidden" th:field="${userInformation.id}">
-        <label for="firstName" th:text="#{registration.firstName}">First Name:</label>
+        <label for="firstName" th:text="#{userInformation.firstName}">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:field="${userInformation.firstName}">
         <br>
-        <label for="lastName" th:text="#{registration.lastName}">Last Name:</label>
+        <label for="lastName" th:text="#{userInformation.lastName}">Last Name:</label>
         <input type="text" id="lastName" name="lastName" th:field="${userInformation.lastName}">
         <br>
-        <label for="phone" th:text="#{registration.phone}">Phone:</label>
+        <label for="phone" th:text="#{userInformation.phone}">Phone:</label>
         <input type="tel" id="phone" name="phone" th:field="${userInformation.phone}">
         <br><br>
-        <label for="address" th:text="#{registration.address}">Address:</label>
+        <label for="address" th:text="#{userInformation.address}">Address:</label>
         <input type="text" id="address" name="address" th:field="${userInformation.address}">
         <br>
         <input type="submit" th:value="#{order.updateUserInformation}">

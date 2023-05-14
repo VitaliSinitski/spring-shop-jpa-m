@@ -13,7 +13,7 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2">Product Details</th>
+            <th colspan="2" th:text="#{product.details}">Product Details</th>
         </tr>
         </thead>
         <tbody>
@@ -31,13 +31,13 @@
 <!--            <td><input id="image" type="file" name="image" th:value="*{image}"></td>-->
 <!--        </tr>-->
         <tr>
-            <td>Product id:</td>
+            <td th:text="#{id}">Product id:</td>
             <td>
                 <span th:text="${product.id}"/>
             </td>
         </tr>
         <tr>
-            <td>Product name:</td>
+            <td th:text="#{product.name}">Product name:</td>
             <td>
                 <label for="name">
                     <input id="name" type="text" name="name" th:value="*{name}" required>
@@ -45,7 +45,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product description:</td>
+            <td th:text="#{product.description}">Product description:</td>
             <td>
                 <label for="description">
                     <input id="description" type="text" name="description" th:value="*{description}" required>
@@ -53,7 +53,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product price:</td>
+            <td th:text="#{product.price}">Product price:</td>
             <td>
                 <label for="price">
                     <input id="price" type="number" name="price" th:value="*{price}" min="0.00" max="10000.00"
@@ -62,7 +62,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product quantity:</td>
+            <td th:text="#{product.quantity}">Product quantity:</td>
             <td>
                 <label for="quantity">
                     <input id="quantity" type="number" name="quantity" th:value="*{quantity}" required>
@@ -70,7 +70,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product category:</td>
+            <td th:text="#{product.category}">Product category:</td>
             <td>
                 <label for="category">
                     <select name="categoryId" id="category">
@@ -82,7 +82,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product producer:</td>
+            <td th:text="#{product.producer}">Product producer:</td>
             <td>
                 <label for="producer">
                     <select name="producerId" id="producer">
@@ -95,11 +95,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit" class="submit">Update</button>
+    <button type="submit" class="submit" th:text="#{product.update}">Update</button>
 </form>
 <br>
 <form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">
-    <button type="submit" class="submit">Delete</button>
+    <button type="submit" class="submit" th:text="#{product.delete}">Delete</button>
 </form>
 
 </body>

@@ -12,13 +12,13 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Cart Id</th>
-        <th>Order status</th>
-        <th>Created date</th>
-        <th>Updated date</th>
+        <th th:text="#{user.id}">ID</th>
+        <th th:text="#{userInformation.firstName}">First Name</th>
+        <th th:text="#{userInformation.lastName}">Last Name</th>
+        <th th:text="#{user.cartId}">Cart Id</th>
+        <th th:text="#{order.status}">Order status</th>
+        <th th:text="#{order.createdDate}">Created date</th>
+        <th th:text="#{order.updatedDate}">Updated date</th>
         <th></th>
     </tr>
     </thead>
@@ -34,7 +34,7 @@
         <td>
 <!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
 <!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
-            <a th:href="@{/admin/orders/{id}(id=${order.id})}">View</a>
+            <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="#{order.view}">View</a>
 
         </td>
     </tr>

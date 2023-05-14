@@ -12,37 +12,36 @@
     <table th:object="${userInformation}">
         <thead>
         <tr>
-            <th colspan="2">User Information</th>
+            <th colspan="2" th:text="#{user.userInformation}">User Information</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>First name:</td>
+            <td th:text="#{userInformation.firstName}">First name:</td>
             <td>
                 <span th:text="*{firstName}"/>
             </td>
         </tr>
         <tr>
-            <td>Last name:</td>
+            <td th:text="#{userInformation.lastName}">Last name:</td>
             <td>
-
                 <span th:text="*{lastName}"/>
             </td>
         </tr>
         <tr>
-            <td>Birth date:</td>
+            <td th:text="#{userInformation.birthDate}">Birth date:</td>
             <td>
                 <span th:text="*{birthDate}"/>
             </td>
         </tr>
         <tr>
-            <td>Phone:</td>
+            <td th:text="#{userInformation.phone}">Phone:</td>
             <td>
                 <span th:text="*{phone}"/>
             </td>
         </tr>
         <tr>
-            <td>Address:</td>
+            <td th:text="#{userInformation.address}">Address:</td>
             <td>
                 <span th:text="*{address}"/>
             </td>
@@ -54,13 +53,13 @@
     <table>
         <thead>
         <tr>
-            <th colspan="4">Order item details</th>
+            <th colspan="4" th:text="#{orderItem.details}">Order item details</th>
         </tr>
         <tr>
-            <th>Id</th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th th:text="#{orderItem.id}">Id</th>
+            <th th:text="#{order.product}">Product</th>
+            <th th:text="#{order.productPrice}">Price</th>
+            <th th:text="#{order.productQuantity}">Quantity</th>
         </tr>
         </thead>
         <tbody th:each="item : ${order.orderItems}">
@@ -85,7 +84,7 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2">Total price</th>
+            <th colspan="2" th:text="#{order.productTotalPrice}">Total price</th>
         </tr>
         </thead>
         <tbody>
@@ -102,7 +101,7 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2">Order Details</th>
+            <th colspan="2" th:text="#{order.details}">Order Details</th>
         </tr>
         </thead>
         <tbody>
@@ -120,25 +119,25 @@
         <!--            <td><input id="image" type="file" name="image" th:value="*{image}"></td>-->
         <!--        </tr>-->
         <tr>
-            <td>Order id:</td>
+            <td th:text="#{id}">Order id:</td>
             <td>
                 <span th:text="*{id}"/>
             </td>
         </tr>
         <tr>
-            <td>Created date:</td>
+            <td th:text="#{order.createdDate}">Created date:</td>
             <td>
                 <span th:text="*{createdDate}"/>
             </td>
         </tr>
         <tr>
-            <td>Updated date:</td>
+            <td th:text="#{order.updatedDate}">Updated date:</td>
             <td>
                 <span th:text="*{updatedDate}"/>
             </td>
         </tr>
         <tr>
-            <td>Order information:</td>
+            <td th:text="#{order.orderInformation}">Order information:</td>
             <td>
                 <span th:text="*{inform}"/>
             </td>
@@ -150,7 +149,7 @@
 <!--            </td>-->
 <!--        </tr>-->
         <tr>
-            <td>Order status:</td>
+            <td th:text="#{order.status}">Order status:</td>
             <td>
                 <!--                <label for="orderStatus">-->
                 <!--                    <select name="orderStatus" id="orderStatus">-->
@@ -176,7 +175,7 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit" class="submit">Update</button>
+    <button type="submit" class="submit" th:text="#{order.update}">Update</button>
 </form>
 <br>
 <!--<form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">-->

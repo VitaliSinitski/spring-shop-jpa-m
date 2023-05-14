@@ -2,44 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Admin Page</title>
     <link th:href="@{/css/login.css}" rel="stylesheet"/>
     <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
 </head>
 <body>
-<!--<div class="login-container">-->
-<!--    <form th:action="@{/login}" method="post" class="login-form">-->
-<!--        <h2 class="login-header">Welcome back</h2>-->
-<!--        <label>-->
-<!--            <input type="text" name="username" class="login-input" placeholder="Username" required="true"-->
-<!--                   autofocus="true"-->
-<!--                   th:required="true"/>-->
-<!--        </label>-->
-<!--        <label>-->
-<!--            <input type="password" name="password" class="login-input" placeholder="Password" required="true"-->
-<!--                   th:required="true"/>-->
-<!--        </label>-->
-<!--        <button class="login-submit" type="submit">Sign in</button>-->
-<!--    </form>-->
-<!--</div>-->
 <div th:include="admin/header.html"></div>
 
 <div class="login-container">
     <form th:action="@{/admin/orders}" class="login-form">
-        <h2 class="login-header">Welcome back</h2>
-        <button class="login-submit" type="submit">Orders</button>
+        <h2 class="login-header" th:text="#{adminMain.header}">Admin page</h2>
+        <button class="login-submit" type="submit" th:text="#{adminMain.orders}">Orders</button>
     </form><br>
     <form th:action="@{/admin/products}" class="login-form">
-        <button class="login-submit" type="submit">Products</button>
+        <button class="login-submit" type="submit" th:text="#{adminMain.products}">Products</button>
     </form><br>
     <form th:action="@{/admin/products/new}" class="login-form">
-        <button class="login-submit" type="submit">Add new product</button>
+        <button class="login-submit" type="submit" th:text="#{adminMain.newProduct}">Add new product</button>
     </form><br>
     <form th:action="@{/users}" class="login-form">
-        <button class="login-submit" type="submit">Users</button>
+        <button class="login-submit" type="submit" th:text="#{adminMain.users}">Users</button>
     </form><br>
     <form th:action="@{/users-rest.html}" class="login-form">
-        <button class="login-submit" type="submit">Users-rest</button>
+        <button class="login-submit" type="submit" th:text="#{adminMain.usersRest}">Users-rest</button>
     </form>
 </div>
 <!--<div th:include="/resources/static/users-rest.html"></div>-->

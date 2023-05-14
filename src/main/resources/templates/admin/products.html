@@ -15,14 +15,14 @@
 <table class="products-table-admin">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Category</th>
-        <th>Producer</th>
+        <th th:text="#{id}">ID</th>
+        <th></th>
+        <th th:text="#{product.name}">Name</th>
+        <th th:text="#{product.description}">Description</th>
+        <th th:text="#{product.price}">Price</th>
+        <th th:text="#{product.quantity}">Quantity</th>
+        <th th:text="#{product.category}">Category</th>
+        <th th:text="#{product.producer}">Producer</th>
         <th></th>
     </tr>
     </thead>
@@ -47,7 +47,7 @@
         <td>
 <!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
 <!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
-            <a th:href="@{/admin/products/{id}(id=${product.id})}">Edit</a>
+            <a th:href="@{/admin/products/{id}(id=${product.id})}" th:text="#{product.edit}">Edit</a>
 
         </td>
     </tr>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Filter Results</title>
-<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>-->
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/filter.css}"/>
 </head>
 <body>
@@ -11,63 +11,65 @@
 <!-- filter.html -->
 <div class="filter-container">
     <form id="filter-form" action="/admin/products" method="get" style="display: flex; flex-direction: column;">
-        <label for="name">Name:
-            <input id="name" type="text" name="name" th:value="${filter.name}" placeholder="Name">
-        </label>
-<!--        <label for="price">Price:-->
-<!--            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">-->
-<!--        </label>-->
-        <label for="minPrice">Min price:
-            <input type="number" id="minPrice" th:name="${'minPrice'}" placeholder="Min Price" th:value="${filter.minPrice}">
-        </label>
-        <label for="maxPrice">Max price:
-            <input type="number" id="maxPrice" th:name="${'maxPrice'}" placeholder="Max Price" th:value="${filter.maxPrice}">
-        </label>
-        <label for="category">Category:
-            <br>
+        <label for="name" th:text="#{filter.name}">Name:</label>
+            <input id="name" type="text" name="name" th:value="${filter.name}" th:placeholder="#{filter.name}">
+        <br>
+        <!--        <label for="price">Price:-->
+        <!--            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">-->
+        <!--        </label>-->
+        <label for="minPrice" th:text="#{filter.minPrice}">Min price: </label>
+        <input type="number" id="minPrice" th:name="${'minPrice'}" th:placeholder="#{filter.minPrice}"
+               th:value="${filter.minPrice}">
+        <br>
+        <label for="maxPrice" th:text="#{filter.maxPrice}">Max price:</label>
+            <input type="number" id="maxPrice" th:name="${'maxPrice'}" th:placeholder="#{filter.maxPrice}"
+                   th:value="${filter.maxPrice}">
+        <br>
+        <label for="category" th:text="#{filter.category}">Category:</label>
+<!--            <br>-->
             <select id="category" name="categoryId" onchange="this.form.submit()">
-                <option value="">All categories</option>
+                <option value="" th:text="#{filter.categoriesAll}">All categories</option>
                 <option th:each="category : ${categories}" th:value="${category.id}"
                         th:text="${category.name}" th:selected="${category.id == filter.categoryId}"></option>
             </select>
-        </label>
-        <label for="producer">Producer:
-            <br>
+        <br>
+        <label for="producer" th:text="#{filter.producer}">Producer:</label>
+<!--            <br>-->
             <select id="producer" name="producerId" onchange="this.form.submit()">
-                <option value="">All producers</option>
+                <option value="" th:text="#{filter.producersAll}">All producers</option>
                 <option th:each="producer : ${producers}" th:value="${producer.id}"
                         th:text="${producer.name}" th:selected="${producer.id == filter.producerId}"></option>
             </select>
-        </label>
+        <br>
 
         <div class="form-group">
-            <label for="sortField">Sort Field:</label>
+            <label for="sortField" th:text="#{filter.sortField}">Sort Field:</label>
             <select class="form-control" id="sortField" name="sortField">
-                <option value="name" th:selected="${sortField == 'name'}">Name</option>
-                <option value="price" th:selected="${sortField == 'price'}">Price</option>
+                <option value="name" th:text="#{filter.sortFieldName}" th:selected="${sortField == 'name'}">Name</option>
+                <option value="price" th:text="#{filter.sortFieldPrice}" th:selected="${sortField == 'price'}">Price</option>
             </select>
         </div>
-
+        <br>
         <div class="form-group">
-            <label for="sortDirection">Sort Direction:</label>
+            <label for="sortDirection" th:text="#{filter.sortDirection}">Sort Direction:</label>
             <select class="form-control" id="sortDirection" name="sortDirection">
-                <option value="asc" th:selected="${sortDirection == 'asc'}">Ascending</option>
-                <option value="desc" th:selected="${sortDirection == 'desc'}">Descending</option>
+                <option value="asc" th:text="#{filter.sortDirectionAsc}" th:selected="${sortDirection == 'asc'}">Ascending</option>
+                <option value="desc" th:text="#{filter.sortDirectionDesc}" th:selected="${sortDirection == 'desc'}">Descending</option>
             </select>
         </div>
-
-<!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
-<!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
-        <label for="pageSize">Items per page:
-            <br>
+        <br>
+        <!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
+        <!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
+        <label for="pageSize" th:text="#{filter.pageSize}">Items per page:</label>
+<!--            <br>-->
             <select id="pageSize" name="size" onchange="this.form.submit()">
                 <option value="5" th:selected="${page.size == 5}">5</option>
                 <option value="10" th:selected="${page.size == 10}">10</option>
                 <option value="20" th:selected="${page.size == 20}">20</option>
             </select>
-        </label>
-        <button type="submit">Filter</button>
-        <button type="reset" onclick="resetFilter()">Reset</button>
+        <br>
+        <button type="submit" th:text="#{filter.filterButton}">Filter</button>
+        <button type="reset" onclick="resetFilter()" th:text="#{filter.resetButton}">Reset</button>
     </form>
 </div>
 

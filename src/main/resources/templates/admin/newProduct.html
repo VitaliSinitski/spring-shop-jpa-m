@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ё<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,28 +10,28 @@
 <form th:action="@{/admin/products}" method="post" th:object="${product}" enctype="multipart/form-data"
       class="login-form">
     <br>
-    <h2>Create new product</h2>
+    <h2 th:text="#{product.newProduct}">Create new product</h2>
     <br>
     <table>
         <tr>
-            <td>Product name:</td>
+            <td th:text="#{product.name}">Product name:</td>
             <td><input id="name" type="text" name="name" th:value="*{name}" required></td>
         </tr>
         <tr>
-            <td>Product description:</td>
+            <td th:text="#{product.description}">Product description:</td>
             <td><input id="description" type="text" name="description" th:value="*{description}" required></td>
         </tr>
         <tr>
-            <td>Product price:</td>
+            <td th:text="#{product.price}">Product price:</td>
             <td><input id="price" type="number" name="price" th:value="*{price}" min="0.00" max="10000.00" step="0.01"
                        required></td>
         </tr>
         <tr>
-            <td>Product quantity:</td>
+            <td th:text="#{product.quantity}">Product quantity:</td>
             <td><input id="quantity" type="number" name="quantity" th:value="*{quantity}" required></td>
         </tr>
         <tr>
-            <td>Product category:</td>
+            <td th:text="#{product.category}">Product category:</td>
             <td>
                 <select name="categoryId" id="category">
                     <option th:each="category : ${categories}" th:text="${category.name}" value="1">
@@ -41,7 +41,7 @@
             </td>
         </tr>
         <tr>
-            <td>Product producer:</td>
+            <td th:text="#{product.producer}">Product producer:</td>
             <td>
                 <select name="producerId" id="producer">
                     <option th:each="producer : ${producers}" th:text="${producer.name}" th:value="${producer.id}">
@@ -51,11 +51,11 @@
             </td>
         </tr>
         <tr>
-            <td>Product image:</td>
+            <td th:text="#{product.image}">Product image:</td>
             <td><input id="image" type="file" name="image" required></td>
         </tr>
     </table>
-    <button type="submit" class="submit">Create</button>
+    <button type="submit" class="submit" th:text="#{product.create}">Create</button>
     <br><br>
     <div th:if="${errors}">
         <div style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error Message</div>
