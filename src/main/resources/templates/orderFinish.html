@@ -9,16 +9,19 @@
 <!-- Include header -->
 <div th:include="header.html"></div>
 <div class="container">
-    <h1>Thank you for your order!</h1>
-    <p>Our manager will call you soon to confirm the details.</p>
-    <p>Your order number is: <strong th:text="${orderId}"></strong></p>
-    <h2>Order Details</h2>
+    <h1 th:text="#{orderFinish.h1}">Thank you for your order!</h1>
+    <p th:text="#{orderFinish.details}">Our manager will call you soon to confirm the details.</p>
+    <p th:text="#{orderFinish.orderNumber}">Your order number is: </p>
+<!--    <div><strong th:text="${orderId}"></strong></div>-->
+    <h3 th:text="${orderId}"></h3>
+    <br>
+    <h2 th:text="#{orderFinish.h2orderDetails}">Order Details</h2>
     <table>
         <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
+            <th th:text="#{order.productName}">Product Name</th>
+            <th th:text="#{order.productQuantity}">Quantity</th>
+            <th th:text="#{order.productPrice}">Price</th>
+            <th th:text="#{order.productTotal}">Total</th>
         </tr>
         <tr th:each="orderItem : ${orderItems}">
             <td th:text="${orderItem.product.name}"></td>
@@ -28,43 +31,39 @@
         </tr>
     </table>
     <br>
-    <h2>Total Price</h2>
+    <h2 th:text="#{order.productTotalPrice}">Total Price</h2>
     <table>
         <tr>
-            <td th:text="${totalPrice}"></td>
+            <td th:text="${totalPrice}" style="color: darkred"></td>
         </tr>
     </table>
     <br>
-    <h2>User Information</h2>
+    <h2 th:text="#{order.userInformation}">User Information</h2>
     <table>
         <tr>
-            <td>Firstname:</td>
+            <td th:text="#{registration.firstName}">Firstname:</td>
             <td th:text="${userInformation.firstName}"></td>
         </tr>
         <tr>
-            <td>Lastname:</td>
+            <td th:text="#{registration.lastName}">Lastname:</td>
             <td th:text="${userInformation.lastName}"></td>
         </tr>
         <tr>
-            <td>Birth date:</td>
-            <td th:text="${userInformation.birthDate}"></td>
-        </tr>
-        <tr>
-            <td>Phone number:</td>
+            <td th:text="#{registration.phone}">Phone number:</td>
             <td th:text="${userInformation.phone}"></td>
         </tr>
         <tr>
-            <td>Address:</td>
+            <td th:text="#{registration.address}">Address:</td>
             <td th:text="${userInformation.address}"></td>
         </tr>
     </table>
-    <h3>Additional Information</h3>
+    <h3 th:text="#{order.inform}">Additional Information</h3>
     <table>
         <tr>
             <td th:text="${order.inform}"></td>
         </tr>
     </table>
-    <h3>Order status</h3>
+    <h3 th:text="#{order.status}">Order status</h3>
     <table>
         <tr>
             <td th:text="${order.orderStatus}"></td>

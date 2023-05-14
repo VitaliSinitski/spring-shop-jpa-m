@@ -41,7 +41,7 @@
 
                 <!-- Link to product details page -->
                 <div class="product-action">
-                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button">Show</a>
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button" th:text="#{products.show}">Show</a>
                 </div>
             </div>
         </div>

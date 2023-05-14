@@ -82,6 +82,15 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public UserReadDto createUser(UserCreateDto userCreateDto) {
+        return Optional.of(userCreateDto)
+                .map(userCreateMapper::map)
+                .map(userRepository::save)
+                .map(userReadMapper::map)
+                .orElseThrow();
+    }
+
+    @Transactional
     public UserReadDto update(Integer id, UserCreateDto userCreateDto) {
         return userRepository.findById(id)
                 .map(user -> userCreateMapper.map(userCreateDto, user))

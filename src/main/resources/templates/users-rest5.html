@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Users</h1>
+<!-- Include header -->
+<div th:include="header.html"></div>
+<table id="usersTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    $(function() {
+        $.getJSON("/api/v1/users", function(data) {
+            $.each(data, function(index, user) {
+                $("#usersTable tbody").append("<tr><td>" + user.id + "</td><td>" + user.username + "</td><td>" + user.email + "</td></tr>");
+            });
+        });
+    });
+</script>
+</body>
+</html>

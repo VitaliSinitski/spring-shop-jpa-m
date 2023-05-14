@@ -9,13 +9,13 @@
 <!-- Include header -->
 <div th:include="header.html"></div>
 <div class="container">
-    <h1>Order Preview</h1>
-    <h2>Order Details</h2>
+    <h1 th:text="#{order.preview}">Order Preview</h1>
+    <h2 th:text="#{order.details}">Order Details</h2>
     <table>
         <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th th:text="#{order.productName}">Product Name</th>
+            <th th:text="#{order.productQuantity}">Quantity</th>
+            <th th:text="#{order.productPrice}">Price</th>
 
         </tr>
         <tr th:each="orderItem : ${orderItems}">
@@ -25,13 +25,16 @@
         </tr>
     </table>
     <br>
-    <h2>Total Price</h2>
+    <h2 th:text="#{order.productTotalPrice}">Total Price</h2>
     <table>
 
         <tr>
-            <td th:text="${totalPrice}"></td>
+            <td th:text="${totalPrice}" style="color: darkred"></td>
         </tr>
     </table>
+    <br>
+
+    <h3 th:text="#{order.inform}">Additional Information</h3>
     <br>
     <table>
         <tr>
@@ -39,7 +42,7 @@
         </tr>
     </table>
 
-    <h2>User Information</h2>
+    <h2 th:text="#{order.userInformation}">User Information</h2>
 
     <form method="post" th:action="${updateUserInformationUrl}">
         <div th:if="${errors}">
@@ -51,23 +54,19 @@
         </div>
         <!--        <input type="hidden" th:field="${order.id}">-->
         <input type="hidden" th:field="${userInformation.id}">
-        <label for="firstName">First Name:</label>
+        <label for="firstName" th:text="#{registration.firstName}">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:field="${userInformation.firstName}">
         <br>
-        <label for="lastName">Last Name:</label>
+        <label for="lastName" th:text="#{registration.lastName}">Last Name:</label>
         <input type="text" id="lastName" name="lastName" th:field="${userInformation.lastName}">
         <br>
-        <br>
-        <label for="phone">Phone:</label>
+        <label for="phone" th:text="#{registration.phone}">Phone:</label>
         <input type="tel" id="phone" name="phone" th:field="${userInformation.phone}">
-        <br>
-        <label for="address">Address:</label>
+        <br><br>
+        <label for="address" th:text="#{registration.address}">Address:</label>
         <input type="text" id="address" name="address" th:field="${userInformation.address}">
         <br>
-        <label for="birthDate">Birth date:</label>
-        <input type="date" id="birthDate" name="birthDate" th:field="${userInformation.birthDate}">
-        <br>
-        <input type="submit" value="Update User Information">
+        <input type="submit" th:value="#{order.updateUserInformation}">
     </form>
 
 <!--    <h2>Additional Information</h2>-->
@@ -77,7 +76,7 @@
 <!--        <br>-->
 <!--        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"></textarea>-->
 <!--        <br>-->
-        <input type="submit" value="Finish Order">
+        <input type="submit"  th:value="#{order.finishOrder}">
     </form>
 </div>
 </body>

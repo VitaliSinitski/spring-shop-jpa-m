@@ -2,25 +2,24 @@
     <div class="footer-container">
         <div class="footer-row">
             <div class="footer-col footer-col-links">
-                <h2>Links</h2>
+                <h2 th:text="#{footer.links}">Links</h2>
                 <ul class="footer-list-horizontal">
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/about" th:text="#{footer.about}">About Us</a></li>
+                    <li><a href="/contact" th:text="#{footer.contact}">Contact Us</a></li>
+                    <li><a href="/faq" th:text="#{footer.faq}">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col footer-col-follow">
-                <h2>Follow Us</h2>
+                <h2 th:text="#{footer.follow}">Follow Us</h2>
                 <ul class="footer-list-horizontal">
-                    <!--                    <li><a href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a></li>-->
                     <li><a href="https://www.facebook.com">facebook</a></li>
                     <li><a href="https://www.twitter.com">twitter</a></li>
                     <li><a href="https://www.instagram.com">instagram</a></li>
                 </ul>
             </div>
             <div class="footer-col footer-col-address">
-                <h2>Address</h2>
-                <p>123 Main Street Minsk, Belarus 12345</p>
+                <h2 th:text="#{footer.address}">Address</h2>
+                <p th:text="#{footer.addressLocale}">123 Main Street Minsk, Belarus 12345</p>
             </div>
         </div>
         <div class="footer-row">

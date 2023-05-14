@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $.getJSON("/api/v1/users", function(data) {
+            var $tbody = $('table tbody');
+            $.each(data, function(index, user) {
+                $tbody.append('<tr>' +
+                    '<td>' + user.id + '</td>' +
+                    '<td>' + user.username + '</td>' +
+                    '<td>' + user.email + '</td>' +
+                    '<td>' + user.role + '</td>' +
+                    '<td>' + user.enabled + '</td>' +
+                    '</tr>');
+            });
+        });
+
+    </script>
+</head>
+<body>
+<!-- Include header -->
+<div th:include="/temlates/header.html"></div>
+<a href="/">Go back to main page</a>
+<h1>User List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Enabled</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Данные будут вставлены здесь -->
+    </tbody>
+</table>
+</body>
+</html>

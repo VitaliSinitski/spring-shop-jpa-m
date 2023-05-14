@@ -20,9 +20,9 @@
 
 <!--<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">-->
 <div th:if="${message}" class="alert alert-danger">
-<!--    [[${error}]]-->
-<!--        <span th:text="${param.error}"></span>-->
-        <span th:text="${message}"></span>
+    <!--    [[${error}]]-->
+    <!--        <span th:text="${param.error}"></span>-->
+    <span th:text="${message}"></span>
 </div>
 
 <!--<div th:if="${message}" class="alert alert-warning">-->
@@ -30,27 +30,25 @@
 <!--</div>-->
 
 
-
-
 <div class="cart-container">
-    <h1 class="cart-header">Shopping Cart</h1>
+    <h1 class="cart-header" th:text="#{cart.header}">Shopping Cart</h1>
 
     <table class="cart-table">
         <thead>
         <tr>
-            <th class="product-name">id</th>
+            <!--            <th class="product-name">id</th>-->
             <th class="product-name"></th>
-            <th class="product-name">Product</th>
-            <th class="product-description">Product description</th>
-            <th class="product-price">Price</th>
-            <th class="product-quantity">Quantity</th>
-            <th class="product-total">Total</th>
-            <th class="product-action">Action</th>
+            <th class="product-name" th:text="#{cart.productName}">Product</th>
+            <th class="product-description" th:text="#{cart.productDescription}">Product description</th>
+            <th class="product-price" th:text="#{cart.productPrice}">Price</th>
+            <th class="product-quantity" th:text="#{cart.productQuantity}">Quantity</th>
+            <th class="product-total" th:text="#{cart.productTotal}">Total</th>
+            <th class="product-action" th:text="#{cart.productAction}">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cartItem : ${cartItems}" class="cart-item">
-            <td class="product-name" th:text="${cartItem.id}"></td>
+            <!--            <td class="product-name" th:text="${cartItem.id}"></td>-->
             <td>
                 <div th:if="${cartItem.product.image}" class="product-image">
                     <img th:src="@{/api/v1/products/{id}/image(id=${cartItem.product.id})}" alt="image" height="50">
@@ -63,14 +61,14 @@
                 <form method="post" th:action="@{/cart/update}">
                     <input type="number" name="quantity" class="quantity-input" th:value="${cartItem.quantity}" min="1">
                     <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
-                    <button type="submit" class="quantity-update-button">Update</button>
+                    <button type="submit" class="quantity-update-button" th:text="#{cart.updateButton}">Update</button>
                 </form>
             </td>
             <td class="product-total" th:text="${cartItem.product.price * cartItem.quantity}"></td>
             <td class="product-action">
                 <form method="post" th:action="@{/cart/remove}">
                     <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
-                    <button type="submit" class="product-remove-button">Remove</button>
+                    <button type="submit" class="product-remove-button" th:text="#{cart.removeButton}">Remove</button>
                 </form>
             </td>
         </tr>
@@ -79,22 +77,22 @@
 
     <!--    <div class="cart-total">-->
     <div th:if="${!cartItems.empty}" class="cart-make-order">
-            <h3>Total:</h3>
-            <span class="cart-total-price" th:text="${totalPrice}"></span>
+        <h3 th:text="#{cart.total}">Total:</h3>
+        <span class="cart-total-price" th:text="${totalPrice}"></span>
         <form method="post" action="/order" class="checkout-form">
             <br>
-            <div class="cart-table-inform">Put your additional information:
+            <div class="cart-table-inform">
+                <label for="inform" style="align-items: center" th:text="#{cart.information}">Put your additional information:</label>
                 <br>
-                <label style="align-items: center">
-                    <textarea name="inform" type="text" rows="15" cols="60" placeholder="Additional information....."></textarea>
-                </label>
+                <textarea id="inform" name="inform" type="text" rows="15" cols="60"
+                          th:placeholder="#{cart.informationPlaceholder}"></textarea>
             </div>
-            <button type="submit" class="cart-make-order">Make Order</button>
+            <button type="submit" class="cart-make-order" th:text="#{cart.makeOrder}">Make Order</button>
         </form>
     </div>
     <br>
     <th:block th:if="${cartItems.empty}">
-        <h2>Your cart is empty</h2>
+        <h2 th:text="#{cart.emptyCart}">Your cart is empty</h2>
     </th:block>
 
 </div>

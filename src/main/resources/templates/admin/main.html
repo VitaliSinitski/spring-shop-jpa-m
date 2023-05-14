@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
@@ -37,7 +37,11 @@
     </form><br>
     <form th:action="@{/users}" class="login-form">
         <button class="login-submit" type="submit">Users</button>
+    </form><br>
+    <form th:action="@{/users-rest.html}" class="login-form">
+        <button class="login-submit" type="submit">Users-rest</button>
     </form>
 </div>
+<!--<div th:include="/resources/static/users-rest.html"></div>-->
 </body>
 </html>

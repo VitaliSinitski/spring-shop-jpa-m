@@ -40,17 +40,15 @@
                 <div sec:authorize="!hasAuthority('ADMIN')" class="product-details-quantity">
 
                     <div th:if="${product.quantity > 0}">
-                        <label for="quantity">Quantity:
+                        <label for="quantity" th:text="#{product.quantity}">Quantity:</label>
                             <input type="number" id="quantity" name="quantity" min="1" value="1">
-                        </label>
+
 
                         <input type="hidden" name="productId" th:value="${product.id}">
-                        <button type="submit" class="product-add-to-cart">Add to
-                            cart
-                        </button>
+                        <button type="submit" class="product-add-to-cart" th:text="#{product.addToCart}">Add to cart</button>
                     </div>
                     <div th:if="${product.quantity <= 0}">
-                        <span style="color: red">Current product is out of stock.</span>
+                        <span style="color: red" th:text="#{product.OutOfStock}">Current product is out of stock.</span>
                     </div>
 
                 </div>

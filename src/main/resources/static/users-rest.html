@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User List</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet"/>
+
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<button onclick="location.href='/admin/main'">Admin main</button>
+<button onclick="location.href='/'">Main</button>
+
+<table id="users-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Enabled</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/api/v1/users',
+            method: 'GET',
+            success: function(users) {
+                var table = $('#users-table tbody');
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+                    table.append(
+                        '<tr>' +
+                        '<td>' + user.id + '</td>' +
+                        '<td>' + user.username + '</td>' +
+                        '<td>' + user.email + '</td>' +
+                        '<td>' + user.role + '</td>' +
+                        '<td>' + user.enabled + '</td>' +
+                        '<td><button onclick="deleteUser(' + user.id + ')">Delete</button></td>' +
+                        '</tr>'
+                    );
+                }
+            }
+        });
+    });
+
+    function deleteUser(userId) {
+        if (confirm('Are you really want to delete this user?')) {
+            $.ajax({
+                url: '/api/v1/users/' + userId,
+                method: 'DELETE',
+                success: function() {
+                    $('#users-table tbody tr').filter(function() {
+                        return $(this).find('td:first-child').text() == userId;
+                    }).remove();
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

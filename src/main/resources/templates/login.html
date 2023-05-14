@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
@@ -10,20 +10,15 @@
 <div th:include="header.html"></div>
 <div class="login-container">
     <form th:action="@{/login}" method="post" class="login-form">
-        <div style="color: red" th:if="${param.error}">
-            Bad credentials
-        </div>
-        <h2 class="login-header">Please sign in</h2>
+        <div style="color: red" th:if="${param.error}" th:text="#{login.badCredentials}">Bad credentials</div>
+        <h2 class="login-header" th:text="#{login.header}">Please sign in</h2>
         <label>
-            <input type="text" name="username" class="login-input" placeholder="Username" required="true"
-                   autofocus="true"
-                   th:required="true"/>
+            <input type="text" name="username" class="login-input" autofocus="true" th:required="true" th:placeholder="#{login.username}"/>
         </label>
         <label>
-            <input type="password" name="password" class="login-input" placeholder="Password" required="true"
-                   th:required="true"/>
+            <input type="password" name="password" class="login-input" placeholder="Password" th:required="true" th:placeholder="#{login.password}"/>
         </label>
-        <button class="login-submit" type="submit">Sign in</button>
+        <button class="login-submit" type="submit" th:text="#{login.submit}">Sign in</button>
     </form>
 </div>
 
@@ -37,7 +32,7 @@
 <!--    <a th:href="@{/users/registration}">More info</a>-->
 <!--    <a th:href="@{/registration}" class="register-link">Register</a>-->
     <form th:action="@{/registration}" class="login-form">
-        <button class="login-submit" type="submit">Registration</button>
+        <button class="login-submit" type="submit" th:text="#{login.registration}">Registration</button>
     </form>
 </div>
 </body>
