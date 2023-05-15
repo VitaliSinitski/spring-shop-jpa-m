@@ -61,14 +61,14 @@
                 <form method="post" th:action="@{/cart/update}">
                     <input type="number" name="quantity" class="quantity-input" th:value="${cartItem.quantity}" min="1">
                     <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
-                    <button type="submit" class="quantity-update-button" th:text="#{cart.updateButton}">Update</button>
+                    <button type="submit" class="quantity-update-button" th:text="#{update}">Update</button>
                 </form>
             </td>
             <td class="product-total" th:text="${cartItem.product.price * cartItem.quantity}"></td>
             <td class="product-action">
                 <form method="post" th:action="@{/cart/remove}">
                     <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
-                    <button type="submit" class="product-remove-button" th:text="#{cart.removeButton}">Remove</button>
+                    <button type="submit" class="product-remove-button" th:text="#{delete}">Remove</button>
                 </form>
             </td>
         </tr>

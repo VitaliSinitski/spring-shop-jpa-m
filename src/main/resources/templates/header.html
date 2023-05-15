@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <title>Header</title>
     <link rel="stylesheet" href="/css/header.css" th:href="@{/css/header.css}">
+    <script>
+        function changeLanguage(lang) {
+            var url = window.location.href;
+            if (url.indexOf('?') !== -1) {
+                url = url.substring(0, url.indexOf('?'));
+            }
+            window.location.href = url + '?lang=' + lang;
+        }
 
+    </script>
 
 </head>
 <body>
@@ -50,9 +59,37 @@
                 <a href="?lang=en">EN</a><br>
                 <a href="?lang=ru">RU</a>
             </li>
-            <!--            <li><a href="?lang=ru">Русский</a></li>-->
-            <!--            <li><a href="?lang=en">English</a></li>-->
-            <!--            <li><a href="?lang=ru">Русский</a></li>-->
+            <!--            <li>-->
+            <!--                <label>-->
+            <!--                    <select onchange="changeLanguage(this.value)">-->
+            <!--                        <option value="en" selected>EN</option>-->
+            <!--                        <option value="ru">RU</option>-->
+            <!--                    </select>-->
+            <!--                </label>-->
+            <!--            </li>-->
+
+
+            <li>
+                <label>
+                    <select onchange="changeLanguage(this.value)" id="languageSelect">
+                        <option value="en" selected>EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </label>
+            </li>
+
+            <script>
+                var selectedLanguage = localStorage.getItem('selectedLanguage');
+                if (selectedLanguage) {
+                    document.getElementById('languageSelect').value = selectedLanguage;
+                }
+
+                function changeLanguage(language) {
+                    localStorage.setItem('selectedLanguage', language);
+                    window.location.search = "?lang=" + language;
+                }
+            </script>
+
 
             <li class="dropdown">
             </li>

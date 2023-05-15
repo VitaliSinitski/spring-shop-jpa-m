@@ -10,18 +10,19 @@
 <table>
     <thead>
     <tr>
-        <th>User ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Birthdate</th>
-        <th>Enabled</th>
+        <th th:text="#{id}">User ID</th>
+        <th th:text="#{user.username}">Username</th>
+        <th th:text="#{user.email}">Email</th>
+        <th th:text="#{user.role}">Role</th>
+        <th th:text="#{userInformation.firstName}">Firstname</th>
+        <th th:text="#{userInformation.lastName}">Lastname</th>
+        <th th:text="#{userInformation.phone}">Phone</th>
+        <th th:text="#{userInformation.address}">Address</th>
+        <th th:text="#{userInformation.birthDate}">Birthdate</th>
+        <th th:text="#{user.enabled}">Enabled</th>
 <!--        <th>User Information</th>-->
-        <th>Edit User</th>
+        <th></th>
+<!--        <th th:text="#{user.editUser}">Edit User</th>-->
     </tr>
     </thead>
     <tbody>
@@ -45,7 +46,7 @@
         <td th:text="${user.enabled} ? 'True' : 'False'"></td>
         <td>
             <!--            <a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a>-->
-            <a th:href="@{/users/{id}(id=${user.id})}">More info</a>
+            <a th:href="@{/users/{id}(id=${user.id})}" th:text="#{user.moreInfo}">More info</a>
         </td>
     </tr>
     </tbody>

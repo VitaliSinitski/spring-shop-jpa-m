@@ -24,20 +24,32 @@
             <li sec:authorize="isAuthenticated()">
                 <a th:href="@{/logout}" th:text="#{header.logout}">Logout</a>
             </li>
+            <!--            <li>-->
+            <!--                <a href="?lang=en">EN</a><br>-->
+            <!--                <a href="?lang=ru">RU</a>-->
+            <!--            </li>-->
+
             <li>
-                <a href="?lang=en">EN</a><br>
-                <a href="?lang=ru">RU</a>
+                <label>
+                    <select onchange="changeLanguage(this.value)" id="languageSelect">
+                        <option value="en" selected>EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </label>
             </li>
-            <li class="dropdown">
-<!--                <a href="#">More</a>-->
-<!--                <ul>-->
-<!--                    <li><a href="#">Car Electronics</a></li>-->
-<!--                    <li><a href="#">Portable Audio &amp; Video</a></li>-->
-<!--                    <li><a href="#">Cell Phones &amp; Accessories</a></li>-->
-<!--                    <li><a href="#">Headphones</a></li>-->
-<!--                    <li><a href="#">Smart Home</a></li>-->
-<!--                </ul>-->
-            </li>
+
+            <script>
+                var selectedLanguage = localStorage.getItem('selectedLanguage');
+                if (selectedLanguage) {
+                    document.getElementById('languageSelect').value = selectedLanguage;
+                }
+
+                function changeLanguage(language) {
+                    localStorage.setItem('selectedLanguage', language);
+                    window.location.search = "?lang=" + language;
+                }
+            </script>
+            <li class="dropdown"></li>
         </ul>
     </nav>
 </header>

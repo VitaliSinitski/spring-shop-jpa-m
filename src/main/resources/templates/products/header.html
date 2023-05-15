@@ -8,7 +8,6 @@
           integrity="sha384-jS61CjYPX8+ZKjz4cNU4h4FzLtfESjO7Cqce3YAG00JHsojXpZvm0VBLf0GyJ7Rk" crossorigin="anonymous">
 
 
-
 </head>
 <body>
 <header>
@@ -27,9 +26,6 @@
                 <input type="text" name="name" th:value="${filter.name}" th:placeholder="#{header.searchPlaceholder}">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-<!--            <label for="name">-->
-<!--                <input id="name" type="text" name="name" th:value="${filter.name}" placeholder="Search...">-->
-<!--            </label>-->
         </div>
 
     <nav class="header-nav">
@@ -60,10 +56,31 @@
             <li sec:authorize="hasAuthority('USER')">
                 <a th:href="@{/user/edit}" th:text="#{header.config}">Config</a>
             </li>
+<!--            <li>-->
+<!--                <a href="?lang=en">EN</a><br>-->
+<!--                <a href="?lang=ru">RU</a>-->
+<!--            </li>-->
+
             <li>
-                <a href="?lang=en">EN</a><br>
-                <a href="?lang=ru">RU</a>
+                <label>
+                    <select onchange="changeLanguage(this.value)" id="languageSelect">
+                        <option value="en" selected>EN</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </label>
             </li>
+
+            <script>
+                var selectedLanguage = localStorage.getItem('selectedLanguage');
+                if (selectedLanguage) {
+                    document.getElementById('languageSelect').value = selectedLanguage;
+                }
+
+                function changeLanguage(language) {
+                    localStorage.setItem('selectedLanguage', language);
+                    window.location.search = "?lang=" + language;
+                }
+            </script>
 
             <li class="dropdown">
             </li>

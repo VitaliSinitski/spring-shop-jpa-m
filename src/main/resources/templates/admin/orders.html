@@ -12,10 +12,9 @@
 <table>
     <thead>
     <tr>
-        <th th:text="#{user.id}">ID</th>
+        <th th:text="#{id}">ID</th>
         <th th:text="#{userInformation.firstName}">First Name</th>
         <th th:text="#{userInformation.lastName}">Last Name</th>
-        <th th:text="#{user.cartId}">Cart Id</th>
         <th th:text="#{order.status}">Order status</th>
         <th th:text="#{order.createdDate}">Created date</th>
         <th th:text="#{order.updatedDate}">Updated date</th>
@@ -27,7 +26,6 @@
         <td th:text="${order.id}"></td>
         <td th:text="${order.user.userInformation.firstName}"></td>
         <td th:text="${order.user.userInformation.lastName}"></td>
-        <td th:text="${order.cart.id}"></td>
         <td th:text="${order.orderStatus}"></td>
         <td th:text="${order.createdDate}"></td>
         <td th:text="${order.updatedDate}"></td>

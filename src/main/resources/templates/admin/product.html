@@ -95,11 +95,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit" class="submit" th:text="#{product.update}">Update</button>
+    <button type="submit" class="submit" th:text="#{update}">Update</button>
 </form>
 <br>
 <form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">
-    <button type="submit" class="submit" th:text="#{product.delete}">Delete</button>
+    <button type="submit" class="submit" th:text="#{delete}">Delete</button>
 </form>
 
 </body>

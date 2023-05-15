@@ -31,13 +31,13 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2">User Details</th>
+            <th colspan="2" th:text="#{user.userInformation}">User Details</th>
         </tr>
         </thead>
         <tbody>
 
         <tr>
-            <td>User id:</td>
+            <td th:text="#{id}">User id:</td>
             <td>
                 <span th:text="${user.id}" th:value="${user.id}"/>
             </td>
@@ -49,16 +49,16 @@
         <!--                </label>-->
         <!--            </td>-->
         <!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Cart id:</td>-->
+<!--            <td><span th:text="${user.cart.id}" th:value="${user.cart.id}"/></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td th:text="#{id}">Cart createdDate:</td>-->
+<!--            <td><span th:text="${user.cart.createdDate}" th:value="${user.cart.createdDate}"/></td>-->
+<!--        </tr>-->
         <tr>
-            <td>Cart id:</td>
-            <td><span th:text="${user.cart.id}" th:value="${user.cart.id}"/></td>
-        </tr>
-        <tr>
-            <td>Cart createdDate:</td>
-            <td><span th:text="${user.cart.createdDate}" th:value="${user.cart.createdDate}"/></td>
-        </tr>
-        <tr>
-            <td>Username:</td>
+            <td th:text="#{user.username}">Username:</td>
             <!--            <td><span th:text="${user.username}" th:value="${user.username}"/></td>-->
             <td>
                 <label for="username">
@@ -67,7 +67,7 @@
             </td>
         </tr>
         <tr>
-            <td>Email:</td>
+            <td th:text="#{user.email}">Email:</td>
             <!--            <td><span th:text="${user.email}" th:value="${user.email}"/></td>-->
             <td>
                 <label for="email">
@@ -76,7 +76,7 @@
             </td>
         </tr>
         <tr>
-            <td>FirstName:</td>
+            <td th:text="#{userInformation.firstName}">FirstName:</td>
             <td>
                 <label for="firstName">
                     <input id="firstName" type="text" name="firstName" th:value="${userInformation.firstName}" required>
@@ -84,7 +84,7 @@
             </td>
         </tr>
         <tr>
-            <td>LastName:</td>
+            <td th:text="#{userInformation.lastName}">LastName:</td>
             <td>
                 <label for="lastName">
                     <input id="lastName" type="text" name="lastName" th:value="${userInformation.lastName}" required>
@@ -92,7 +92,7 @@
             </td>
         </tr>
         <tr>
-            <td>Phone:</td>
+            <td th:text="#{userInformation.phone}">Phone:</td>
             <td>
                 <label for="phone">
                     <input id="phone" type="tel" name="phone" th:value="${userInformation.phone}" required>
@@ -100,7 +100,7 @@
             </td>
         </tr>
         <tr>
-            <td>Address:</td>
+            <td th:text="#{userInformation.address}">Address:</td>
             <td>
                 <label for="address">
                     <input id="address" type="text" name="address" th:value="${userInformation.address}" required>
@@ -108,7 +108,7 @@
             </td>
         </tr>
         <tr>
-            <td>BirthDate:</td>
+            <td th:text="#{userInformation.birthDate}">BirthDate:</td>
             <td>
                 <label for="birthDate">
                     <input id="birthDate" type="date" name="birthDate" th:value="${userInformation.birthDate}" readonly>
@@ -117,15 +117,19 @@
         </tr>
 
         <tr>
-            <td>Enabled:</td>
+            <td th:text="#{user.enabled}">Enabled:</td>
             <td>
-                <input type="radio" name="enabled" th:checked="${user.enabled}" value="true"> True
-                <input type="radio" name="enabled" th:checked="${!user.enabled}" value="false"> False
+                <label for="enabledTrue" th:text="#{user.enabledTrue}">True</label>
+                    <input id="enabledTrue" type="radio" name="enabled" th:checked="${user.enabled}" value="true">
+
+                <label for="enabledFalse" th:text="#{user.enabledFalse}">False</label>
+                    <input id="enabledFalse" type="radio" name="enabled" th:checked="${!user.enabled}" value="false">
+
             </td>
         </tr>
 
         <tr>
-            <td>Role</td>
+            <td th:text="#{user.role}">Role</td>
             <td>
                 <label for="role">
                     <select name="role" id="role">
@@ -138,11 +142,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit" class="submit">Update</button>
+    <button type="submit" class="submit" th:text="#{update}">Update</button>
 </form>
 <br>
 <form th:action="@{/users/{userId}/delete(userId=${user.id})}" method="post">
-    <button type="submit" class="submit">Delete</button>
+    <button type="submit" class="submit" th:text="#{delete}">Delete</button>
 </form>
 
 </body>
