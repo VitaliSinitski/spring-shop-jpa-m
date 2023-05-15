@@ -15,13 +15,11 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-//@Lazy
 public class UserCreateMapper implements Mapper<UserCreateDto, User> {
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public User map(UserCreateDto fromObject, User toObject) {
-//        return getUser(fromObject); // 83:00.18
         copy(fromObject, toObject);
         return toObject;
     }
@@ -42,9 +40,6 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
     }
 
     private void copy(UserCreateDto object, User user) {
-//        if (!Objects.equals(object.getRawPassword(), object.getMatchingPassword())) {
-//            throw new RuntimeException("Password is not equals!");
-//        }
 
         user.setUsername(object.getUsername());
         user.setEmail(object.getEmail());

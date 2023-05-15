@@ -18,12 +18,10 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 @RequiredArgsConstructor
 public class ImageService {
 
-//    @Value("${app.image.bucket:/resources/static/images}")
     @Value("${app.image.bucket:C:\\Work\\IdeaProjects\\spring-shop\\src\\main\\resources\\static\\images}")
     private String bucket;
 
 
-    // save data
     @SneakyThrows
     public void upload(String imagePath, InputStream imageContent) {
         Path imageFullPath = Path.of(bucket, imagePath);

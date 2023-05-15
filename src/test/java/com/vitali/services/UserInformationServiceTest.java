@@ -15,10 +15,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
-import static com.vitali.util.TestConstants.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.vitali.util.MockUtils.CART;
+import static com.vitali.util.MockUtils.USER_INFORMATION_CREATE_DTO_ONE;
+import static com.vitali.util.MockUtils.USER_INFORMATION_ONE;
+import static com.vitali.util.MockUtils.USER_INFORMATION_READ_DTO_ONE;
+import static com.vitali.util.MockUtils.USER_ONE;
+import static com.vitali.util.TestConstants.CART_ID_ONE;
+import static com.vitali.util.TestConstants.ORDER_ID_ONE;
+import static com.vitali.util.TestConstants.TIMES_ONE;
+import static com.vitali.util.TestConstants.USER_ID_ONE;
+import static com.vitali.util.TestConstants.USER_INFORMATION_ID;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserInformationServiceTest {

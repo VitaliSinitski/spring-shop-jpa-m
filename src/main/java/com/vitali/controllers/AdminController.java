@@ -19,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/admin")
 @RequestMapping("/admin")
 public class AdminController {
     private final ProductService productService;

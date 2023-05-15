@@ -68,32 +68,6 @@ public class AdminProductsController {
         return "admin/products";
     }
 
-
-//    @GetMapping
-////    @GetMapping("/products")
-//    public String findAllProducts(Model model) {
-//        model.addAttribute("products", productService.findAll());
-//        model.addAttribute("categories", categoryService.findAll());
-//        model.addAttribute("producers", producerService.findAll());
-//        return "admin/products";
-//    }
-
-
-//    @GetMapping("/products/{id}")
-//    @GetMapping("/{id}")
-//    public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
-//        return productService.findById(id)
-//                .map(product -> {
-//                    model.addAttribute("product", product);
-//                    model.addAttribute("categories", categoryService.findAll());
-//                    model.addAttribute("producers", producerService.findAll());
-//                    return "admin/product";
-////                    return "admin/product";
-//                })
-//                .orElseThrow(
-//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//    }
-
     @GetMapping("/{id}")
     public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
         ProductReadDto product = productService.findById(id);
@@ -114,9 +88,8 @@ public class AdminProductsController {
 
 
     @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
     public String createProduct(@ModelAttribute @Validated ProductCreateDto product,
-                                BindingResult bindingResult,                            // BindingResult must stay exactly after validation object!!!
+                                BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
         log.info("AdminProductsController - createProduct - product: {}", product);
@@ -130,19 +103,9 @@ public class AdminProductsController {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("producers", producerService.findAll());
             productService.create(product);
-//        return "redirect:/admin/products/" + productService.create(product).getId();
             return "redirect:/admin/products";
         }
     }
-
-    //    @PostMapping("/products/{id}/update")
-//    @PostMapping("/{id}/update")
-//    public String updateProduct(@PathVariable("id") Integer id,
-//                                @ModelAttribute @Validated ProductCreateDto product) {
-//        return productService.update(id, product)
-//                .map(it -> "redirect:/admin/products/{id}")
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//    }
 
     @PostMapping("/{id}/update")
     public String updateProduct(@PathVariable("id") Integer id,
@@ -152,7 +115,6 @@ public class AdminProductsController {
     }
 
 
-    //    @PostMapping("/products/{id}/delete")
     @PostMapping("/{id}/delete")
     public String deleteProduct(@PathVariable("id") Integer id) {
         if (!productService.delete(id)) {
@@ -160,5 +122,4 @@ public class AdminProductsController {
         }
         return "redirect:/admin/products";
     }
-
 }

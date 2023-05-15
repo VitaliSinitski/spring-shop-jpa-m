@@ -18,10 +18,4 @@ public class CategoryMapper implements Mapper<CategoryReadDto, Category> {
                 .name(object.getName())
                 .build();
     }
-
-    public List<Category> mapList(List<CategoryReadDto> objects) {
-        return objects.stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
 }

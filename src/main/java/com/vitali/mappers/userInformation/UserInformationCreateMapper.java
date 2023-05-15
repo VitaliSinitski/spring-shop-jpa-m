@@ -15,7 +15,6 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class UserInformationCreateMapper implements Mapper<UserInformationCreateDto, UserInformation> {
-    private final UserRepository userRepository;
     @Override
     public UserInformation map(UserInformationCreateDto userInformationCreateDto) {
         log.info("UserInformationCreateMapper - map - userInformationCreateDto: {}", userInformationCreateDto);
@@ -37,12 +36,6 @@ public class UserInformationCreateMapper implements Mapper<UserInformationCreate
         userInformation.setPhone(object.getPhone());
         userInformation.setAddress(object.getAddress());
         userInformation.setBirthDate(object.getBirthDate());
-//        userInformation.setUser(getUser(object.getUserId()));
     }
 
-    public User getUser(Integer id) {
-        return Optional.ofNullable(id)
-                .flatMap(userRepository::findById)
-                .orElse(null);
-    }
 }

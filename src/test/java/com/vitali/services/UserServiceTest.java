@@ -17,24 +17,41 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vitali.util.TestConstants.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.BDDAssertions.then;
+import static com.vitali.util.MockUtils.USER;
+import static com.vitali.util.MockUtils.USER_CREATE_DTO;
+import static com.vitali.util.MockUtils.USER_INFORMATION;
+import static com.vitali.util.MockUtils.USER_INFORMATION_CREATE_DTO;
+import static com.vitali.util.MockUtils.USER_LIST;
+import static com.vitali.util.MockUtils.USER_ONE;
+import static com.vitali.util.MockUtils.USER_READ_DTO;
+import static com.vitali.util.MockUtils.USER_READ_DTO_LIST;
+import static com.vitali.util.MockUtils.USER_READ_DTO_ONE;
+import static com.vitali.util.MockUtils.USER_READ_DTO_TWO;
+import static com.vitali.util.MockUtils.USER_TWO;
+import static com.vitali.util.TestConstants.SIZE_TWO;
+import static com.vitali.util.TestConstants.TIMES_ONE;
+import static com.vitali.util.TestConstants.USER_EMAIL;
+import static com.vitali.util.TestConstants.USER_ID_ONE;
+import static com.vitali.util.TestConstants.USER_NAME;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {

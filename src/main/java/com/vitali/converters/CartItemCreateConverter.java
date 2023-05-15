@@ -16,7 +16,6 @@ public class CartItemCreateConverter implements Converter<HttpServletRequest, Ca
         return CartItemCreateDto.builder()
                 .quantity(ParameterUtil.getQuantity(request))
                 .productId(ParameterUtil.getIntegerFromRequest(PRODUCT_ID, request))
-//                .cartId(ParameterUtil.getIntegerFromRequest(CART_ID, request))
                 .build();
     }
 

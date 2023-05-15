@@ -46,7 +46,6 @@ public class AdminOrdersController {
                     return "admin/order";
                 })
                 .orElseThrow(
-//                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
                         () -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
     }
 

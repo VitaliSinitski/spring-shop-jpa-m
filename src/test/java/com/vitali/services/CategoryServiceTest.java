@@ -1,22 +1,22 @@
 package com.vitali.services;
 
-import com.vitali.database.entities.Category;
 import com.vitali.database.repositories.CategoryRepository;
 import com.vitali.dto.category.CategoryReadDto;
 import com.vitali.mappers.category.CategoryReadMapper;
-import com.vitali.services.CategoryService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
 
-import static com.vitali.util.TestConstants.*;
+import static com.vitali.util.MockUtils.CATEGORY;
+import static com.vitali.util.MockUtils.CATEGORY_LIST;
+import static com.vitali.util.MockUtils.CATEGORY_READ_DTO;
+import static com.vitali.util.TestConstants.CATEGORY_NAME;
+import static com.vitali.util.TestConstants.SIZE_ONE;
+import static com.vitali.util.TestConstants.SIZE_ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 

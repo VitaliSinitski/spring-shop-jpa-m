@@ -18,7 +18,5 @@ public class OrderItemReadDto {
     private ProductReadDto product;
     private OrderReadDto order;
     private CartReadDto cart;
-//    CategoryReadDto category;
-//    ProducerReadDto producer;
 
 }

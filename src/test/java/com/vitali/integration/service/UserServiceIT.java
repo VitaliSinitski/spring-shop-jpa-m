@@ -5,28 +5,31 @@ import com.vitali.database.repositories.UserRepository;
 import com.vitali.dto.user.UserReadDto;
 import com.vitali.integration.annotation.IT;
 import com.vitali.services.UserService;
-
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.vitali.util.TestConstants.*;
+import static com.vitali.util.MockUtils.USER_CREATE_DTO;
+import static com.vitali.util.MockUtils.USER_CREATE_DTO_MODIFIED;
+import static com.vitali.util.MockUtils.USER_CREATE_DTO_PASSWORD_NEW;
+import static com.vitali.util.MockUtils.USER_INFORMATION_CREATE_DTO;
+import static com.vitali.util.MockUtils.USER_NO_ID;
+import static com.vitali.util.MockUtils.USER_NO_PASSWORD;
+import static com.vitali.util.TestConstants.AUTHORITY;
+import static com.vitali.util.TestConstants.USER_PASSWORD;
+import static com.vitali.util.TestConstants.USER_PASSWORD_NEW;
+import static com.vitali.util.TestConstants.ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IT
 @RequiredArgsConstructor
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@Transactional
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//@Rollback
 public class UserServiceIT {
     private final UserService userService;
     private final UserRepository userRepository;
@@ -35,17 +38,6 @@ public class UserServiceIT {
 
     @Test
     public void findAll() {
-
-        // when
-        List<UserReadDto> users = userService.findAll();
-
-        // then
-        assertThat(users).isNotNull();
-        assertThat(users).hasSize(SIZE_FIVE);
-    }
-
-    @Test
-    public void findAllUsersEqualsToRepository() {
         // given
         List<User> expectedUsers = userRepository.findAll();
 

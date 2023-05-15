@@ -23,11 +23,8 @@ public class OrderCreateMapper implements Mapper<OrderCreateDto, Order> {
     @Override
     public Order map(OrderCreateDto object) {
         return Order.builder()
-//                .cart(cartRepository.findById(object.getCartId())
-//                        .orElseThrow(IllegalArgumentException::new))
                 .cart(getCart(object.getCartId()))
                 .user(getUser(object.getUserId()))
-//                .orderStatus(Optional.ofNullable(object.getOrderStatus()).orElse(DEFAULT_ORDER_STATUS))
                 .inform(object.getInform())
                 .build();
     }

@@ -30,14 +30,4 @@ public class CartItemReadMapper implements Mapper<CartItem, CartItemReadDto> {  
                         .map(productReadMapper::map).orElse(null))
                 .build();
     }
-
-    public List<CartItemReadDto> mapList(List<CartItem> objects) {
-        if (objects == null || objects.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return objects
-                .stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
 }

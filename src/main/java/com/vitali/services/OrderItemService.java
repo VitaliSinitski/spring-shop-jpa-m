@@ -28,12 +28,6 @@ public class OrderItemService {
                 .collect(Collectors.toList());
     }
 
-//    public List<OrderItemReadDto> getOrderItemsByOrderId(Integer orderId) {
-//        return orderItemRepository.findOrderItemsByOrderId(orderId).stream()
-//                .map(orderItemReadMapper::map)
-//                .collect(Collectors.toList());
-//    }
-
     public BigDecimal getTotalPrice(Integer orderId) {
         List<OrderItem> orderItems = orderItemRepository.findOrderItemsByOrderId(orderId);
         BigDecimal totalPrice = BigDecimal.ZERO;

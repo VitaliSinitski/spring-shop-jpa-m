@@ -7,5 +7,4 @@ import lombok.Value;
 @Value
 public class ProducerCreateDto {
     String name;
-//    Long categoryId;
 }

@@ -27,33 +27,11 @@ public class ProductReadMapper implements Mapper<Product, ProductReadDto> {
                 .description(object.getDescription())
                 .price(object.getPrice())
                 .quantity(object.getQuantity())
-                .image(object.getImage()) // можно добавить уникальный префикс (!дублирование имен)
+                .image(object.getImage())
                 .category(Optional.ofNullable(object.getCategory())
                         .map(categoryReadMapper::map).orElse(null))
                 .producer(Optional.ofNullable(object.getProducer())
                         .map(producerReadMapper::map).orElse(null))
                 .build();
     }
-
-    public List<ProductReadDto> mapList(List<Product> objects) {
-        if (objects == null || objects.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return objects.stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
-
-//    public CriteriaObject convertToDtoCriteriaResult(CriteriaObject criteriaObject) {
-//        return CriteriaObject.builder()
-//                .categoryId(criteriaObject.getCategoryId())
-//                .producerId(criteriaObject.getProducerId())
-//                .currentPage(criteriaObject.getCurrentPage())
-//                .recordsPerPage(criteriaObject.getRecordsPerPage())
-//                .pagesNum(criteriaObject.getPagesNum())
-//                .items(mapListFrom(criteriaObject.getItems()))
-//                .sortDirection(criteriaObject.getSortDirection())
-//                .orderField(criteriaObject.getOrderField())
-//                .build();
-//    }
 }

@@ -4,7 +4,6 @@ import com.vitali.database.entities.Producer;
 import com.vitali.database.repositories.ProducerRepository;
 import com.vitali.dto.producer.ProducerReadDto;
 import com.vitali.mappers.producer.ProducerReadMapper;
-import com.vitali.util.TestConstants;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,9 +13,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
-import static com.vitali.util.TestConstants.*;
+import static com.vitali.util.MockUtils.PRODUCER;
+import static com.vitali.util.MockUtils.PRODUCER_READ_DTO;
+import static com.vitali.util.TestConstants.SIZE_ONE;
+import static com.vitali.util.TestConstants.SIZE_ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

@@ -15,11 +15,25 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vitali.database.entities.enums.OrderStatus.*;
-import static com.vitali.util.TestConstants.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.vitali.database.entities.enums.OrderStatus.CONFIRMED;
+import static com.vitali.database.entities.enums.OrderStatus.PENDING;
+import static com.vitali.util.MockUtils.ORDER_LIST_TWO_EL;
+import static com.vitali.util.MockUtils.ORDER_ONE;
+import static com.vitali.util.MockUtils.ORDER_READ_DTO_ONE;
+import static com.vitali.util.MockUtils.ORDER_READ_DTO_TWO;
+import static com.vitali.util.MockUtils.ORDER_TWO;
+import static com.vitali.util.TestConstants.ONE;
+import static com.vitali.util.TestConstants.ORDER_ID_ONE;
+import static com.vitali.util.TestConstants.SIZE_TWO;
+import static com.vitali.util.TestConstants.TIMES_ONE;
+import static com.vitali.util.TestConstants.ZERO;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)

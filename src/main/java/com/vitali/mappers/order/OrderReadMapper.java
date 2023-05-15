@@ -34,13 +34,4 @@ public class OrderReadMapper implements Mapper<Order, OrderReadDto> {   // Done
                 .orderItems(orderItemReadMapper.mapList(object.getOrderItems()))
                 .build();
     }
-
-    public List<OrderReadDto> mapList(List<Order> objects) {
-        if (objects == null || objects.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return objects.stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
 }

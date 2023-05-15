@@ -16,6 +16,4 @@ import java.util.Set;
 public class CategoryReadDto {
     private Integer id;
     private String name;
-//    Set<ProducerReadDto> producers;
-//    Set<ProductReadDto> products;
 }

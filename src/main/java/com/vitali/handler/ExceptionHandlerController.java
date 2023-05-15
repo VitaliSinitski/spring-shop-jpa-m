@@ -17,13 +17,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
-@ControllerAdvice/*(basePackages = "com.vitali")*/
-public class ExceptionHandlerController /*extends ResponseEntityExceptionHandler*/ {
-//    private final FilterProductRepository productRepository;
-//
-//    public ExceptionHandlerController(@Qualifier("productRepository") FilterProductRepository productRepository) {
-//        this.productRepository = productRepository;
-//    }
+@ControllerAdvice
+public class ExceptionHandlerController {
 
     @ExceptionHandler(OutOfStockException.class)
     public String handleOutOfStockException(OutOfStockException exception,

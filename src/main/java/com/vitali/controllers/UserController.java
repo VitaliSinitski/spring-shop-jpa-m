@@ -136,13 +136,6 @@ public class UserController {
                            @ModelAttribute("userId") Integer userId,
                            RedirectAttributes redirectAttributes) {
 
-//        if (!userCreateDto.getRawPassword().equals(userCreateDto.getMatchingPassword())) {
-//            redirectAttributes.addFlashAttribute("user", userCreateDto);
-//            redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
-//            redirectAttributes.addFlashAttribute("error", "Passwords do not match");
-//            return "redirect:/user/edit";
-//        }
-
         if ((userBindingResult.hasErrors() || userInformationBindingResult.hasErrors()) || (userBindingResult.hasErrors() && userInformationBindingResult.hasErrors())) {
             redirectAttributes.addFlashAttribute("user", userCreateDto);
             redirectAttributes.addFlashAttribute("userInformation", userInformationCreateDto);
@@ -154,7 +147,6 @@ public class UserController {
         UserReadDto user = userService.findById(userId);
         UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
         Integer userInformationId = userInformationReadDto.getId();
-
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/products";

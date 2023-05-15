@@ -18,13 +18,37 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-import static com.vitali.util.TestConstants.*;
+import static com.vitali.util.MockUtils.CART;
+import static com.vitali.util.MockUtils.CART_ITEM;
+import static com.vitali.util.MockUtils.CART_ITEM_CREATE_DTO;
+import static com.vitali.util.MockUtils.CART_ITEM_LIST;
+import static com.vitali.util.MockUtils.CART_ITEM_READ_DTO;
+import static com.vitali.util.MockUtils.CART_ITEM_READ_DTO_LIST;
+import static com.vitali.util.TestConstants.CART_ID_ONE;
+import static com.vitali.util.TestConstants.CART_ITEM_ID;
+import static com.vitali.util.TestConstants.PRODUCT_ID_ONE;
+import static com.vitali.util.TestConstants.QUANTITY_ONE;
+import static com.vitali.util.TestConstants.QUANTITY_THREE;
+import static com.vitali.util.TestConstants.QUANTITY_TWO;
+import static com.vitali.util.TestConstants.TIMES_ONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @DirtiesContext
 @ExtendWith(MockitoExtension.class)

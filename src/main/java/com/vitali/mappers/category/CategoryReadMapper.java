@@ -21,13 +21,4 @@ public class CategoryReadMapper implements Mapper<Category, CategoryReadDto> {
                 .name(object.getName())
                 .build();
     }
-
-    public List<CategoryReadDto> mapList(List<Category> objects) {
-        if (objects == null || objects.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return objects.stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
 }

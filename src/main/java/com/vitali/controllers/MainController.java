@@ -34,50 +34,9 @@ public class MainController {
     @GetMapping("/?lang={lang}")
     public String changeLocale(@PathVariable String lang,
                                HttpServletRequest request) {
-        log.info("Main Controller - changeLocale - start");
         Locale locale = Locale.forLanguageTag(lang);
         request.getSession().setAttribute(SessionLocaleResolver.class.getName() + ".LOCALE", locale);
-//        String referrer = request.getHeader("referer");
         String referrer = request.getHeader("Referer");
-        log.info("Main Controller - changeLocale - referrer: {}", referrer);
-//        response.sendRedirect(referer);
-        // делаем что-то с referrer
         return "redirect:" + referrer;
-//        return "redirect:/";
     }
-
-//    @GetMapping("/language")
-//    public String changeLanguage(HttpServletRequest request,
-//                                 HttpServletResponse response,
-//                                 @RequestParam(value = "lang", required = false) String lang) {
-//        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-//        assert localeResolver != null;
-//        localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang));
-//        return "redirect:/";
-//    }
-//
-//
-//    @PostMapping("/change-language")
-//    public String changeLanguage(@RequestParam(name = "lang") String language,
-//                                 HttpServletRequest request) {
-//        Locale locale = Locale.forLanguageTag(language);
-//        request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
-//        return "redirect:" + request.getHeader("Referer");
-//    }
-
-//    @GetMapping("/language")
-//    public String changeLanguage(HttpServletRequest request,
-//                                 HttpServletResponse response,
-//                                 String lang) {
-//        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
-//        localeResolver.setLocale(request, response, StringUtils.parseLocaleString(lang));
-//        return "redirect:/";
-//    }
-
-//    @GetMapping("/language")
-//    public String changeLanguage(@RequestParam("lang") String lang,
-//                                 HttpServletRequest request) {
-//        request.getSession().setAttribute("locale", new Locale(lang));
-//        return "redirect:/";
-//    }
 }

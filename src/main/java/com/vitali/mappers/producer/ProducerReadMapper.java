@@ -20,14 +20,4 @@ public class ProducerReadMapper implements Mapper<Producer, ProducerReadDto> {
                 .name(object.getName())
                 .build();
     }
-
-    public List<ProducerReadDto> mapList(List<Producer> objects) {
-        if (objects == null || objects.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return objects
-                .stream()
-                .map(this::map)
-                .collect(Collectors.toList());
-    }
 }

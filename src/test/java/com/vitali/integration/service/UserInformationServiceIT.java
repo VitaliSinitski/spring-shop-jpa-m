@@ -6,25 +6,15 @@ import com.vitali.database.entities.UserInformation;
 import com.vitali.database.repositories.OrderRepository;
 import com.vitali.database.repositories.UserInformationRepository;
 import com.vitali.database.repositories.UserRepository;
-import com.vitali.dto.user.UserReadDto;
-import com.vitali.dto.userInformation.UserInformationCreateDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
 import com.vitali.integration.annotation.IT;
 import com.vitali.services.UserInformationService;
-import com.vitali.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import static com.vitali.util.TestConstants.USER_INFORMATION_CREATE_DTO;
+import static com.vitali.util.MockUtils.USER_INFORMATION_CREATE_DTO;
 import static com.vitali.util.TestConstants.ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @IT
 @RequiredArgsConstructor
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@Transactional
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserInformationServiceIT {
     private final UserInformationService userInformationService;

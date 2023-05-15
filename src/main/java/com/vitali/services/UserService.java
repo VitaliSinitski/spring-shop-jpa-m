@@ -56,16 +56,11 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public UserReadDto create(UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
-        log.info("UserService class - crate - userCreateDto: {}", userCreateDto);
         Cart cart = Cart.builder().createdDate(LocalDateTime.now()).build();
 
         UserInformation userInformation = Optional.ofNullable(userInformationCreateDto)
                 .map(userInformationCreateMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("UserInformation not found"));
-
-//        UserInformation userInformation = Optional.of(userInformationCreateDto)
-//                .map(userInformationCreateMapper::map)
-//                .orElseThrow(() -> new EntityNotFoundException("UserInformation not found"));
 
         User user = Optional.ofNullable(userCreateDto)
                 .map(userCreateMapper::map)
@@ -75,7 +70,6 @@ public class UserService implements UserDetailsService {
         cart.setUser(user);
         userInformation.setUser(user);
 
-//        user.setCart(cart);
         cartRepository.save(cart);
         userInformationRepository.save(userInformation);
         return userReadMapper.map(user);
@@ -101,7 +95,6 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void updatePassword(Integer id, UserCreateDto userCreateDto) {
-//        log.info("UserService - update - userCreateDto: {}", userCreateDto);
         userRepository.findById(id)
                 .map(user -> userCreateMapper.mapPassword(userCreateDto, user))
                 .map(userRepository::saveAndFlush)
@@ -109,20 +102,14 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
-    // It is function correctly
-//    @Transactional
-//    public boolean delete(Integer id) {
-//        return userRepository.findById(id)
-//                .map(entity -> {
-//                    userRepository.delete(entity);
-//                    return true;
-//                })
-//                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
-//    }
-
     @Transactional
-    public void delete(Integer id) {
-        userRepository.deleteById(id);
+    public boolean delete(Integer id) {
+        return userRepository.findById(id)
+                .map(entity -> {
+                    userRepository.delete(entity);
+                    return true;
+                })
+                .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class OrderReadDto {
     LocalDateTime createdDate;
     LocalDateTime updatedDate;
     OrderStatus orderStatus;
-    CartReadDto cart;       // ??
-    UserReadDto user;       // ??
+    CartReadDto cart;
+    UserReadDto user;
     List<OrderItemReadDto> orderItems;
 }

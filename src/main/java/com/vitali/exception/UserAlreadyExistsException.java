@@ -5,9 +5,6 @@ import com.vitali.dto.userInformation.UserInformationCreateDto;
 
 public class UserAlreadyExistsException extends RuntimeException {
 
-    //    public UserAlreadyExistsException(String message, UserCreateDto userCreateDto, UserInformationCreateDto userInformationCreateDto) {
-//        super(message);
-//    }
     private UserCreateDto userCreateDto;
     private UserInformationCreateDto userInformationCreateDto;
 

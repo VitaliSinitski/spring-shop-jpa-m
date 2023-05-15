@@ -58,36 +58,26 @@ public class OrderService {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new EntityNotFoundException("Cart not found"));
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        // get cartItems
         List<CartItem> cartItems = cart.getCartItems();
-
-        // copy cartItems to orderItems
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = orderItemRepository.save(cartItemToOrderItemMapper.map(cartItem));
             orderItems.add(orderItem);
-
-            // update the product quantity
             boolean stockConfirmation = productService.updateProductQuantityByCartItem(cartItem);
             if (!stockConfirmation) {
                 throw new OutOfStockException(cartItem.getProduct().getName());
             }
         }
 
-        // create Order object
         Order order = new Order();
-
-        // set cart, information, status, OrderItems
         order.setCart(cart);
         order.setUser(user);
         order.setInform(information);
         order.setOrderStatus(OrderStatus.PENDING);
         order.setOrderItems(orderItems);
 
-        // save Order
         Order savedOrder = orderRepository.save(order);
 
-        // delete the cart items
         cartItemService.deleteAllByCartId(cartId);
         return orderReadMapper.map(savedOrder);
     }

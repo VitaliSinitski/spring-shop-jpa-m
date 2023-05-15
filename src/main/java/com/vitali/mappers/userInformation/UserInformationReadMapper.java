@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserInformationReadMapper implements Mapper<UserInformation, UserInformationReadDto> {
-//    private final UserReadMapper userReadMapper;
     @Override
     public UserInformationReadDto map(UserInformation object) {
         return UserInformationReadDto.builder()
@@ -21,7 +20,6 @@ public class UserInformationReadMapper implements Mapper<UserInformation, UserIn
                 .phone(object.getPhone())
                 .address(object.getAddress())
                 .birthDate(object.getBirthDate())
-//                .user(userReadMapper.map(object.getUser()))
                 .build();
     }
 }

@@ -34,9 +34,8 @@ public class UserInformation {
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    //    @OneToOne(mappedBy = "user_info", cascade = CascadeType.ALL)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "users_id")
     @ToString.Exclude
     private User user;
 }

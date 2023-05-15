@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class QPredicates {          // 67.05:22
+public class QPredicates {
     private final List<Predicate> predicates = new ArrayList<>();
 
     public static QPredicates builder() {
@@ -27,11 +27,6 @@ public class QPredicates {          // 67.05:22
 
     public Predicate build() {
         return Optional.ofNullable(ExpressionUtils.allOf(predicates))
-                .orElseGet(() -> Expressions.asBoolean(true).isTrue());
-    }
-
-    public Predicate buildOr() {
-        return Optional.ofNullable(ExpressionUtils.anyOf(predicates))
                 .orElseGet(() -> Expressions.asBoolean(true).isTrue());
     }
 }

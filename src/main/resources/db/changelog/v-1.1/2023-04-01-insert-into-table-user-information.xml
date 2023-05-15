@@ -9,98 +9,100 @@
         <insert tableName="user_information" >
             <column name="first_name" value="Jack"/>
             <column name="last_name" value="Black"/>
-            <column name="birth_date" value="1999:02:07"/>
+<!--            <column name="birth_date" value="1999:02:07"/>-->
+            <column name="birth_date" value="1999-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="1"/>
+            <column name="users_id" value="1"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Johny"/>
             <column name="last_name" value="Walker"/>
-            <column name="birth_date" value="2004:02:07"/>
+<!--            <column name="birth_date" value="2004:02:07"/>-->
+            <column name="birth_date" value="2004-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="2"/>
+            <column name="users_id" value="2"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Micky"/>
             <column name="last_name" value="Monky"/>
-            <column name="birth_date" value="2000:02:07"/>
+            <column name="birth_date" value="2004-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="3"/>
+            <column name="users_id" value="3"/>
         </insert>
         <insert tableName="user_information" >
             <column name="first_name" value="Anna"/>
             <column name="last_name" value="White"/>
-            <column name="birth_date" value="1999:02:07"/>
+            <column name="birth_date" value="2004-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="4"/>
+            <column name="users_id" value="4"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Stan"/>
             <column name="last_name" value="Li"/>
-            <column name="birth_date" value="1996:02:07"/>
+            <column name="birth_date" value="1996-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="5"/>
+            <column name="users_id" value="5"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Nick"/>
             <column name="last_name" value="Hurler"/>
-            <column name="birth_date" value="1999:02:07"/>
+            <column name="birth_date" value="1999-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="6"/>
+            <column name="users_id" value="6"/>
         </insert>
         <insert tableName="user_information" >
             <column name="first_name" value="John"/>
             <column name="last_name" value="Bolt"/>
-            <column name="birth_date" value="2002:02:07"/>
+            <column name="birth_date" value="2002-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="7"/>
+            <column name="users_id" value="7"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Emilia"/>
             <column name="last_name" value="Clark"/>
-            <column name="birth_date" value="1999:02:07"/>
+            <column name="birth_date" value="1999-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="8"/>
+            <column name="users_id" value="8"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Mary"/>
             <column name="last_name" value="Je"/>
-            <column name="birth_date" value="2010:02:07"/>
+            <column name="birth_date" value="2010-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="9"/>
+            <column name="users_id" value="9"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Amanda"/>
             <column name="last_name" value="Wallis"/>
-            <column name="birth_date" value="1999:02:07"/>
+            <column name="birth_date" value="1999-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="10"/>
+            <column name="users_id" value="10"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Margaret"/>
             <column name="last_name" value="Johnson"/>
-            <column name="birth_date" value="2000:02:07"/>
+            <column name="birth_date" value="2000-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="11"/>
+            <column name="users_id" value="11"/>
         </insert>
         <insert tableName="user_information">
             <column name="first_name" value="Vitali"/>
             <column name="last_name" value="Sinitski"/>
-            <column name="birth_date" value="2003:02:07"/>
+            <column name="birth_date" value="2003-02-07"/>
             <column name="address" value="Minsk"/>
             <column name="phone" value="+3752356834932"/>
-            <column name="user_id" value="12"/>
+            <column name="users_id" value="12"/>
         </insert>
 
         <rollback>

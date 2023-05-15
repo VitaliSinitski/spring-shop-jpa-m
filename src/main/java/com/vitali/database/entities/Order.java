@@ -38,9 +38,6 @@ public class Order {
     private LocalDateTime updatedDate;
 
     private String inform;
-
-    // TODO: 08.04.2023 make default value of OrderStatus - pending
-    // TODO: 08.04.2023 make variable or aspect with updatedDate of Order. It will be done by changing status of Order
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -49,32 +46,12 @@ public class Order {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private User user;
-
-    //    @Builder.Default
-//    @ToString.Exclude
-//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) // 03-15:01-00 не мог сохранить order и убрал merge
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH}, orphanRemoval = true)
     @JoinColumn(name = "orders_id" )
+    @ToString.Exclude
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    //
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-    }
-
-//
-//    public BigDecimal getTotalCost() {
-//        BigDecimal cost = BigDecimal.ZERO;
-//        if (orderItems != null) {
-//            for (OrderItem item : orderItems) {
-//                cost = cost.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
-//            }
-//        }
-//        return cost;
-//    }
-    
 }

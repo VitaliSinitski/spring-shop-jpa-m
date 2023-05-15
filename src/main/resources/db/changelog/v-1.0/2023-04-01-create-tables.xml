@@ -5,8 +5,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
 
-    <changeSet id="create-table-user" author="vitali">
-        <createTable tableName="user">
+    <changeSet id="create-table-users" author="vitali">
+        <createTable tableName="users">
             <column name="id" autoIncrement="true" type="int">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -27,7 +27,7 @@
             </column>
         </createTable>
         <rollback>
-            <dropTable tableName="user"/>
+            <dropTable tableName="users"/>
         </rollback>
     </changeSet>
 
@@ -51,9 +51,9 @@
             <column name="address" type="varchar(128)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_user_information_user"
-                             referencedTableName="user" referencedColumnNames="id"/>
+            <column name="users_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_user_information_users"
+                             referencedTableName="users" referencedColumnNames="id"/>
             </column>
         </createTable>
         <rollback>
@@ -69,9 +69,9 @@
             <column name="created_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_cart_user"
-                             referencedTableName="user" referencedColumnNames="id"/>
+            <column name="users_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_cart_users"
+                             referencedTableName="users" referencedColumnNames="id"/>
             </column>
         </createTable>
         <rollback>
@@ -100,9 +100,9 @@
                 <constraints nullable="false" foreignKeyName="fk_orders_cart"
                              referencedTableName="cart" referencedColumnNames="id"/>
             </column>
-            <column name="user_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_orders_user"
-                             referencedTableName="user" referencedColumnNames="id"/>
+            <column name="users_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_orders_users"
+                             referencedTableName="users" referencedColumnNames="id"/>
             </column>
         </createTable>
         <rollback>

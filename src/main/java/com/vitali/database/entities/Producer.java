@@ -39,7 +39,6 @@ public class Producer {
     @Column(nullable = false, unique = true)
     private String name;
 
-
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -48,16 +47,9 @@ public class Producer {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    public void addCategory(Category category) {
-        categories.add(category);
-        category.getProducers().add(this);
-    }
-
     @ToString.Exclude
-//    @OneToMany(mappedBy = "producer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "producer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
-
 
     @Override
     public boolean equals(Object o) {

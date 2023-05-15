@@ -38,14 +38,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-//        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
-//        localeResolver.setDefaultLocale(Locale.US);
         localeResolver.setDefaultLocale(Locale.ENGLISH);
-//        localeResolver.setDefaultLocale(new Locale("en"));
         return localeResolver;
     }
 
-    // interceptor catch local by value from SessionLocaleResolver
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -58,29 +54,5 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(userInterceptor);
     }
-
-
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-
-//        cookieLocaleResolver.setDefaultLocale(new Locale("en"));
-
-//        return cookieLocaleResolver;
-
-//    }
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("lang");
-//        registry.addInterceptor(localeChangeInterceptor);
-//        registry.addInterceptor(userInterceptor);
-
-//    }
-
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(userInterceptor);
-//    }
 
 }

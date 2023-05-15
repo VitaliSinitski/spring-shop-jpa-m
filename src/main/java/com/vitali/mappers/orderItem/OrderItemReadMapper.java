@@ -26,10 +26,6 @@ public class OrderItemReadMapper implements Mapper<OrderItem, OrderItemReadDto> 
                 .quantity(object.getQuantity())
                 .product(Optional.ofNullable(object.getProduct())
                         .map(productReadMapper::map).orElse(null))
-//                .order(Optional.ofNullable(object.getOrder())                 // ???
-//                        .map(orderReadMapper::mapFrom).orElse(null))
-//                .cart(Optional.ofNullable(object.getCart())
-//                        .map(cartReadMapper::map).orElse(null))
                 .build();
     }
 

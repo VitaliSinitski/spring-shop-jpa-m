@@ -27,10 +27,6 @@ public class ParameterUtil {
         return Optional.ofNullable((Integer)object).orElse(null);
     }
 
-//    Object userIdObj = session.getAttribute("userId");
-//    Integer userId = userIdObj != null ? (Integer) userIdObj : null;
-
-
     public static List<Integer> getIntegerListFromObject(String[] selectedItems) {
         List<Integer> result = new ArrayList<>();
         if (selectedItems != null) {
@@ -44,7 +40,6 @@ public class ParameterUtil {
         }
         return result;
     }
-
 
     public static Long getLongFromRequest(String name, HttpServletRequest request) {
         return Optional.ofNullable(Long.getLong(request.getParameter(name))).orElse(null);

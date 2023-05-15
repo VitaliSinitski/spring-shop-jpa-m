@@ -17,12 +17,6 @@ spring:
       date: iso
       date-time: iso
 
-#    locale-charset: UTF-8
-#    format.date: dd.MM.yyyy
-#    format.time: HH:mm:ss
-#    format.date-time: dd.MM.yyyy HH:mm:ss
-
-
   thymeleaf:
     cache: false
 
@@ -31,13 +25,13 @@ spring:
       hibernate:
         format_sql: true
 
-
     hibernate:
-      ddl-auto: validate
+#      ddl-auto: validate
+      ddl-auto: none
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-    enabled: true
+    enabled: false
 
   messages:
 #    basename: messages

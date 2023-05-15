@@ -56,18 +56,9 @@ public class ProductRestController {
     @GetMapping("/{id}")
     public ProductReadDto findByIdProduct(@PathVariable Integer id) {
         return productService.findById(id);
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    // Version 01
-//    @GetMapping(value = "/{id}/image")
-//    public byte[] findImage(@PathVariable("id") Integer id) {
-//        return productService.findImage(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//    }
 
-
-    // Version 02
     @GetMapping(value = "/{id}/image")
     public ResponseEntity<byte[]> findImage(@PathVariable("id") Integer id) {
         return productService.findImage(id)
@@ -86,20 +77,11 @@ public class ProductRestController {
     }
 
 
-
     @PutMapping("/{id}")
     public ProductReadDto update(@PathVariable("id") Integer id,
                                  @Validated @RequestBody ProductCreateDto product) {
         return productService.update(id, product);
     }
-
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable Integer id) {
-//        if (!productService.delete(id)) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
-//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

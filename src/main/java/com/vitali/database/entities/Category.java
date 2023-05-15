@@ -36,38 +36,15 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
-//    @Builder.Default
-//    @ManyToMany
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    @JoinTable(
-//            name = "producer_category",
-//            joinColumns = @JoinColumn(name = "category_id"),
-//            inverseJoinColumns = @JoinColumn(name = "producer_id"))
-//    private List<Producer> producers = new ArrayList<>();
-
-
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    //    private List<Producer> producers = new ArrayList<>();
     private Set<Producer> producers = new HashSet<>();
-
-
-    public void addProducer(Producer producer) {
-        producers.add(producer);
-        producer.getCategories().add(this);
-    }
 
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<Product> products = new HashSet<>();
-
-    public void addProduct(Product product) {
-        products.add(product);
-        product.setCategory(this);
-    }
 
     @Override
     public boolean equals(Object o) {

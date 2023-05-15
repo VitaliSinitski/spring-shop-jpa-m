@@ -7,6 +7,5 @@ import lombok.Value;
 @Builder
 public class UserFilterDto {
     String username;
-//    LocalDate birthdate;
     String email;
 }

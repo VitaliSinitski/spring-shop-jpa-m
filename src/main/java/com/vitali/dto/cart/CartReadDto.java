@@ -14,7 +14,4 @@ import java.util.List;
 public class CartReadDto {
     Integer id;
     LocalDateTime createdDate;
-//    UserReadDto user;
-//    List<OrderReadDto> orders;
-//    List<OrderItemReadDto> orderItems;
 }

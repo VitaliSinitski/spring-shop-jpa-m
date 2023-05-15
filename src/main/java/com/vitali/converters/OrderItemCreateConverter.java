@@ -16,7 +16,6 @@ public class OrderItemCreateConverter implements Converter<HttpServletRequest, O
         return OrderItemCreateDto.builder()
                 .quantity(ParameterUtil.getQuantity(request))
                 .productId(ParameterUtil.getIntegerFromRequest(PRODUCT_ID, request))
-//                .cartId(ParameterUtil.getIntegerFromRequest(CART_ID, request))
                 .build();
     }
 

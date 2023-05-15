@@ -40,27 +40,21 @@ public class Cart {
     private LocalDateTime createdDate;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-//    @OneToOne(mappedBy = "cart")
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
-
-    public void setUser(User user) {
-        this.user = user;
-        user.setCart(this);
-    }
 
     @Builder.Default
     @ToString.Exclude
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
-        this.orders.add(order);
-        order.setCart(this);
-    }
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
+
+    public void setUser(User user) {
+        this.user = user;
+        user.setCart(this);
+    }
 
     public void addCartItem(CartItem cartItem) {
         cartItems.add(cartItem);
@@ -71,26 +65,6 @@ public class Cart {
         cartItems.remove(cartItem);
         cartItem.setCart(null);
     }
-
-
-/*    @Builder.Default
-    // Eager - при удалении orderItem удаляется и cart
-    // но если Lazy - то не добавляется в корзину
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    // 03-15:18.00
-    // fetch = FetchType.EAGER - не удалялся объект orderItem из бд
-//    private List<OrderItem> orderItems = new ArrayList<>();
-    private List<CartItem> cartItems = new ArrayList<>();
-
-    public void addCartItem(CartItem cartItem) {
-        cartItems.add(cartItem);
-        cartItem.setCart(this);
-    }
-
-    public void deleteCartItem(CartItem cartItem) {
-        cartItems.remove(cartItem);
-    }*/
-
 
     @Override
     public boolean equals(Object o) {

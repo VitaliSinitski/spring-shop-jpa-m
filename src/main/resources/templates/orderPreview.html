@@ -66,6 +66,9 @@
         <label for="address" th:text="#{userInformation.address}">Address:</label>
         <input type="text" id="address" name="address" th:field="${userInformation.address}">
         <br>
+        <label for="birthDate"></label>
+        <input type="hidden" id="birthDate" name="birthDate" th:value="${userInformation.birthDate}">
+        <br>
         <input type="submit" th:value="#{order.updateUserInformation}">
     </form>
 

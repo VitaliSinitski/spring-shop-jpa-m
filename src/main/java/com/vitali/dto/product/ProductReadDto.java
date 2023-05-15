@@ -19,8 +19,6 @@ public class ProductReadDto {
     private BigDecimal price;
     private Integer quantity;
     private String image;
-//    Part image;
     private CategoryReadDto category;
     private ProducerReadDto producer;
-//    List<OrderItemReadDto> orderItems;
 }

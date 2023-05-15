@@ -22,31 +22,16 @@ public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
 
     @Override
     public Product map(ProductCreateDto fromObject, Product toObject) {
-//        return getProduct(fromObject);  // 83.00.18 97.09.00
         copy(fromObject, toObject);
         return toObject;
     }
 
     @Override
     public Product map(ProductCreateDto productCreateDto) {
-//        return getProduct(productCreateDto);
         Product product = new Product();
         copy(productCreateDto, product);
         return product;
     }
-
-//    private Product getProduct(ProductCreateDto object) {
-//        return Product.builder()
-//                .name(object.getName())
-//                .description(object.getDescription())
-//                .price(object.getPrice())
-//                .quantity(object.getQuantity())
-////                .image(Optional.ofNullable(object.getImage()).filter(MultipartFile::isEmpty).ifPresent(image -> object.getImage());)
-////                .image(IMAGE_FOLDER + object.getImage().getSubmittedFileName()) // можно добавить уникальный префикс (!дублирование имен)
-//                .category(getCategory(object.getCategoryId()))
-//                .producer(getProducer(object.getProducerId()))
-//                .build();
-//    }
 
     private void copy(ProductCreateDto object, Product product) {
         product.setName(object.getName());

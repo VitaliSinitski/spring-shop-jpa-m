@@ -50,22 +50,17 @@ public class OrderController {
     private final OrderService orderService;
     private final UserInformationService userInformationService;
 
-
     @PostMapping("/order")
     public String makeOrder(HttpSession session,
                             @RequestParam String inform,
                             @ModelAttribute("userCart") Cart userCart,
                             @ModelAttribute("userId") Integer userId,
                             @ModelAttribute("cartId") Integer cartId) {
-        // get the user's cart
-//        Cart cart = (Cart) session.getAttribute("userCart");
         List<CartItem> cartItems = userCart.getCartItems();
 
-        // check if there are enough items in stock
         for (CartItem item : cartItems) {
             Product product = item.getProduct();
             if (item.getProduct().getQuantity() < item.getQuantity()) {
-//                throw new OutOfStockException("There is not enough stock for " + item.getProduct().getName());
                 throw new NotEnoughStockException("There is not enough stock for " + product.getName()
                                                   + "! Current stock quantity: " + product.getQuantity()
                                                   + ", customer ordered: " + item.getQuantity() + ".");
@@ -74,15 +69,10 @@ public class OrderController {
                 throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
             }
         }
-
-        // create the order
-
         OrderReadDto order = orderService.createOrder(userId, cartId, inform);
-
         Integer orderId = order.getId();
         session.setAttribute("orderId", orderId);
         session.setAttribute("cart", userCart);
-
         return "redirect:/orderPreview/" + orderId;
     }
 
@@ -92,20 +82,12 @@ public class OrderController {
                                @ModelAttribute("cartId") Integer cartId,
                                Model model) {
         log.info("OrderController - Get orderPreview - orderId: {}", orderId);
-        // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
-
-        // get the order items
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
-
-        // get the user information
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        // display the order items and the user information form
         model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
@@ -139,22 +121,15 @@ public class OrderController {
                               @ModelAttribute("cartId") Integer cartId,
                               Model model) {
         log.info("OrderController - @Post orderFinish - orderId: {}", orderId);
-        // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
-
-        // clear the cart
         boolean confirmation = cartItemService.deleteAllByCartId(cartId);
-
-        // display orderItems and the updated userInformation form
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
 
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("userInformation", userInformation);
-//        model.addAttribute("userInformation", updatedUserInformation);
-
         return "redirect:/orderFinish/" + orderId;
     }
 
@@ -168,15 +143,12 @@ public class OrderController {
         if (orderId == null) {
             return "redirect:/";
         }
-
-        // get the order
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
-
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("orderItems", orderItems);
         model.addAttribute("orderId", orderId);
