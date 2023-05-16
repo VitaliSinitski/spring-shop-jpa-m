@@ -16,7 +16,6 @@ spring:
     format:
       date: iso
       date-time: iso
-
   thymeleaf:
     cache: false
 
@@ -24,10 +23,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
     hibernate:
 #      ddl-auto: validate
       ddl-auto: none
+    open-in-view: false
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml

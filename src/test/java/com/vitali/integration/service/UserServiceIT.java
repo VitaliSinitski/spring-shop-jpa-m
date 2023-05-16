@@ -6,6 +6,7 @@ import com.vitali.dto.user.UserReadDto;
 import com.vitali.integration.annotation.IT;
 import com.vitali.services.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,15 +27,13 @@ import static com.vitali.util.TestConstants.USER_PASSWORD_NEW;
 import static com.vitali.util.TestConstants.ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 @IT
 @RequiredArgsConstructor
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserServiceIT {
     private final UserService userService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
 
     @Test
     public void findAll() {

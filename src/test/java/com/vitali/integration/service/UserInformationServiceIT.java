@@ -21,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @IT
 @RequiredArgsConstructor
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserInformationServiceIT {
     private final UserInformationService userInformationService;
     private final UserInformationRepository userInformationRepository;

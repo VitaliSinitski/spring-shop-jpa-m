@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 @Builder
 @Value
-//@ProductInfo
 public class ProductCreateDto {
     @NotNull
     @Size(min = 2, max = 64)
