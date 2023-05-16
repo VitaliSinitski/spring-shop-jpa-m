@@ -81,17 +81,16 @@ public class OrderController {
                                @ModelAttribute("userId") Integer userId,
                                @ModelAttribute("cartId") Integer cartId,
                                Model model) {
-        log.info("OrderController - Get orderPreview - orderId: {}", orderId);
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
-        UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(userId);
+        UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(userId);
         model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
         model.addAttribute("order", order);
         model.addAttribute("orderItems", orderItems);
-        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("userInformation", userInformationReadDto);
         model.addAttribute("updateUserInformationUrl", "/order/updateUserInformation/" + userId);
         model.addAttribute("finishOrderUrl", "/orderPreview/" + orderId);
         return "orderPreview";
@@ -100,16 +99,17 @@ public class OrderController {
     @PostMapping("/order/updateUserInformation/{id}")
     public String saveUserInformation(@PathVariable("id") Integer userInformationId,
                                       @ModelAttribute("userInformation")
-                                      @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformationCreateDto,
+                                      @Validated({Default.class, UpdateValidationGroup.class}) UserInformationCreateDto userInformation,
                                       BindingResult bindingResult,
                                       @ModelAttribute("orderId") Integer orderId,
                                       RedirectAttributes redirectAttributes,
                                       @ModelAttribute("userId") Integer userId) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("userInformation", userInformation);
             return "redirect:/orderPreview/" + orderId;
         }
-        userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
+        userInformationService.updateUserInformation(userInformationId, userInformation);
         return "redirect:/orderPreview/" + orderId;
     }
 
