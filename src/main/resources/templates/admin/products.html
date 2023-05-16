@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-<!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
 </head>
 <body>
 <div th:include="admin/header.html"></div>
 
-<!-- Include filter -->
 <div th:include="admin/filter.html"></div>
 <div></div>
 <table class="products-table-admin">
@@ -27,13 +25,9 @@
     </tr>
     </thead>
     <tbody>
-<!--    <tr th:each="product : ${products}">-->
     <tr th:each="product : ${page.content}">
         <td th:text="${product.id}"></td>
         <td>
-<!--            <div class="product-image">-->
-<!--                <img th:src="${product.image}" height="50">-->
-<!--            </div>-->
             <div th:if="${product.image}" class="product-image">
                 <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="image" height="50">
             </div>
@@ -45,8 +39,6 @@
         <td th:text="${product.category.name}"></td>
         <td th:text="${product.producer.name}"></td>
         <td>
-<!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
-<!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
             <a th:href="@{/admin/products/{id}(id=${product.id})}" th:text="#{product.edit}">Edit</a>
 
         </td>

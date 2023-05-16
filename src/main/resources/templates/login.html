@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <link th:href="@{/css/login.css}" rel="stylesheet"/>
-    <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
 </head>
 <body>
 <div th:include="header.html"></div>
@@ -22,15 +21,7 @@
     </form>
 </div>
 
-<!--<div class="login-container">-->
-<!--    <form action="users/registration" class="login-form">-->
-<!--        <button class="login-submit" type="submit">Registration</button>-->
-<!--    </form>-->
-<!--</div>-->
-
 <div class="login-container">
-<!--    <a th:href="@{/users/registration}">More info</a>-->
-<!--    <a th:href="@{/registration}" class="register-link">Register</a>-->
     <form th:action="@{/registration}" class="login-form">
         <button class="login-submit" type="submit" th:text="#{login.registration}">Registration</button>
     </form>

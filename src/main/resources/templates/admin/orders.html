@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Orders</title>
-<!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
 </head>
 <body>
@@ -30,8 +29,6 @@
         <td th:text="${order.createdDate}"></td>
         <td th:text="${order.updatedDate}"></td>
         <td>
-<!--            <a th:href="@{product/{id}(id=${product.id})}">Edit</a>-->
-<!--            <a th:href="@{products/{id}(id=${product.id})}">Edit</a>-->
             <a th:href="@{/admin/orders/{id}(id=${order.id})}" th:text="#{order.view}">View</a>
 
         </td>

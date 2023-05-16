@@ -9,26 +9,9 @@
 <!-- Include header -->
 <div th:include="header.html"></div>
 
-
-<!--<div th:if="${param.message}" class="alert alert-danger" role="alert">-->
-<!--    <span th:text="${param.message}"></span>-->
-<!--</div>-->
-
-<!--<div th:if="${param.error}" class="alert alert-danger" role="alert">-->
-<!--    <span th:text="${param.error}"></span>-->
-<!--</div>-->
-
-<!--<div th:if="${not #strings.isEmpty(error)}" class="alert alert-danger">-->
 <div th:if="${message}" class="alert alert-danger">
-    <!--    [[${error}]]-->
-    <!--        <span th:text="${param.error}"></span>-->
     <span th:text="${message}"></span>
 </div>
-
-<!--<div th:if="${message}" class="alert alert-warning">-->
-<!--    <p th:text="${message}"></p>-->
-<!--</div>-->
-
 
 <div class="cart-container">
     <h1 class="cart-header" th:text="#{cart.header}">Shopping Cart</h1>
@@ -36,7 +19,6 @@
     <table class="cart-table">
         <thead>
         <tr>
-            <!--            <th class="product-name">id</th>-->
             <th class="product-name"></th>
             <th class="product-name" th:text="#{cart.productName}">Product</th>
             <th class="product-description" th:text="#{cart.productDescription}">Product description</th>
@@ -48,7 +30,6 @@
         </thead>
         <tbody>
         <tr th:each="cartItem : ${cartItems}" class="cart-item">
-            <!--            <td class="product-name" th:text="${cartItem.id}"></td>-->
             <td>
                 <div th:if="${cartItem.product.image}" class="product-image">
                     <img th:src="@{/api/v1/products/{id}/image(id=${cartItem.product.id})}" alt="image" height="50">
@@ -75,7 +56,6 @@
         </tbody>
     </table>
 
-    <!--    <div class="cart-total">-->
     <div th:if="${!cartItems.empty}" class="cart-make-order">
         <h3 th:text="#{cart.total}">Total:</h3>
         <span class="cart-total-price" th:text="${totalPrice}"></span>

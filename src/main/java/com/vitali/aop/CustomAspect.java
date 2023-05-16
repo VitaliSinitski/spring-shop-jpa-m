@@ -83,7 +83,6 @@ public class CustomAspect {
         if (product == null) {
             return;
         }
-//        log.info("Adding {} units of product {} to cart", quantity, product.getName());
 
         if (productQuantity < quantity) {
             throw new NotEnoughProductException("There is not enough stock for this product! Current stock quantity: "

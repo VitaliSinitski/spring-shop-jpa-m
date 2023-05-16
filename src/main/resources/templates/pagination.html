@@ -12,7 +12,6 @@
         <div th:if="${page.number > 0}" class="page">
             <button type="submit" name="page" th:value="${page.number - 1}" aria-label="Previous">
                 <span aria-hidden="true">Prev</span>
-<!--                <span aria-hidden="true">&laquo; Prev</span>-->
             </button>
         </div>
 
@@ -22,14 +21,6 @@
             <span>&hellip;</span>
         </div>
 
-<!--        &lt;!&ndash; Middle page buttons &ndash;&gt;-->
-<!--        <div th:with="start=${page.number - 2 < 0 ? 0 : page.number - 2},-->
-<!--              end=${page.number + 2 > page.totalPages - 1 ? page.totalPages - 1 : page.number + 2}" class="page">-->
-<!--            <div th:each="i : ${#numbers.sequence(start, end)}" class="page">-->
-<!--                <button type="submit" name="page" th:value="${i}" th:text="${i}" th:class="${i == page.number ? 'active' : ''}"></button>-->
-<!--            </div>-->
-<!--        </div>-->
-
         <!-- Middle page buttons -->
         <div th:with="start=${page.number - 2 < 0 ? 0 : page.number - 2},
           end=${page.number + 2 > (page.totalPages - 1 < 0 ? 0 : page.totalPages - 1) ? (page.totalPages - 1 < 0 ? 0 : page.totalPages - 1) : page.number + 2}" class="page">
@@ -37,8 +28,6 @@
                 <button type="submit" name="page" th:value="${i}" th:text="${i}" th:class="${i == page.number ? 'active' : ''}"></button>
             </div>
         </div>
-
-
 
         <!-- Last page button -->
         <div th:if="${page.number <= page.totalPages - 6}" class="page">
@@ -51,7 +40,6 @@
         <div th:if="${page.number < page.totalPages - 1}" class="page">
             <button type="submit" name="page" th:value="${page.number + 1}" aria-label="Next">
                 <span aria-hidden="true">Next</span>
-<!--                <span aria-hidden="true">Next &raquo;</span>-->
             </button>
         </div>
     </form>

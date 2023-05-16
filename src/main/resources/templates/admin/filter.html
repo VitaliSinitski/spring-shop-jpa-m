@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Filter Results</title>
-    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/filter.css}"/>
 </head>
 <body>
@@ -14,9 +13,6 @@
         <label for="name" th:text="#{filter.name}">Name:</label>
             <input id="name" type="text" name="name" th:value="${filter.name}" th:placeholder="#{filter.name}">
         <br>
-        <!--        <label for="price">Price:-->
-        <!--            <input id="price" type="number" name="price" th:value="${filter.price}" placeholder="Price">-->
-        <!--        </label>-->
         <label for="minPrice" th:text="#{filter.minPrice}">Min price: </label>
         <input type="number" id="minPrice" th:name="${'minPrice'}" th:placeholder="#{filter.minPrice}"
                th:value="${filter.minPrice}">
@@ -58,8 +54,6 @@
             </select>
         </div>
         <br>
-        <!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
-        <!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
         <label for="pageSize" th:text="#{filter.pageSize}">Items per page:</label>
 <!--            <br>-->
             <select id="pageSize" name="size" onchange="this.form.submit()">

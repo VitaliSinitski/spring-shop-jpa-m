@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
 </head>
 <body>
-<!-- Include header -->
 <div th:include="header.html"></div>
 <div class="container">
     <h1 th:text="#{order.preview}">Order Preview</h1>
@@ -52,7 +51,6 @@
                 </li>
             </ul>
         </div>
-        <!--        <input type="hidden" th:field="${order.id}">-->
         <input type="hidden" th:field="${userInformation.id}">
         <label for="firstName" th:text="#{userInformation.firstName}">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:field="${userInformation.firstName}">
@@ -72,13 +70,8 @@
         <input type="submit" th:value="#{order.updateUserInformation}">
     </form>
 
-<!--    <h2>Additional Information</h2>-->
     <form method="post" th:action="${finishOrderUrl}">
         <input type="hidden" th:field="${order.id}">
-<!--        <label for="additionalInfo">Additional Information:</label>-->
-<!--        <br>-->
-<!--        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"></textarea>-->
-<!--        <br>-->
         <input type="submit"  th:value="#{order.finishOrder}">
     </form>
 </div>

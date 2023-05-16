@@ -6,13 +6,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
 </head>
 <body>
-<!-- Include header -->
 <div th:include="header.html"></div>
 <div class="container">
     <h1 th:text="#{orderFinish.h1}">Thank you for your order!</h1>
     <p th:text="#{orderFinish.details}">Our manager will call you soon to confirm the details.</p>
     <p th:text="#{orderFinish.orderNumber}">Your order number is: </p>
-<!--    <div><strong th:text="${orderId}"></strong></div>-->
     <h3 th:text="${orderId}"></h3>
     <br>
     <h2 th:text="#{orderFinish.h2orderDetails}">Order Details</h2>

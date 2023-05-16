@@ -7,7 +7,6 @@
 </head>
 <body>
 <div th:include="admin/header.html"></div>
-<!--    <form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">-->
 <form th:action="@{/admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
 
     <table>
@@ -17,19 +16,6 @@
         </tr>
         </thead>
         <tbody>
-<!--        <tr>-->
-<!--            <td>Product image:</td>-->
-<!--            <td>-->
-<!--                <div th:if="${product.image}" class="product-details-image">-->
-<!--                    <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="200">-->
-<!--                </div>-->
-<!--            </td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td>Change image:</td>-->
-<!--            <td><input id="image" type="file" name="image" th:value="*{image}"></td>-->
-<!--        </tr>-->
         <tr>
             <td th:text="#{id}">Product id:</td>
             <td>

@@ -9,7 +9,6 @@
 </head>
 <body>
 <h1>Filter Results</h1>
-<!-- filter.html -->
 <div class="filter-container">
     <form id="filter-form" action="/products" method="get" style="display: flex; flex-direction: column;">
         <label for="name">
@@ -19,21 +18,11 @@
         <label for="minPrice" th:text="#{filter.minPrice}">Min price:</label>
         <input type="number" id="minPrice" name="minPrice" th:placeholder="#{filter.minPrice}"
                th:value="${filter.minPrice}">
-        <!--        <br>-->
-        <!--        <label for="minPrice" th:text="#{filter.minPrice}">Min price:-->
-        <!--            <input type="number" id="minPrice" name="minPrice" th:placeholder="#{filter.minPrice}" th:value="${filter.minPrice}">-->
-        <!--        </label>-->
         <label for="maxPrice" th:text="#{filter.maxPrice}">Max price:</label>
         <input type="number" id="maxPrice" name="maxPrice" th:placeholder="#{filter.maxPrice}"
                th:value="${filter.maxPrice}">
-        <!--        <br>-->
-        <!--        <label for="maxPrice" th:text="#{filter.maxPrice}">Max price:-->
-        <!--            <input type="number" id="maxPrice" name="maxPrice" th:placeholder="#{filter.maxPrice}" th:value="${filter.maxPrice}">-->
-        <!--        </label>-->
-
 
         <label for="category" th:text="#{filter.category}">Category:</label>
-        <!--            <br>-->
         <select id="category" name="categoryId" onchange="this.form.submit()">
             <option value="" th:text="#{filter.categoriesAll}">All categories</option>
             <option th:each="category : ${categories}" th:value="${category.id}"
@@ -41,7 +30,6 @@
         </select>
 
         <label for="producer" th:text="#{filter.producer}">Producer:</label>
-        <!--            <br>-->
         <select id="producer" name="producerId" onchange="this.form.submit()">
             <option value="" th:text="#{filter.producersAll}">All producers</option>
             <option th:each="producer : ${producers}" th:value="${producer.id}"
@@ -70,8 +58,6 @@
             </select>
         </div>
 
-        <!--        <input type="hidden" name="sortField" th:value="${sortField}">-->
-        <!--        <input type="hidden" name="sortDirection" th:value="${sortDirection}">-->
         <label for="pageSize" th:text="#{filter.pageSize}">Items per page:</label>
 <!--        <br>-->
         <select id="pageSize" name="size" onchange="this.form.submit()">
@@ -85,13 +71,9 @@
     </form>
 </div>
 
-
 <script>
     function resetFilter() {
         document.getElementById("name").value = "";
-        // document.getElementById("price").value = "";
-        // document.getElementsByName("minPrice")[0].value = "";
-        // document.getElementsByName("maxPrice")[0].value = "";
         document.getElementById("minPrice").value = "";
         document.getElementById("maxPrice").value = "";
         document.getElementById("category").value = "";
@@ -102,7 +84,6 @@
         document.getElementById("filter-form").submit();
     }
 </script>
-
 
 </body>
 </html>

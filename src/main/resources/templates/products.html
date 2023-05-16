@@ -10,23 +10,13 @@
 </head>
 <body>
 
-<!-- Include header -->
 <div th:include="products/header.html"></div>
-
-<!-- Include menu -->
-<!--<div class="menu">-->
-<!--    <div th:include="menu.html"></div>-->
-<!--</div>-->
-
-
-<!-- Include filter -->
 <div th:include="filter.html"></div>
 
 <div th:if="${message}" class="alert alert-danger" style="color: red">
     <span th:text="${message}"></span>
 </div>
 
-<!-- Display all products -->
 <br>
 <div class="product-grid">
     <div class="product-items" th:each="product : ${page.content}">
@@ -39,7 +29,6 @@
                 <div class="product-description" th:text="${product.description}"></div>
                 <div class="product-price" th:text="${product.price}"></div>
 
-                <!-- Link to product details page -->
                 <div class="product-action">
                     <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-primary" role="button" th:text="#{products.show}">Show</a>
                 </div>

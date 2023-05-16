@@ -96,7 +96,6 @@
         </tbody>
     </table>
 </div>
-<!--    <form th:action="@{admin/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">-->
 <form th:action="@{/admin/orders/{orderId}/update(orderId=${order.id})}" method="post" th:object="${order}">
     <table>
         <thead>
@@ -105,19 +104,6 @@
         </tr>
         </thead>
         <tbody>
-        <!--        <tr>-->
-        <!--            <td>Product image:</td>-->
-        <!--            <td>-->
-        <!--                <div th:if="${product.image}" class="product-details-image">-->
-        <!--                    <img th:src="@{/api/v1/products/{id}/image(id=${product.id})}" alt="Image" height="200">-->
-        <!--                </div>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-
-        <!--        <tr>-->
-        <!--            <td>Change image:</td>-->
-        <!--            <td><input id="image" type="file" name="image" th:value="*{image}"></td>-->
-        <!--        </tr>-->
         <tr>
             <td th:text="#{id}">Order id:</td>
             <td>
@@ -142,24 +128,9 @@
                 <span th:text="*{inform}"/>
             </td>
         </tr>
-<!--        <tr>-->
-<!--            <td>Ordered products:</td>-->
-<!--            <td>-->
-<!--                <span th:text="*{orderItems}"/>-->
-<!--            </td>-->
-<!--        </tr>-->
         <tr>
             <td th:text="#{order.status}">Order status:</td>
             <td>
-                <!--                <label for="orderStatus">-->
-                <!--                    <select name="orderStatus" id="orderStatus">-->
-                <!--&lt;!&ndash;                        <option th:each="status : ${orderStatuses}" th:text="${status.name()}" th:value="${status}">Status&ndash;&gt;-->
-                <!--                        <option th:each="orderStatus : ${orderStatuses}" -->
-                <!--                                th:text="${orderStatus.name()}" -->
-                <!--                                th:value="${orderStatus}">Status-->
-                <!--                        </option>-->
-                <!--                    </select>-->
-                <!--                </label>-->
                 <label for="orderStatus">
                     <select name="orderStatus" id="orderStatus">
                         <option th:each="orderStatus : ${orderStatuses}"
@@ -178,9 +149,6 @@
     <button type="submit" class="submit" th:text="#{order.update}">Update</button>
 </form>
 <br>
-<!--<form th:action="@{/admin/products/{productId}/delete(productId=${product.id})}" method="post">-->
-<!--    <button type="submit" class="submit">Delete</button>-->
-<!--</form>-->
 
 </body>
 </html>

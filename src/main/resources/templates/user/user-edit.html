@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <title>Config</title>
     <link th:href="@{/css/login.css}" rel="stylesheet"/>
-    <!--    <link th:href="@{/css/user.css}" rel="stylesheet"/>-->
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="login-container">
     <form th:action="@{/user/edit}" method="post" class="login-form">
-<!--        <div style="color: red" th:if="${param.error}">-->
-<!--            Bad credentials-->
-<!--        </div>-->
         <div th:if="${error}">
             <ul>
                 <li th:text="${error}" style="color: red"></li>

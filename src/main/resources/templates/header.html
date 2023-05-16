@@ -12,9 +12,7 @@
             }
             window.location.href = url + '?lang=' + lang;
         }
-
     </script>
-
 </head>
 <body>
 <header>
@@ -59,15 +57,6 @@
                 <a href="?lang=en">EN</a><br>
                 <a href="?lang=ru">RU</a>
             </li>
-            <!--            <li>-->
-            <!--                <label>-->
-            <!--                    <select onchange="changeLanguage(this.value)">-->
-            <!--                        <option value="en" selected>EN</option>-->
-            <!--                        <option value="ru">RU</option>-->
-            <!--                    </select>-->
-            <!--                </label>-->
-            <!--            </li>-->
-
 
             <li>
                 <label>
@@ -90,39 +79,10 @@
                 }
             </script>
 
-
             <li class="dropdown">
             </li>
         </ul>
-        <!--        <label>-->
-        <!--            <select onchange="location = this.value;">-->
-        <!--                <option th:selected="${#locale.language == 'en'}" th:value="'/?lang=en'">English</option>-->
-        <!--                <option th:selected="${#locale.language == 'ru'}" th:value="'/?lang=ru'">Русский</option>-->
-        <!--            </select>-->
-        <!--        </label>-->
-        <!--        <div class="language-switcher">-->
-        <!--            <form th:action="@{/change-language}" method="post">-->
-        <!--                <label>-->
-        <!--                    <select name="lang">-->
-        <!--                        <option value="en" th:selected="${#locale.language == 'en'}">English</option>-->
-        <!--                        <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>-->
-        <!--                    </select>-->
-        <!--                </label>-->
-        <!--                &lt;!&ndash;                <button type="submit">OK</button>&ndash;&gt;-->
-        <!--            </form>-->
-        <!--        </div>-->
-        <!--        <div class="language-switcher">-->
-        <!--            <form th:action="@{/language}" method="post">-->
-        <!--                <select name="language" onchange="this.form.submit()">-->
-        <!--                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>-->
-        <!--                    <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>-->
-        <!--                </select>-->
-        <!--            </form>-->
-        <!--        </div>-->
-        <!--        <ul class="language-list">-->
-        <!--            <li><a href="?lang=en">English</a></li>-->
-        <!--            <li><a href="?lang=ru">Русский</a></li>-->
-        <!--        </ul>-->
+
     </nav>
 </header>
 </body>
