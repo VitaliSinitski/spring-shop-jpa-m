@@ -1,15 +1,16 @@
 package com.vitali.services;
 
-import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.Product;
-import com.vitali.database.entities.QProduct;
+import com.vitali.database.entities.*;
 import com.vitali.database.querydsl.QPredicates;
+import com.vitali.database.repositories.CategoryRepository;
+import com.vitali.database.repositories.ProducerRepository;
 import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
+import com.vitali.mappers.category.CategoryReadMapper;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProducerRepository producerRepository;
     private final ProductCreateMapper productCreateMapper;
     private final ProductReadMapper productReadMapper;
     private final ImageService imageService;
 
-    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) { // 05.01.02.15
+    public Page<ProductReadDto> findAll(ProductFilter filter, Pageable pageable) {
         QProduct product = QProduct.product;
         var predicate = QPredicates.builder()
                 .add(filter.getName(), product.name::containsIgnoreCase)
@@ -64,28 +67,60 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
 
+//    @Transactional
+//    public ProductReadDto create(ProductCreateDto productCreateDto) {
+//        return Optional.of(productCreateDto)
+//                .map(dto -> {
+//                    uploadImage(dto.getImage());
+//                    return productCreateMapper.map(dto);    // 97.09:50
+//                })
+//                .map(productRepository::save)
+//                .map(productReadMapper::map)
+//                .orElseThrow();
+//    }
+
     @Transactional
     public ProductReadDto create(ProductCreateDto productCreateDto) {
-        return Optional.of(productCreateDto)
+        Category category = categoryRepository.findById(productCreateDto.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+        Producer producer = producerRepository.findById(productCreateDto.getProducerId())
+                .orElseThrow(() -> new EntityNotFoundException("Producer not found"));
+        Product product = Optional.of(productCreateDto)
                 .map(dto -> {
                     uploadImage(dto.getImage());
-                    return productCreateMapper.map(dto);    // 97.09:50
-                })
-                .map(productRepository::save)
-                .map(productReadMapper::map)
-                .orElseThrow();
+                    return productCreateMapper.map(dto);
+                }).orElseThrow();
+        product.setCategory(category);
+        product.setProducer(producer);
+        Product savedProduct = productRepository.save(product);
+        return productReadMapper.map(savedProduct);
     }
+
+//    @Transactional
+//    public ProductReadDto update(Integer id, ProductCreateDto productCreateDto) {
+//        return productRepository.findById(id)
+//                .map(product -> {
+////                    uploadImage(productCreateDto.getImage());
+//                    return productCreateMapper.map(productCreateDto, product);
+//                })
+//                .map(productRepository::saveAndFlush)
+//                .map(productReadMapper::map)
+//                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
+//    }
 
     @Transactional
     public ProductReadDto update(Integer id, ProductCreateDto productCreateDto) {
-        return productRepository.findById(id)
-                .map(product -> {
-//                    uploadImage(productCreateDto.getImage());
-                    return productCreateMapper.map(productCreateDto, product);
-                })
-                .map(productRepository::saveAndFlush)
-                .map(productReadMapper::map)
+        Category category = categoryRepository.findById(productCreateDto.getCategoryId())
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+        Producer producer = producerRepository.findById(productCreateDto.getProducerId())
+                .orElseThrow(() -> new EntityNotFoundException("Producer not found"));
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
+        Product mappedProduct = productCreateMapper.map(productCreateDto, product);
+        mappedProduct.setCategory(category);
+        mappedProduct.setProducer(producer);
+        Product savedProduct = productRepository.saveAndFlush(mappedProduct);
+        return productReadMapper.map(savedProduct);
     }
 
     @Transactional
@@ -100,8 +135,8 @@ public class ProductService {
         int restStock = product.getQuantity() - cartItem.getQuantity();
         if (restStock < 0) {
             throw new NotEnoughStockException("There is not enough stock for " + cartItem.getProduct().getName()
-                                          + ". Current stock quantity: " + product.getQuantity()
-                                          + ", you ordered: " + cartItem.getQuantity() + ".");
+                                              + ". Current stock quantity: " + product.getQuantity()
+                                              + ", you ordered: " + cartItem.getQuantity() + ".");
         }
 
 

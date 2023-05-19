@@ -36,6 +36,6 @@ This is my own project.
 
 
 <hr>
-* The database tables are created using Liquibase. 
-* For testing, I'm using an H2 database.
+The database tables are created using Liquibase. 
+For testing, I'm using an H2 database.
 <br>
