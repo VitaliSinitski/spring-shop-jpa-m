@@ -1,5 +1,7 @@
 package com.vitali.controllers;
 
+import com.vitali.dto.category.CategoryReadDto;
+import com.vitali.dto.producer.ProducerReadDto;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
@@ -31,6 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -57,11 +60,12 @@ public class AdminProductsController {
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortField));
         Page<ProductReadDto> productPage = productService.findAll(filter, pageable);
-
+        List<CategoryReadDto> category = categoryService.findAll();
+        List<ProducerReadDto> producer = producerService.findAll();
         model.addAttribute("page", productPage);
-        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("categories", category);
         model.addAttribute("filter", filter);
-        model.addAttribute("producers", producerService.findAll());
+        model.addAttribute("producers", producer);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
 
@@ -71,18 +75,22 @@ public class AdminProductsController {
     @GetMapping("/{id}")
     public String findByIdProduct(@PathVariable("id") Integer id, Model model) {
         ProductReadDto product = productService.findById(id);
+        List<CategoryReadDto> category = categoryService.findAll();
+        List<ProducerReadDto> producer = producerService.findAll();
         model.addAttribute("product", product);
-        model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("producers", producerService.findAll());
+        model.addAttribute("categories", category);
+        model.addAttribute("producers", producer);
         return "admin/product";
     }
 
     @GetMapping("/new") // registration
     public String newProduct(Model model,
                              @ModelAttribute("product") ProductCreateDto product) {
+        List<CategoryReadDto> category = categoryService.findAll();
+        List<ProducerReadDto> producer = producerService.findAll();
         model.addAttribute("product", product);
-        model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("producers", producerService.findAll());
+        model.addAttribute("categories", category);
+        model.addAttribute("producers", producer);
         return "admin/newProduct";
     }
 
@@ -99,9 +107,12 @@ public class AdminProductsController {
             return "redirect:/admin/products/new";
         } else {
 
-            model.addAttribute("products", productService.findAll());
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("producers", producerService.findAll());
+            List<ProductReadDto> productReadDtoList = productService.findAll();
+            List<CategoryReadDto> category = categoryService.findAll();
+            List<ProducerReadDto> producer = producerService.findAll();
+            model.addAttribute("products", productReadDtoList);
+            model.addAttribute("categories", category);
+            model.addAttribute("producers", producer);
             productService.create(product);
             return "redirect:/admin/products";
         }
@@ -111,7 +122,8 @@ public class AdminProductsController {
     public String updateProduct(@PathVariable("id") Integer id,
                                 @ModelAttribute @Validated ProductCreateDto product) {
         productService.update(id, product);
-        return "redirect:/admin/products/{id}";
+//        return "redirect:/admin/products/{id}";
+        return "redirect:/admin/products";
     }
 
 

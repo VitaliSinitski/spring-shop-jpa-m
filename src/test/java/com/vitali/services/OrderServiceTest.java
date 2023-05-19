@@ -68,11 +68,11 @@ public class OrderServiceTest {
         when(orderReadMapper.map(ORDER_ONE)).thenReturn(ORDER_READ_DTO_ONE);
 
         // when
-        Optional<OrderReadDto> result = orderService.findById(ORDER_ID_ONE);
+        OrderReadDto result = orderService.findById(ORDER_ID_ONE);
 
         // then
-        assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(ORDER_READ_DTO_ONE);
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(ORDER_READ_DTO_ONE);
     }
 
     @Test

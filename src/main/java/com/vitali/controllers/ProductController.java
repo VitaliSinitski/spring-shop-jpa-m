@@ -1,13 +1,13 @@
 package com.vitali.controllers;
 
+import com.vitali.dto.category.CategoryReadDto;
+import com.vitali.dto.producer.ProducerReadDto;
 import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
-import com.vitali.exception.OutOfStockException;
 import com.vitali.services.CategoryService;
 import com.vitali.services.ProducerService;
 import com.vitali.services.ProductService;
-import com.vitali.util.ParameterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,11 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,11 +48,12 @@ public class ProductController {
 
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortField));
         Page<ProductReadDto> productPage = productService.findAll(filter, pageable);
-
+        List<CategoryReadDto> category = categoryService.findAll();
+        List<ProducerReadDto> producer = producerService.findAll();
         model.addAttribute("page", productPage);
-        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("categories", category);
         model.addAttribute("filter", filter);
-        model.addAttribute("producers", producerService.findAll());
+        model.addAttribute("producers", producer);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDirection", sortDirection);
         return "products";
@@ -62,15 +63,16 @@ public class ProductController {
     public String findByIdProduct(@PathVariable Integer id,
                                   Model model,
                                   HttpSession session) {
-        session.setAttribute("productId", id);
         ProductReadDto product = productService.findById(id);
+        session.setAttribute("productId", id);
         model.addAttribute("product", product);
         return "product";
     }
 
     @PostMapping
     public String create(@ModelAttribute @Validated ProductCreateDto product) {
-        return "redirect:/products/" + productService.create(product).getId();
+        Integer productId = productService.create(product).getId();
+        return "redirect:/products/" + productId;
     }
 
     @PostMapping("/{id}/update")

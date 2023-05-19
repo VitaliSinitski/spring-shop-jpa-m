@@ -32,8 +32,9 @@ public class UserController {
 
     @GetMapping("/users")
     public String findAll(Model model) {
+        UserReadDto user = userService.getCurrentUserByUsernameFromSecurityContext();
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("currentUser", userService.getCurrentUserByUsernameFromSecurityContext());
+        model.addAttribute("currentUser", user);
         return "users";
     }
 
@@ -82,7 +83,6 @@ public class UserController {
         UserReadDto user = userService.findById(id);
         UserInformationReadDto userInformation = userInformationService.findUserInformationByUserId(user.getId());
         session.setAttribute("userId", id);
-        log.info("UserController - findById - userId: {}", id);
         model.addAttribute("user", user);
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("roles", Role.values());
@@ -103,12 +103,10 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
             return "redirect:/users/{id}";
         }
-        UserReadDto user = userService.findById(userId);
-        UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
-        Integer userInformationId = userInformationReadDto.getId();
+        Integer userInformationId = userInformationService.findUserInformationByUserId(userId).getId();
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
-        return "redirect:/users/{id}";
+        return "redirect:/users";
     }
 
     @PostMapping("/users/{id}/delete")
@@ -143,10 +141,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("userInformationErrors", userInformationBindingResult.getAllErrors());
             return "redirect:/user/edit";
         }
-
-        UserReadDto user = userService.findById(userId);
-        UserInformationReadDto userInformationReadDto = userInformationService.findUserInformationByUserId(user.getId());
-        Integer userInformationId = userInformationReadDto.getId();
+        Integer userInformationId = userInformationService.findUserInformationByUserId(userId).getId();
         userService.update(userId, userCreateDto);
         userInformationService.updateUserInformation(userInformationId, userInformationCreateDto);
         return "redirect:/products";

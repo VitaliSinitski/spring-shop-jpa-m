@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
@@ -29,8 +30,9 @@ public class CartController {
     public String showCart(@PathVariable Integer id,
                            Model model) {
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(id);
+        BigDecimal totalPrice = cartItemService.getTotalPrice(id);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("totalPrice", cartItemService.getTotalPrice(id));
+        model.addAttribute("totalPrice", totalPrice);
         return "cart";
     }
 
@@ -45,7 +47,6 @@ public class CartController {
         }
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
         for (CartItemReadDto cartItem : cartItems) {
             if (cartItem.getProduct().getId().equals(productId)) {
@@ -71,9 +72,9 @@ public class CartController {
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
         cartItemService.updateCartItemQuantity(cartId, cartItemId, quantity);
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
-
+        BigDecimal totalPrice = cartItemService.getTotalPrice(cartId);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("totalPrice", cartItemService.getTotalPrice(cartId));
+        model.addAttribute("totalPrice", totalPrice);
         return "redirect:/cart/" + cartId;
     }
 
@@ -83,13 +84,13 @@ public class CartController {
                                  Model model) {
         Object cartIdObject = session.getAttribute("cartId");
         Integer cartId = ParameterUtil.getIntegerFromObject(cartIdObject);
-
         if (!cartItemService.delete(cartId, cartItemId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         List<CartItemReadDto> cartItems = cartItemService.findAllByCartId(cartId);
+        BigDecimal totalPrice = cartItemService.getTotalPrice(cartId);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("totalPrice", cartItemService.getTotalPrice(cartId));
+        model.addAttribute("totalPrice", totalPrice);
         return "redirect:/cart/" + cartId;
     }
 }

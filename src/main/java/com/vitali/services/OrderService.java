@@ -42,9 +42,10 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<OrderReadDto> findById(Integer id) {
+    public OrderReadDto findById(Integer id) {
         return orderRepository.findById(id)
-                .map(orderReadMapper::map);
+                .map(orderReadMapper::map)
+                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + id + " not found"));
     }
 
     @Transactional

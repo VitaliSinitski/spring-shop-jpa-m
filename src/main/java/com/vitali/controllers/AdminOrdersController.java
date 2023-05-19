@@ -3,19 +3,16 @@ package com.vitali.controllers;
 import com.vitali.database.entities.enums.OrderStatus;
 import com.vitali.dto.order.OrderReadDto;
 import com.vitali.dto.userInformation.UserInformationReadDto;
-import com.vitali.services.CartItemService;
 import com.vitali.services.OrderItemService;
 import com.vitali.services.OrderService;
 import com.vitali.services.UserInformationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 
 @Slf4j
 @Controller
@@ -36,17 +33,13 @@ public class AdminOrdersController {
     @GetMapping("/{id}")
     public String findByIdOrder(@PathVariable("id") Integer orderId, Model model) {
         UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
-        log.info("AdminOrdersController - findByIdOrder - userInformation: {}", userInformation);
-        return orderService.findById(orderId)
-                .map(order -> {
-                    model.addAttribute("totalPrice", orderItemService.getTotalPrice(orderId));
-                    model.addAttribute("orderStatuses", OrderStatus.values());
-                    model.addAttribute("userInformation", userInformation);
-                    model.addAttribute("order", order);
-                    return "admin/order";
-                })
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
+        OrderReadDto order = orderService.findById(orderId);
+        BigDecimal totalPrice = orderItemService.getTotalPrice(orderId);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("orderStatuses", OrderStatus.values());
+        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("order", order);
+        return "admin/order";
     }
 
 
@@ -55,13 +48,12 @@ public class AdminOrdersController {
                               @ModelAttribute OrderStatus orderStatus,
                               Model model) {
         UserInformationReadDto userInformation = userInformationService.findUserInformationByOrderId(orderId);
-        OrderReadDto order = orderService.findById(orderId)
-                .orElseThrow(() -> new EntityNotFoundException("Order with id: " + orderId + " not found"));
+        OrderReadDto order = orderService.findById(orderId);
         orderService.updateOrderStatus(orderStatus, orderId);
         model.addAttribute("orderStatuses", OrderStatus.values());
         model.addAttribute("userInformation", userInformation);
         model.addAttribute("order", order);
-        return "redirect:/admin/orders/{id}";
+        return "redirect:/admin/orders";
     }
 
 
