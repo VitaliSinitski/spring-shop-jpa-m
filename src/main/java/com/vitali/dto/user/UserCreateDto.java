@@ -2,8 +2,6 @@ package com.vitali.dto.user;
 
 import com.vitali.database.entities.enums.Role;
 import com.vitali.validation.PasswordNotBlankAndSize;
-import com.vitali.validation.UserInfo;
-import com.vitali.validation.group.CreateAction;
 import com.vitali.validation.group.UpdateValidationGroup;
 import lombok.Builder;
 import lombok.Value;

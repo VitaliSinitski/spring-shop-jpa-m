@@ -2,11 +2,13 @@ package com.vitali.services;
 
 import com.vitali.database.entities.*;
 import com.vitali.database.entities.enums.OrderStatus;
-import com.vitali.database.repositories.*;
+import com.vitali.database.repositories.CartRepository;
+import com.vitali.database.repositories.OrderItemRepository;
+import com.vitali.database.repositories.OrderRepository;
+import com.vitali.database.repositories.UserRepository;
 import com.vitali.dto.order.OrderReadDto;
 import com.vitali.exception.OutOfStockException;
 import com.vitali.mappers.cartItem.CartItemToOrderItemMapper;
-import com.vitali.mappers.order.OrderCreateMapper;
 import com.vitali.mappers.order.OrderReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -68,7 +72,6 @@ public class OrderService {
                 throw new OutOfStockException(cartItem.getProduct().getName());
             }
         }
-
         Order order = new Order();
         order.setCart(cart);
         order.setUser(user);

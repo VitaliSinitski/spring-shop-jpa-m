@@ -28,17 +28,6 @@ public class CartItemService {
     private final ProductRepository productRepository;
     private final CartItemReadMapper cartItemReadMapper;
 
-//    @Transactional
-//    public Integer create(Integer quantity, Integer productId, Integer cartId) {
-//        CartItemCreateDto cartItemCreateDto = CartItemCreateDto.builder()
-//                .quantity(quantity)
-//                .productId(productId)
-//                .cartId(cartId)
-//                .build();
-//        CartItem cartItemEntity = cartItemCreateMapper.map(cartItemCreateDto);
-//        return cartItemRepository.save(cartItemEntity).getId();
-//    }
-
     @Transactional
     public Integer create(Integer quantity, Integer productId, Integer cartId) {
         Product product = productRepository.findById(productId)

@@ -10,7 +10,6 @@ import com.vitali.dto.product.ProductFilter;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
-import com.vitali.mappers.category.CategoryReadMapper;
 import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,8 @@
 package com.vitali.mappers.orderItem;
 
-import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.database.entities.OrderItem;
+import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.mappers.Mapper;
-import com.vitali.mappers.cart.CartReadMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderItemReadMapper implements Mapper<OrderItem, OrderItemReadDto> {       // Almost done (order ??)
     private final ProductReadMapper productReadMapper;
-    private final CartReadMapper cartReadMapper;
     @Override
     public OrderItemReadDto map(OrderItem object) {
         return OrderItemReadDto.builder()

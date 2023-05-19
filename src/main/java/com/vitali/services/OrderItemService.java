@@ -1,9 +1,9 @@
 package com.vitali.services;
 
-import com.vitali.dto.orderItem.OrderItemReadDto;
 import com.vitali.database.entities.OrderItem;
-import com.vitali.mappers.orderItem.OrderItemReadMapper;
 import com.vitali.database.repositories.OrderItemRepository;
+import com.vitali.dto.orderItem.OrderItemReadDto;
+import com.vitali.mappers.orderItem.OrderItemReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j

@@ -120,12 +120,11 @@ public class OrderController {
                               @ModelAttribute("userId") Integer userId,
                               @ModelAttribute("cartId") Integer cartId,
                               Model model) {
-        log.info("OrderController - @Post orderFinish - orderId: {}", orderId);
         OrderReadDto order = orderService.findById(orderId).orElse(null);
         if (order == null) {
             return "redirect:/cart/" + cartId;
         }
-        boolean confirmation = cartItemService.deleteAllByCartId(cartId);
+        cartItemService.deleteAllByCartId(cartId);
         List<OrderItemReadDto> orderItems = orderItemService.findAllByOrderId(orderId);
 
         model.addAttribute("orderItems", orderItems);

@@ -1,11 +1,7 @@
 package com.vitali.dto.product;
 
-import com.vitali.dto.category.CategoryReadDto;
-import com.vitali.dto.producer.ProducerReadDto;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Value;
-import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 

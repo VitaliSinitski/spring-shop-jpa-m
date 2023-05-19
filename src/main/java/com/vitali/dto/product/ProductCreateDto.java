@@ -1,11 +1,9 @@
 package com.vitali.dto.product;
 
-import com.vitali.validation.ProductInfo;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Part;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;

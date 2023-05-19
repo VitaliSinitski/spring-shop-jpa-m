@@ -1,13 +1,8 @@
 package com.vitali.dto.cartItem;
 
 import com.vitali.dto.cart.CartReadDto;
-import com.vitali.dto.order.OrderReadDto;
 import com.vitali.dto.product.ProductReadDto;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
