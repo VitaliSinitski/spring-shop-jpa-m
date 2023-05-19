@@ -1,14 +1,6 @@
 package com.vitali.util;
 
-import com.vitali.database.entities.Cart;
-import com.vitali.database.entities.CartItem;
-import com.vitali.database.entities.Category;
-import com.vitali.database.entities.Order;
-import com.vitali.database.entities.OrderItem;
-import com.vitali.database.entities.Producer;
-import com.vitali.database.entities.Product;
-import com.vitali.database.entities.User;
-import com.vitali.database.entities.UserInformation;
+import com.vitali.database.entities.*;
 import com.vitali.database.entities.enums.Role;
 import com.vitali.dto.cartItem.CartItemCreateDto;
 import com.vitali.dto.cartItem.CartItemReadDto;
@@ -28,41 +20,7 @@ import lombok.experimental.UtilityClass;
 import java.util.Collections;
 import java.util.List;
 
-import static com.vitali.util.TestConstants.CART_ID_ONE;
-import static com.vitali.util.TestConstants.CART_ITEM_ID;
-import static com.vitali.util.TestConstants.CATEGORY_ID;
-import static com.vitali.util.TestConstants.CATEGORY_NAME;
-import static com.vitali.util.TestConstants.ENABLED;
-import static com.vitali.util.TestConstants.ORDER_ID_ONE;
-import static com.vitali.util.TestConstants.ORDER_ID_TWO;
-import static com.vitali.util.TestConstants.ORDER_ITEM_ID_ONE;
-import static com.vitali.util.TestConstants.ORDER_ITEM_ID_TWO;
-import static com.vitali.util.TestConstants.PRODUCER_ID;
-import static com.vitali.util.TestConstants.PRODUCT_DESCRIPTION;
-import static com.vitali.util.TestConstants.PRODUCT_ID_ONE;
-import static com.vitali.util.TestConstants.PRODUCT_ID_TWO;
-import static com.vitali.util.TestConstants.PRODUCT_IMAGE_FILE;
-import static com.vitali.util.TestConstants.PRODUCT_IMAGE_STRING;
-import static com.vitali.util.TestConstants.PRODUCT_NAME;
-import static com.vitali.util.TestConstants.PRODUCT_PRICE_FIFTY;
-import static com.vitali.util.TestConstants.PRODUCT_PRICE_ONE_HUNDRED;
-import static com.vitali.util.TestConstants.PRODUCT_PRICE_ONE_HUNDRED_FIFTY;
-import static com.vitali.util.TestConstants.PRODUCT_PRICE_TEN;
-import static com.vitali.util.TestConstants.QUANTITY_ONE;
-import static com.vitali.util.TestConstants.QUANTITY_THREE;
-import static com.vitali.util.TestConstants.QUANTITY_TWO;
-import static com.vitali.util.TestConstants.USER_EMAIL;
-import static com.vitali.util.TestConstants.USER_ID_ONE;
-import static com.vitali.util.TestConstants.USER_ID_TWO;
-import static com.vitali.util.TestConstants.USER_INFORMATION_ADDRESS;
-import static com.vitali.util.TestConstants.USER_INFORMATION_BIRTH_DATE;
-import static com.vitali.util.TestConstants.USER_INFORMATION_FIRST_NAME;
-import static com.vitali.util.TestConstants.USER_INFORMATION_ID;
-import static com.vitali.util.TestConstants.USER_INFORMATION_LAST_NAME;
-import static com.vitali.util.TestConstants.USER_INFORMATION_PHONE;
-import static com.vitali.util.TestConstants.USER_NAME;
-import static com.vitali.util.TestConstants.USER_PASSWORD;
-import static com.vitali.util.TestConstants.USER_PASSWORD_NEW;
+import static com.vitali.util.TestConstants.*;
 
 @UtilityClass
 public class MockUtils {
@@ -76,17 +34,22 @@ public class MockUtils {
             .image(PRODUCT_IMAGE_STRING).price(PRODUCT_PRICE_TEN).build();
     public static final Product PRODUCT_TWO = Product.builder().id(PRODUCT_ID_TWO).name(PRODUCT_NAME).description(PRODUCT_DESCRIPTION).build();
     public static final Product PRODUCT = Product.builder().price(PRODUCT_PRICE_TEN).build();
+    public static final Product MAPPED_PRODUCT = Product.builder().price(PRODUCT_PRICE_TEN).build();
     public static final Product UPDATED_PRODUCT_ONE = Product.builder().id(PRODUCT_ID_ONE).name(PRODUCT_NAME).description(PRODUCT_DESCRIPTION).price(PRODUCT_PRICE_TEN).build();
+    public static final ProductReadDto PRODUCT_READ_DTO = ProductReadDto.builder().price(PRODUCT_PRICE_TEN).build();
     public static final ProductReadDto PRODUCT_READ_DTO_ONE = ProductReadDto.builder().id(PRODUCT_ID_ONE).name(PRODUCT_NAME).description(PRODUCT_DESCRIPTION)
             .price(PRODUCT_PRICE_TEN).build();
     public static final ProductCreateDto PRODUCT_CREATE_DTO_ONE = ProductCreateDto.builder().name(PRODUCT_NAME).description(PRODUCT_DESCRIPTION)
             .price(PRODUCT_PRICE_TEN).image(PRODUCT_IMAGE_FILE).build();
+
+    public static final ProductCreateDto PRODUCT_CREATE_DTO = ProductCreateDto.builder().producerId(PRODUCER_ID).categoryId(CATEGORY_ID).build();
     public static final ProductFilter PRODUCT_FILTER = ProductFilter.builder().name(PRODUCT_NAME).categoryId(CATEGORY_ID).producerId(PRODUCER_ID)
             .price(PRODUCT_PRICE_ONE_HUNDRED).minPrice(PRODUCT_PRICE_FIFTY).maxPrice(PRODUCT_PRICE_ONE_HUNDRED_FIFTY).build();
     public static final List<CartItemReadDto> CART_ITEM_READ_DTO_LIST = List.of(CART_ITEM_READ_DTO);
-    public static final Category CATEGORY = Category.builder().name(CATEGORY_NAME).build();
+    public static final Category CATEGORY = Category.builder().id(CATEGORY_ID).name(CATEGORY_NAME).build();
     public static final CategoryReadDto CATEGORY_READ_DTO = CategoryReadDto.builder().name(CATEGORY_NAME).build();
-    public static final CartItem CART_ITEM = CartItem.builder().id(CART_ITEM_ID).quantity(QUANTITY_ONE).product(PRODUCT).cart(CART).build();
+    public static final CartItem CART_ITEM = CartItem.builder().id(CART_ITEM_ID_TWO).quantity(QUANTITY_ONE).product(PRODUCT).cart(CART).build();
+    public static final CartItem CART_ITEM_ONE = CartItem.builder().id(CART_ITEM_ID_ONE).build();
     public static final Order ORDER_ONE = Order.builder().id(ORDER_ID_ONE).build();
     public static final Order ORDER_TWO = Order.builder().id(ORDER_ID_TWO).build();
     public static final OrderReadDto ORDER_READ_DTO_ONE = OrderReadDto.builder().id(ORDER_ID_ONE).build();

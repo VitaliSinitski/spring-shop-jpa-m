@@ -4,15 +4,20 @@ import com.querydsl.core.types.Predicate;
 import com.vitali.database.entities.CartItem;
 import com.vitali.database.entities.Product;
 import com.vitali.database.entities.QProduct;
+import com.vitali.database.repositories.CategoryRepository;
+import com.vitali.database.repositories.ProducerRepository;
 import com.vitali.database.repositories.ProductRepository;
+import com.vitali.dto.product.ProductCreateDto;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
+import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -28,6 +33,7 @@ import java.util.Optional;
 import static com.vitali.util.MockUtils.*;
 import static com.vitali.util.TestConstants.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,7 +42,13 @@ public class ProductServiceTest {
     @Mock
     private ProductRepository productRepository;
     @Mock
+    private CategoryRepository categoryRepository;
+    @Mock
+    private ProducerRepository producerRepository;
+    @Mock
     private ProductReadMapper productReadMapper;
+    @Mock
+    private ProductCreateMapper productCreateMapper;
     @Mock
     private ImageService imageService;
 
@@ -102,45 +114,141 @@ public class ProductServiceTest {
     }
 
     // create
+
     @Test
     public void createSuccess() {
         // given
-//        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE)).thenReturn(PRODUCT_ONE);
-        when(productRepository.save(PRODUCT_ONE)).thenReturn(PRODUCT_ONE);
-        when(productReadMapper.map(PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO_ONE.getCategoryId())).thenReturn(Optional.of(CATEGORY));
+        when(producerRepository.findById(PRODUCT_CREATE_DTO_ONE.getProducerId())).thenReturn(Optional.of(PRODUCER));
+        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE)).thenReturn(PRODUCT);
+        when(productRepository.save(any(Product.class))).thenReturn(PRODUCT);
+        when(productReadMapper.map(PRODUCT)).thenReturn(PRODUCT_READ_DTO_ONE);
 
         // when
-        ProductReadDto actualProductReadDto = productService.create(PRODUCT_CREATE_DTO_ONE);
+        ProductReadDto createdProduct = productService.create(PRODUCT_CREATE_DTO_ONE);
 
         // then
-        assertThat(actualProductReadDto).isEqualTo(PRODUCT_READ_DTO_ONE);
+        assertThat(createdProduct).isEqualTo(PRODUCT_READ_DTO_ONE);
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO_ONE.getCategoryId());
+        verify(producerRepository).findById(PRODUCT_CREATE_DTO_ONE.getProducerId());
+        verify(productCreateMapper).map(PRODUCT_CREATE_DTO_ONE);
+        verify(productRepository).save(PRODUCT);
+        verify(productReadMapper).map(PRODUCT);
+    }
+
+    @Test
+    public void createCategoryNotFoundThrowEntityNotFoundException() {
+        // given
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> productService.create(PRODUCT_CREATE_DTO))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Category not found");
+
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verifyNoInteractions(producerRepository);
+        verifyNoInteractions(productCreateMapper);
+        verifyNoInteractions(productRepository);
+        verifyNoInteractions(productReadMapper);
+    }
+
+    @Test
+    public void createProducerNotFoundThrowEntityNotFoundException() {
+        // given
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.of(CATEGORY));
+        when(producerRepository.findById(PRODUCT_CREATE_DTO.getProducerId())).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> productService.create(PRODUCT_CREATE_DTO))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Producer not found");
+
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verify(producerRepository).findById(PRODUCT_CREATE_DTO.getProducerId());
+        verifyNoInteractions(productCreateMapper);
+        verifyNoInteractions(productRepository);
+        verifyNoInteractions(productReadMapper);
     }
 
     // update
+
+
     @Test
     public void updateSuccess() {
         // given
-        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE));
-//        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE, PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
-        when(productRepository.saveAndFlush(UPDATED_PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
-        when(productReadMapper.map(UPDATED_PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.of(CATEGORY));
+        when(producerRepository.findById(PRODUCT_CREATE_DTO.getProducerId())).thenReturn(Optional.of(PRODUCER));
+        when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT));
+        when(productCreateMapper.map(PRODUCT_CREATE_DTO, PRODUCT)).thenReturn(MAPPED_PRODUCT);
+        when(productRepository.saveAndFlush(MAPPED_PRODUCT)).thenReturn(PRODUCT);
+        when(productReadMapper.map(PRODUCT)).thenReturn(PRODUCT_READ_DTO);
 
         // when
-        ProductReadDto actualProductReadDto = productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO_ONE);
+        ProductReadDto updatedProduct = productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO);
 
         // then
-        assertThat(actualProductReadDto).isEqualTo(PRODUCT_READ_DTO_ONE);
+        assertThat(updatedProduct).isEqualTo(PRODUCT_READ_DTO);
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verify(producerRepository).findById(PRODUCT_CREATE_DTO.getProducerId());
+        verify(productRepository).findById(PRODUCT_ID_ONE);
+        verify(productCreateMapper).map(PRODUCT_CREATE_DTO, PRODUCT);
+        verify(productRepository).saveAndFlush(MAPPED_PRODUCT);
+        verify(productReadMapper).map(PRODUCT);
+    }
+
+    @Test
+    public void updateCategoryNotFoundThrowEntityNotFoundException() {
+        // given
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Category not found");
+
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verifyNoInteractions(producerRepository);
+        verifyNoInteractions(productRepository);
+        verifyNoInteractions(productCreateMapper);
+        verifyNoInteractions(productReadMapper);
+    }
+
+    @Test
+    public void updateProducerNotFoundThrowEntityNotFoundException() {
+        // given
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.of(CATEGORY));
+        when(producerRepository.findById(PRODUCT_CREATE_DTO.getProducerId())).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Producer not found");
+
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verify(producerRepository).findById(PRODUCT_CREATE_DTO.getProducerId());
+        verifyNoInteractions(productRepository);
+        verifyNoInteractions(productCreateMapper);
+        verifyNoInteractions(productReadMapper);
     }
 
     @Test
     public void updateProductNotFoundThrowEntityNotFoundException() {
         // given
+        when(categoryRepository.findById(PRODUCT_CREATE_DTO.getCategoryId())).thenReturn(Optional.of(CATEGORY));
+        when(producerRepository.findById(PRODUCT_CREATE_DTO.getProducerId())).thenReturn(Optional.of(PRODUCER));
         when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.empty());
 
-        // when and then
-        assertThatThrownBy(() -> productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO_ONE))
+        // when, then
+        assertThatThrownBy(() -> productService.update(PRODUCT_ID_ONE, PRODUCT_CREATE_DTO))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("Product with id: " + PRODUCT_ID_ONE + " not found");
+
+        verify(categoryRepository).findById(PRODUCT_CREATE_DTO.getCategoryId());
+        verify(producerRepository).findById(PRODUCT_CREATE_DTO.getProducerId());
+        verify(productRepository).findById(PRODUCT_ID_ONE);
+        verifyNoInteractions(productCreateMapper);
+        verifyNoInteractions(productReadMapper);
     }
 
     // updateProductQuantityByCartItem

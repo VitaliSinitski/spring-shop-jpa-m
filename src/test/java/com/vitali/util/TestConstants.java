@@ -21,7 +21,8 @@ public class TestConstants {
     public static final Integer CART_ID_TWO = 2;
     public static final Integer ORDER_ID_ONE = 1;
     public static final Integer ORDER_ID_TWO = 2;
-    public static final Integer CART_ITEM_ID = 2;
+    public static final Integer CART_ITEM_ID_ONE = 1;
+    public static final Integer CART_ITEM_ID_TWO = 2;
     public static final Integer ORDER_ITEM_ID_ONE = 1;
     public static final Integer ORDER_ITEM_ID_TWO = 2;
     public static final Integer TIMES_ONE = 1;
