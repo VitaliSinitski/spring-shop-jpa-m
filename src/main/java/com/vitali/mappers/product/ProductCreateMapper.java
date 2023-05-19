@@ -46,13 +46,13 @@ public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
                 .ifPresent(image -> product.setImage(image.getOriginalFilename()));
     }
 
-    public Category getCategory(Integer id) {
+    public Category getCategory(Integer id) {           // change ot categoryService.findById
         return Optional.ofNullable(id)
                 .flatMap(categoryRepository::findById)
                 .orElse(null);
     }
 
-    public Producer getProducer(Integer id) {
+    public Producer getProducer(Integer id) {           // change ot producerService.findById
         return Optional.ofNullable(id)
                 .flatMap(producerRepository::findById)
                 .orElse(null);
