@@ -60,24 +60,11 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-
     public ProductReadDto findById(Integer id) {
         return productRepository.findById(id)
                 .map(productReadMapper::map)
                 .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
     }
-
-//    @Transactional
-//    public ProductReadDto create(ProductCreateDto productCreateDto) {
-//        return Optional.of(productCreateDto)
-//                .map(dto -> {
-//                    uploadImage(dto.getImage());
-//                    return productCreateMapper.map(dto);    // 97.09:50
-//                })
-//                .map(productRepository::save)
-//                .map(productReadMapper::map)
-//                .orElseThrow();
-//    }
 
     @Transactional
     public ProductReadDto create(ProductCreateDto productCreateDto) {
@@ -95,18 +82,6 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         return productReadMapper.map(savedProduct);
     }
-
-//    @Transactional
-//    public ProductReadDto update(Integer id, ProductCreateDto productCreateDto) {
-//        return productRepository.findById(id)
-//                .map(product -> {
-////                    uploadImage(productCreateDto.getImage());
-//                    return productCreateMapper.map(productCreateDto, product);
-//                })
-//                .map(productRepository::saveAndFlush)
-//                .map(productReadMapper::map)
-//                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + id + " not found"));
-//    }
 
     @Transactional
     public ProductReadDto update(Integer id, ProductCreateDto productCreateDto) {
@@ -131,14 +106,12 @@ public class ProductService {
         if (product.getQuantity() == null || product.getQuantity() == 0) {
             throw new OutOfStockException("Product: " + product.getName() + " is out of stock.");
         }
-
         int restStock = product.getQuantity() - cartItem.getQuantity();
         if (restStock < 0) {
             throw new NotEnoughStockException("There is not enough stock for " + cartItem.getProduct().getName()
                                               + ". Current stock quantity: " + product.getQuantity()
                                               + ", you ordered: " + cartItem.getQuantity() + ".");
         }
-
 
         product.setQuantity(restStock);
         productRepository.save(product);
@@ -162,7 +135,6 @@ public class ProductService {
         }
     }
 
-    // 98.02:00
     public Optional<byte[]> findImage(Integer id) {
         return productRepository.findById(id)
                 .map(Product::getImage)

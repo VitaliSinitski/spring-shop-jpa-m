@@ -6,7 +6,6 @@ import com.vitali.database.entities.Product;
 import com.vitali.database.repositories.CartItemRepository;
 import com.vitali.database.repositories.CartRepository;
 import com.vitali.dto.cartItem.CartItemReadDto;
-import com.vitali.mappers.cartItem.CartItemCreateMapper;
 import com.vitali.mappers.cartItem.CartItemReadMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,32 +22,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vitali.util.MockUtils.CART;
-import static com.vitali.util.MockUtils.CART_ITEM;
-import static com.vitali.util.MockUtils.CART_ITEM_CREATE_DTO;
-import static com.vitali.util.MockUtils.CART_ITEM_LIST;
-import static com.vitali.util.MockUtils.CART_ITEM_READ_DTO;
-import static com.vitali.util.MockUtils.CART_ITEM_READ_DTO_LIST;
-import static com.vitali.util.TestConstants.CART_ID_ONE;
-import static com.vitali.util.TestConstants.CART_ITEM_ID;
-import static com.vitali.util.TestConstants.PRODUCT_ID_ONE;
-import static com.vitali.util.TestConstants.QUANTITY_ONE;
-import static com.vitali.util.TestConstants.QUANTITY_THREE;
-import static com.vitali.util.TestConstants.QUANTITY_TWO;
-import static com.vitali.util.TestConstants.TIMES_ONE;
+import static com.vitali.util.MockUtils.*;
+import static com.vitali.util.TestConstants.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DirtiesContext
 @ExtendWith(MockitoExtension.class)
@@ -60,8 +40,6 @@ public class CartItemServiceTest {
     private CartRepository cartRepository;
     @Mock
     private CartItemReadMapper cartItemReadMapper;
-    @Mock
-    private CartItemCreateMapper cartItemCreateMapper;
     @InjectMocks
     private CartItemService cartItemService;
 
@@ -69,7 +47,7 @@ public class CartItemServiceTest {
     @Test
     public void createCartItem() {
         // given
-        when(cartItemCreateMapper.map(CART_ITEM_CREATE_DTO)).thenReturn(CART_ITEM);
+//        when(cartItemCreateMapper.map(CART_ITEM_CREATE_DTO)).thenReturn(CART_ITEM);
         when(cartItemRepository.save(CART_ITEM)).thenReturn(CART_ITEM);
 
         // when
@@ -77,7 +55,7 @@ public class CartItemServiceTest {
 
         // then
         assertThat(createdCartItemID).isEqualTo(CART_ITEM.getId());
-        verify(cartItemCreateMapper).map(CART_ITEM_CREATE_DTO);
+//        verify(cartItemCreateMapper).map(CART_ITEM_CREATE_DTO);
         verify(cartItemRepository).save(CART_ITEM);
     }
 
@@ -238,7 +216,7 @@ public class CartItemServiceTest {
         verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE);
         verify(cartItemRepository, times(TIMES_ONE)).save(cartItem);
         verifyNoMoreInteractions(cartItemRepository);
-        verifyNoInteractions(cartRepository, cartItemReadMapper, cartItemCreateMapper);
+        verifyNoInteractions(cartRepository, cartItemReadMapper);
     }
 
     @Test
@@ -253,7 +231,7 @@ public class CartItemServiceTest {
 
         verify(cartItemRepository, times(TIMES_ONE)).findCartItemByIdAndCartId(CART_ITEM_ID, CART_ID_ONE);
         verifyNoMoreInteractions(cartItemRepository);
-        verifyNoInteractions(cartRepository, cartItemReadMapper, cartItemCreateMapper);
+        verifyNoInteractions(cartRepository, cartItemReadMapper);
     }
 
     @Test

@@ -31,23 +31,9 @@ public class ProductCreateMapper implements Mapper<ProductCreateDto, Product> {
         product.setDescription(object.getDescription());
         product.setPrice(object.getPrice());
         product.setQuantity(object.getQuantity());
-//        product.setCategory(getCategory(object.getCategoryId()));
-//        product.setProducer(getProducer(object.getProducerId()));
 
         Optional.ofNullable(object.getImage())
                 .filter(Predicate.not(MultipartFile::isEmpty))
                 .ifPresent(image -> product.setImage(image.getOriginalFilename()));
     }
-
-//    public Category getCategory(Integer id) {           // move ot ProductService
-//        return Optional.ofNullable(id)
-//                .flatMap(categoryRepository::findById)
-//                .orElse(null);
-//    }
-
-//    public Producer getProducer(Integer id) {           // move ot ProductService
-//        return Optional.ofNullable(id)
-//                .flatMap(producerRepository::findById)
-//                .orElse(null);
-//    }
 }

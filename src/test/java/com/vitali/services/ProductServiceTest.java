@@ -8,9 +8,7 @@ import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.product.ProductReadDto;
 import com.vitali.exception.NotEnoughStockException;
 import com.vitali.exception.OutOfStockException;
-import com.vitali.mappers.product.ProductCreateMapper;
 import com.vitali.mappers.product.ProductReadMapper;
-import com.vitali.util.TestConstants;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,43 +25,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.vitali.util.MockUtils.PRODUCT_CREATE_DTO_ONE;
-import static com.vitali.util.MockUtils.PRODUCT_FILTER;
-import static com.vitali.util.MockUtils.PRODUCT_LIST;
-import static com.vitali.util.MockUtils.PRODUCT_ONE;
-import static com.vitali.util.MockUtils.PRODUCT_ONE_WITH_IMAGE_STRING;
-import static com.vitali.util.MockUtils.PRODUCT_READ_DTO_ONE;
-import static com.vitali.util.MockUtils.UPDATED_PRODUCT_ONE;
+import static com.vitali.util.MockUtils.*;
 import static com.vitali.util.TestConstants.*;
-import static com.vitali.util.TestConstants.PRODUCT_ID_ONE;
-import static com.vitali.util.TestConstants.PRODUCT_IMAGE_STRING;
-import static com.vitali.util.TestConstants.PRODUCT_NAME;
-import static com.vitali.util.TestConstants.QUANTITY_FIVE;
-import static com.vitali.util.TestConstants.QUANTITY_TEN;
-import static com.vitali.util.TestConstants.QUANTITY_THREE;
-import static com.vitali.util.TestConstants.QUANTITY_TWO;
-import static com.vitali.util.TestConstants.QUANTITY_ZERO;
-import static com.vitali.util.TestConstants.SIZE_ONE;
-import static com.vitali.util.TestConstants.SIZE_TWO;
-import static com.vitali.util.TestConstants.SIZE_ZERO;
-import static com.vitali.util.TestConstants.TEN;
-import static com.vitali.util.TestConstants.TIMES_ONE;
-import static com.vitali.util.TestConstants.ZERO;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
-    @Mock
-    private ProductCreateMapper productCreateMapper;
     @Mock
     private ProductReadMapper productReadMapper;
     @Mock
@@ -134,7 +105,7 @@ public class ProductServiceTest {
     @Test
     public void createSuccess() {
         // given
-        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE)).thenReturn(PRODUCT_ONE);
+//        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE)).thenReturn(PRODUCT_ONE);
         when(productRepository.save(PRODUCT_ONE)).thenReturn(PRODUCT_ONE);
         when(productReadMapper.map(PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
 
@@ -150,7 +121,7 @@ public class ProductServiceTest {
     public void updateSuccess() {
         // given
         when(productRepository.findById(PRODUCT_ID_ONE)).thenReturn(Optional.of(PRODUCT_ONE));
-        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE, PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
+//        when(productCreateMapper.map(PRODUCT_CREATE_DTO_ONE, PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
         when(productRepository.saveAndFlush(UPDATED_PRODUCT_ONE)).thenReturn(UPDATED_PRODUCT_ONE);
         when(productReadMapper.map(UPDATED_PRODUCT_ONE)).thenReturn(PRODUCT_READ_DTO_ONE);
 

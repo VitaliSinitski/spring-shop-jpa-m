@@ -2,11 +2,11 @@ package com.vitali.services;
 
 import com.vitali.database.entities.Cart;
 import com.vitali.database.entities.CartItem;
+import com.vitali.database.entities.Product;
 import com.vitali.database.repositories.CartItemRepository;
 import com.vitali.database.repositories.CartRepository;
-import com.vitali.dto.cartItem.CartItemCreateDto;
+import com.vitali.database.repositories.ProductRepository;
 import com.vitali.dto.cartItem.CartItemReadDto;
-import com.vitali.mappers.cartItem.CartItemCreateMapper;
 import com.vitali.mappers.cartItem.CartItemReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +25,32 @@ import java.util.stream.Collectors;
 public class CartItemService {
     private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
+    private final ProductRepository productRepository;
     private final CartItemReadMapper cartItemReadMapper;
-    private final CartItemCreateMapper cartItemCreateMapper;
+
+//    @Transactional
+//    public Integer create(Integer quantity, Integer productId, Integer cartId) {
+//        CartItemCreateDto cartItemCreateDto = CartItemCreateDto.builder()
+//                .quantity(quantity)
+//                .productId(productId)
+//                .cartId(cartId)
+//                .build();
+//        CartItem cartItemEntity = cartItemCreateMapper.map(cartItemCreateDto);
+//        return cartItemRepository.save(cartItemEntity).getId();
+//    }
 
     @Transactional
     public Integer create(Integer quantity, Integer productId, Integer cartId) {
-        CartItemCreateDto cartItemCreateDto = CartItemCreateDto.builder()
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id: " + productId + " not found"));
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new EntityNotFoundException("Cart with id: " + cartId + " not found"));
+        CartItem cartItem = CartItem.builder()
                 .quantity(quantity)
-                .productId(productId)
-                .cartId(cartId)
+                .cart(cart)
+                .product(product)
                 .build();
-        CartItem cartItemEntity = cartItemCreateMapper.map(cartItemCreateDto);
-        return cartItemRepository.save(cartItemEntity).getId();
+        return cartItemRepository.save(cartItem).getId();
     }
 
     public List<CartItemReadDto> findAllByCartId(Integer id) {
